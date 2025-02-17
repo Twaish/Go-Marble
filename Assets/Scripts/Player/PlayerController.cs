@@ -7,20 +7,31 @@ public class PlayerController : MonoBehaviour {
   private float movementX;
   private float movementY;
 
-  [Header("Movement")]
-  public float speed = 10f;
-  public float gravityScale = 2f;
-  public float jumpForce = 5f;
-  public float jumpCooldown = 0.5f;
-  public float turnSpeed = 5f; // 
-  public float maxSpeed = 20f; // Max speed player can apply
-  public float decelerationRate = 2f;
-  // public float groundDetectionHeight = .5f;
+  public Camera mainCamera;
 
+  [Header("Movement")]
+  [Tooltip("The speed at which the player moves")]
+  public float speed = 10f;
+  [Tooltip("The scale of gravity applied to the player")]
+  public float gravityScale = 2f;
+  [Tooltip("The force applied to the player to make them jump")]
+  public float jumpForce = 5f;
+  [Tooltip("Time between jumps")]
+  public float jumpCooldown = 0.5f;
+  [Tooltip("How fast a player can change their direction")]
+  public float turnSpeed = 5f;
+  [Tooltip("Maximum speed the player can achieve")]
+  public float maxSpeed = 20f;
+  [Tooltip("The rate at which the player slows down when no input is applied")]
+  public float decelerationRate = 2f;
+
+  [Tooltip("How bouncy the player is when colliding with surfaces")]
   public float bounciness = .8f;
 
-  public float airControlForce = 1f;
-  public float airRotationSpeed = 5f;
+  [Tooltip("The force applied to the player's movement while in midair")]
+  public float airControlForce = 5f;
+  [Tooltip("How quickly the player can rotate while in midair")]
+  public float airRotationSpeed = 5f; 
 
   [Header("UI")]
   public TextMeshProUGUI scoreText;
@@ -39,13 +50,19 @@ public class PlayerController : MonoBehaviour {
   }
 
   void FixedUpdate() {
-    // isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDetectionHeight);
-    // Debug.DrawRay(transform.position, Vector3.down * groundDetectionHeight, Color.red); 
-    // Debug.Log(isGrounded);
+    // Vector3 cameraForward = mainCamera.transform.forward;
+    // Vector3 cameraRight = mainCamera.transform.right;
 
+    // cameraForward.y = 0;
+    // cameraRight.y = 0;
+    // cameraForward.Normalize();
+    // cameraRight.Normalize();
+
+    // Vector3 movement = (cameraForward * movementY + cameraRight * movementX).normalized;
     Vector3 movement = new Vector3(movementX, 0.0f, movementY).normalized;
 
     if (isGrounded) {
+      // Lerp velocity 
       if (movement.magnitude > 0) {
         Vector3 desiredVelocity = movement * speed;
 
@@ -54,6 +71,8 @@ public class PlayerController : MonoBehaviour {
           rb.linearVelocity.y,
           Mathf.Lerp(rb.linearVelocity.z, desiredVelocity.z, turnSpeed * Time.fixedDeltaTime)
         );
+
+      // Gradually decrease velocity when player is applying movement 
       } else {
         Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, decelerationRate * Time.fixedDeltaTime);
@@ -65,6 +84,7 @@ public class PlayerController : MonoBehaviour {
         );
       }
     } else {
+      // Add rotation and decrease velocity control in midair
       if (movement.magnitude > 0) {
         rb.AddForce(movement * airControlForce, ForceMode.Force);
 
@@ -72,17 +92,6 @@ public class PlayerController : MonoBehaviour {
         rb.AddTorque(rotationAxis * airRotationSpeed, ForceMode.Force);
       }
     }
-
-    // rb.AddForce(movement * speed);
-    // rb.linearVelocity = Vector3.Lerp(
-    //   rb.linearVelocity, 
-    //   new Vector3(
-    //     desiredVelocity.x, 
-    //     rb.linearVelocity.y, 
-    //     desiredVelocity.z
-    //   ), 
-    //   turnSpeed * Time.fixedDeltaTime
-    // );
 
     // Apply gravity
     Vector3 gravityForce = Physics.gravity * rb.mass * gravityScale * Time.fixedDeltaTime;
