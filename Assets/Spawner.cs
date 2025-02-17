@@ -13,17 +13,22 @@ public class Spawner : MonoBehaviour {
 
   private float baseY = 0.5f;
 
+  private Collider boxCollider;
   private Bounds spawnBounds;
   private List<GameObject> pickUps = new List<GameObject>();
 
-  void Update() {
-    Collider collider = GetComponent<Collider>();
+  void Start() {
+    boxCollider = GetComponent<BoxCollider>();
 
-    if (collider == null) {
+    if (boxCollider == null) {
+      Debug.Log("Collider is null");
       return;
     }
+    
+    spawnBounds = boxCollider.bounds;
 
-    spawnBounds = collider.bounds;
+    Debug.Log(spawnBounds);
+
     InvokeRepeating(nameof(SpawnPickUp), 0f, spawnInterval);
   }
 
@@ -38,8 +43,10 @@ public class Spawner : MonoBehaviour {
   }
 
   Vector3 GetRandomSpawnPosition() {
-    float x = Random.Range(spawnBounds.min.x, spawnBounds.max.x);
-    float z = Random.Range(spawnBounds.min.z, spawnBounds.max.z);
+    float x = Random.Range(boxCollider.bounds.min.x, boxCollider.bounds.max.x);
+    float z = Random.Range(boxCollider.bounds.min.z, boxCollider.bounds.max.z);
+
+    Debug.Log($"Spawn Position: ({x}, {baseY}, {z})");
 
     return new Vector3(x, baseY, z);
   }
