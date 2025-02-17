@@ -1751,12 +1751,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6fd5797b8573d41ac8f55d43f7eebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 961739752}
   speed: 10
   gravityScale: 2
   jumpForce: 8
+  jumpCooldown: 0.5
   turnSpeed: 5
   maxSpeed: 20
-  groundDetectionHeight: 0.5
+  decelerationRate: 1.5
+  bounciness: 0.8
+  airControlForce: 5
+  airRotationSpeed: 5
   scoreText: {fileID: 2021777056}
 --- !u!114 &1704532459
 MonoBehaviour:
