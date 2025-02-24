@@ -7,48 +7,47 @@ public class PlayerController : MonoBehaviour {
   private float movementX;
   private float movementY;
 
-  public Camera mainCamera;
-  public Transform cameraTransform;
-
   [Header("View")]
-  [Tooltip("")]
-  public float baseFOV = 60f;
-  [Tooltip("")]
-  public float maxFOV = 80f;
+  [SerializeField, Tooltip("")]
+  private Camera mainCamera;
+  [SerializeField, Tooltip("")]
+  private Transform cameraTransform;
+  [SerializeField, Tooltip("")]
+  private float baseFOV = 60f;
+  [SerializeField, Tooltip("")]
+  private float maxFOV = 80f;
 
   [Header("Movement")]
-  [Tooltip("The speed at which the player moves")]
-  public float speed = 10f;
-  [Tooltip("The scale of gravity applied to the player")]
-  public float gravityScale = 2f;
-  [Tooltip("The force applied to the player to make them jump")]
-  public float jumpForce = 5f;
-  [Tooltip("Time between jumps")]
-  public float jumpCooldown = 0.5f;
-  [Tooltip("How fast a player can change their direction")]
-  public float turnSpeed = 5f;
-  [Tooltip("Maximum speed the player can achieve")]
-  public float maxSpeed = 20f;
-  [Tooltip("The rate at which the player slows down when no input is applied")]
-  public float decelerationRate = 2f;
+  [SerializeField, Tooltip("The speed at which the player moves")]
+  private float speed = 10f;
+  [SerializeField, Tooltip("The scale of gravity applied to the player")]
+  private float gravityScale = 2f;
+  [SerializeField, Tooltip("The force applied to the player to make them jump")]
+  private float jumpForce = 5f;
+  [SerializeField, Tooltip("Time between jumps")]
+  private float jumpCooldown = 0.5f;
+  [SerializeField, Tooltip("How fast a player can change their direction")]
+  private float turnSpeed = 5f;
+  [SerializeField, Tooltip("Maximum speed the player can achieve")]
+  private float maxSpeed = 20f;
+  [SerializeField, Tooltip("The rate at which the player slows down when no input is applied")]
+  private float decelerationRate = 2f;
 
-  [Tooltip("How bouncy the player is when colliding with surfaces")]
-  public float bounciness = .8f;
+  [SerializeField, Tooltip("How bouncy the player is when colliding with surfaces")]
+  private float bounciness = .8f;
 
-  [Tooltip("The force applied to the player's movement while in midair")]
-  public float airControlForce = 5f;
-  [Tooltip("How quickly the player can rotate while in midair")]
-  public float airRotationSpeed = 5f; 
+  [SerializeField, Tooltip("The force applied to the player's movement while in midair")]
+  private float airControlForce = 5f;
+  [SerializeField, Tooltip("How quickly the player can rotate while in midair")]
+  private float airRotationSpeed = 5f; 
 
-  [SerializeField]
+  [SerializeField] 
   private float groundDetectionRange = .6f;
-
-  [Header("UI")]
-
-  public LayerMask groundMask;
-
+  
+  [SerializeField] 
+  private LayerMask groundMask;
+  
   private bool isGrounded;
-
   private float lastJumpTime = -Mathf.Infinity;
 
   void Start() {
@@ -59,22 +58,12 @@ public class PlayerController : MonoBehaviour {
   }
 
   void Update() {
-    // Vector3 cameraForward = mainCamera.transform.forward;
-    // Vector3 cameraRight = mainCamera.transform.right;
-
-    // cameraForward.y = 0;
-    // cameraRight.y = 0;
-    // cameraForward.Normalize();
-    // cameraRight.Normalize();
-
     Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.green);
     isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDetectionRange, groundMask);
 
-    // Vector3 movement = (cameraForward * movementY + cameraRight * movementX).normalized;
     Vector3 movement = new Vector3(movementX, 0f, movementY).normalized;
 
-    float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
-    mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFOV, Time.deltaTime);
+    UpdateFOV(movement);
 
     if (isGrounded) {
       // Lerp velocity 
@@ -146,31 +135,16 @@ public class PlayerController : MonoBehaviour {
     }
   }
 
+  // Interpolates the main camera FOV based on the player movement speed
+  private void UpdateFOV(Vector3 movement) {
+    float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
+    mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFOV, Time.deltaTime);
+  }
+
   private void UpdateGravity() {
     Vector3 gravityForce = Physics.gravity * rb.mass * gravityScale * Time.fixedDeltaTime;
     rb.linearVelocity += gravityForce;
   }
-
-  // void OnCollisionEnter(Collision collision) {
-  //   Vector3 normal = collision.contacts[0].normal;
-  //   Vector3 currentVelocity = rb.linearVelocity;
-
-  //   Vector3 reflectedVelocity = Vector3.Reflect(currentVelocity, normal);
-
-  //   rb.linearVelocity = reflectedVelocity * bounciness;
-
-  //   if (normal.y > .5f) {
-  //     isGrounded = true;
-  //   }
-  // }
-
-  // void OnCollisionStay(Collision collision) {
-  //   isGrounded = true;
-  // }
-
-  // void OnCollisionExit(){
-  //   isGrounded = false;
-  // }
 
   void Jump() {
     rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
