@@ -1,56 +1,63 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
 
 public class PlayerController : MonoBehaviour {
-  private Rigidbody rb;
-  private float movementX;
-  private float movementY;
 
   [Header("View")]
-  [SerializeField, Tooltip("")]
-  private Camera mainCamera;
-  [SerializeField, Tooltip("")]
-  private Transform cameraTransform;
+  [SerializeField, Tooltip("The main camera")]
+  private GameObject mainCamera;
   [SerializeField, Tooltip("")]
   private float baseFOV = 60f;
   [SerializeField, Tooltip("")]
   private float maxFOV = 80f;
 
-  [Header("Movement")]
-  [SerializeField, Tooltip("The speed at which the player moves")]
-  private float speed = 10f;
+  [Header("Environment Control")]
   [SerializeField, Tooltip("The scale of gravity applied to the player")]
-  private float gravityScale = 2f;
-  [SerializeField, Tooltip("The force applied to the player to make them jump")]
-  private float jumpForce = 5f;
-  [SerializeField, Tooltip("Time between jumps")]
-  private float jumpCooldown = 0.5f;
-  [SerializeField, Tooltip("How fast a player can change their direction")]
-  private float turnSpeed = 5f;
-  [SerializeField, Tooltip("Maximum speed the player can achieve")]
-  private float maxSpeed = 20f;
-  [SerializeField, Tooltip("The rate at which the player slows down when no input is applied")]
-  private float decelerationRate = 2f;
-
-  [SerializeField, Tooltip("How bouncy the player is when colliding with surfaces")]
-  private float bounciness = .8f;
-
+  private float gravityScale = 1f;
   [SerializeField, Tooltip("The force applied to the player's movement while in midair")]
   private float airControlForce = 5f;
   [SerializeField, Tooltip("How quickly the player can rotate while in midair")]
   private float airRotationSpeed = 5f; 
-
   [SerializeField] 
   private float groundDetectionRange = .6f;
-  
   [SerializeField] 
   private LayerMask groundMask;
+
+  [Header("Movement")]
+  [SerializeField, Tooltip("The speed at which the player moves")]
+  private float speed = 10f;
+  [SerializeField, Tooltip("The force applied to the player to make them jump")]
+  private float jumpForce = 15f;
+  [SerializeField, Tooltip("Time between jumps")]
+  private float jumpCooldown = 0.5f;
+  [SerializeField, Tooltip("How fast a player can change their direction")]
+  private float turnSpeed = .5f;
+  [SerializeField, Tooltip("Maximum speed the player can achieve")]
+  private float maxSpeed = 100f;
+  [SerializeField, Tooltip("The rate at which the player slows down when no input is applied")]
+  private float decelerationRate = .1f;
+
+  [SerializeField, Tooltip("How bouncy the player is when colliding with surfaces")]
+  private float bounciness = .8f;
+
+  [SerializeField]
+  private float shakeIntensity = .3f;
+  [SerializeField]
+  private float shakeDuration = .3f;
+  [SerializeField, Tooltip("Minimum collision magnitude before shaking camera")]
+  private float shakeImpactThreshold = 35f;
   
+  private Rigidbody rb;
+  private float movementX;
+  private float movementY;
+  private CameraShaker cameraShaker;
+  private Camera cameraComponent;
   private bool isGrounded;
   private float lastJumpTime = -Mathf.Infinity;
-
+  
   void Start() {
+    cameraComponent = mainCamera.GetComponent<Camera>();
+    cameraShaker = mainCamera.GetComponent<CameraShaker>();
     rb = GetComponent<Rigidbody>();
 
     rb.linearDamping = 0;
@@ -58,98 +65,114 @@ public class PlayerController : MonoBehaviour {
   }
 
   void Update() {
-    Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.green);
-    isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDetectionRange, groundMask);
-
-    Vector3 movement = new Vector3(movementX, 0f, movementY).normalized;
-
+    Vector3 movement = GetCameraRelativeMovement();
     UpdateFOV(movement);
 
+    CheckGroundStatus();
+
     if (isGrounded) {
-      // Lerp velocity 
-      if (movement.magnitude > 0) {
-        Vector3 desiredVelocity = movement * speed;
-
-        rb.linearVelocity = new Vector3(
-          Mathf.Lerp(rb.linearVelocity.x, desiredVelocity.x, turnSpeed * Time.fixedDeltaTime),
-          rb.linearVelocity.y,
-          Mathf.Lerp(rb.linearVelocity.z, desiredVelocity.z, turnSpeed * Time.fixedDeltaTime)
-        );
-
-      // Gradually decrease velocity when player is applying movement 
-      } else {
-        Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, decelerationRate * Time.fixedDeltaTime);
-        
-        rb.linearVelocity = new Vector3(
-          horizontalVelocity.x,
-          rb.linearVelocity.y,
-          horizontalVelocity.z
-        );
-      }
+      HandleGroundMovement(movement);
     } else {
-      // Add rotation and decrease velocity control in midair
-      if (movement.magnitude > 0) {
-        rb.AddForce(movement * airControlForce, ForceMode.Force);
-
-        Vector3 rotationAxis = Vector3.Cross(Vector3.up, movement);
-        rb.AddTorque(rotationAxis * airRotationSpeed, ForceMode.Force);
-      }
-    }
-
-    float shakeIntensity = .1f;
-    float speedShakeThreshold = 15f;
-    if (movement.magnitude > speedShakeThreshold) {
-      float shakeAmount = (speed - speedShakeThreshold) * shakeIntensity;
-      Vector3 shakeOffset = new Vector3(
-        Mathf.PerlinNoise(Time.time * 10f, 0) - 0.5f,
-        Mathf.PerlinNoise(0, Time.time * 10f) - 0.5f,
-        0
-      ) * shakeAmount;
-
-      cameraTransform.localPosition += shakeOffset;
+      HandleAirMovement(movement);
     }
 
     UpdateGravity();
+    EnforceSpeedLimit();
+    HandleJump();
+  }
 
-    // Speed limit
-    float currentSpeed = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z).magnitude;
-    if (currentSpeed > maxSpeed) {
-      Vector3 velocityDirection = rb.linearVelocity.normalized;
-      rb.linearVelocity = new Vector3(
-        velocityDirection.x * maxSpeed,
-        rb.linearVelocity.y,
-        velocityDirection.z * maxSpeed
-      );
+  void HandleGroundMovement(Vector3 movement) {
+    if (movement.magnitude > 0) {
+      Vector3 movementForce = movement * speed;
+      rb.AddForce(movementForce, ForceMode.Force);
+
+      Quaternion targetRotation = Quaternion.LookRotation(movement);
+      transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 
-    // Jump when space pressed
+    // Decrease velocity when no input is applied
+    if (movement.magnitude <= 0) {
+      Vector3 horizontalVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+      horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, decelerationRate * Time.fixedDeltaTime);
+      
+      rb.linearVelocity = new Vector3(
+        horizontalVelocity.x,
+        rb.linearVelocity.y,
+        horizontalVelocity.z
+      );
+    }
+    
+    // Decrease angular velocity when not moving
+    if (movement.magnitude <= 0) {
+      rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, decelerationRate * Time.fixedDeltaTime);
+    }
+  }
+
+  void HandleAirMovement(Vector3 movement) {
+    // Add rotation and reduced velocity in midair
+    if (movement.magnitude > 0) {
+      rb.AddForce(movement * airControlForce, ForceMode.Force);
+
+      Vector3 rotationAxis = Vector3.Cross(Vector3.up, movement);
+      rb.AddTorque(rotationAxis * airRotationSpeed, ForceMode.Force);
+    }
+  }
+  
+  void EnforceSpeedLimit() {
+    Vector3 horizontalVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+    float currentSpeed = horizontalVelocity.magnitude;
+
+    // Add excess force against player
+    if (currentSpeed > maxSpeed) {
+      Vector3 excessVelocity = horizontalVelocity.normalized * (currentSpeed - maxSpeed);
+      
+      rb.AddForce(-excessVelocity * rb.mass, ForceMode.Force);
+    }
+  }
+
+  void CheckGroundStatus() {
+    Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.green);
+    isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDetectionRange, groundMask);
+  }
+
+  void UpdateFOV(Vector3 movement) {
+    float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
+    cameraComponent.fieldOfView = Mathf.Lerp(cameraComponent.fieldOfView, targetFOV, Time.deltaTime);
+  }
+
+  void UpdateGravity() {
+    rb.linearVelocity += gravityScale * rb.mass * Time.fixedDeltaTime * Physics.gravity;
+  }
+  
+  // Rotate movement vector inline with camera rotation
+  Vector3 GetCameraRelativeMovement() {
+    Vector3 inputDirection = new Vector3(movementX, 0f, movementY).normalized;
+    
+    if (inputDirection.magnitude <= 0) {
+      return Vector3.zero;
+    }
+    
+    float cameraYRotation = cameraComponent.transform.rotation.eulerAngles.y;
+    Quaternion cameraRotation = Quaternion.Euler(0f, cameraYRotation, 0f);
+    
+    Vector3 cameraRelativeMovement = cameraRotation * inputDirection;
+    
+    return cameraRelativeMovement.normalized;
+  }
+
+  void HandleJump() {
     if (
       isGrounded 
       && Keyboard.current.spaceKey.isPressed 
       && Time.time - lastJumpTime > jumpCooldown
     ) {
-      Jump();
+      rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+      
+      rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
       lastJumpTime = Time.time;
       isGrounded = false;
     }
-  }
-
-  // Interpolates the main camera FOV based on the player movement speed
-  private void UpdateFOV(Vector3 movement) {
-    float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
-    mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFOV, Time.deltaTime);
-  }
-
-  private void UpdateGravity() {
-    Vector3 gravityForce = Physics.gravity * rb.mass * gravityScale * Time.fixedDeltaTime;
-    rb.linearVelocity += gravityForce;
-  }
-
-  void Jump() {
-    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-    
-    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
   }
 
   void OnMove(InputValue movementValue) {
@@ -157,5 +180,16 @@ public class PlayerController : MonoBehaviour {
 
     movementX = movementVector.x;
     movementY = movementVector.y;
+  }
+
+  void OnCollisionEnter(Collision collision) {
+    float impactForce = collision.relativeVelocity.magnitude;
+    
+    if (impactForce > shakeImpactThreshold) {
+      float intensity = Mathf.Clamp(impactForce / 40f, 0.05f, 1f) * shakeIntensity;
+      float duration = Mathf.Clamp(impactForce / 50f, 0.1f, 0.5f) * shakeDuration;
+      
+      StartCoroutine(cameraShaker.Shake(duration, intensity));
+    }
   }
 }
