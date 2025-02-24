@@ -181,6 +181,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  cameraTransform: {fileID: 0}
+  baseFOV: 60
+  maxFOV: 80
   speed: 10
   gravityScale: 2
   jumpForce: 8
@@ -191,4 +194,8 @@ MonoBehaviour:
   bounciness: 0.8
   airControlForce: 5
   airRotationSpeed: 5
+  groundDetectionRange: 0.6
   scoreText: {fileID: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4096
