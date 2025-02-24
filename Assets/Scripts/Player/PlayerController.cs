@@ -44,18 +44,15 @@ public class PlayerController : MonoBehaviour {
   private float groundDetectionRange = .6f;
 
   [Header("UI")]
-  public TextMeshProUGUI scoreText;
 
   public LayerMask groundMask;
 
-  private int score = 0;
   private bool isGrounded;
 
   private float lastJumpTime = -Mathf.Infinity;
 
   void Start() {
     rb = GetComponent<Rigidbody>();
-    UpdateScoreText();
 
     rb.linearDamping = 0;
     rb.angularDamping = 0;
@@ -181,22 +178,10 @@ public class PlayerController : MonoBehaviour {
     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
   }
 
-  void OnTriggerEnter(Collider other) {
-    if (other.gameObject.CompareTag("PickUp")) {
-      Destroy(other.gameObject);
-      score++;
-      UpdateScoreText();
-    }
-  }
-
   void OnMove(InputValue movementValue) {
     Vector2 movementVector = movementValue.Get<Vector2>();
 
     movementX = movementVector.x;
     movementY = movementVector.y;
-  }
-
-  void UpdateScoreText() {
-    scoreText.text = "Score: " + score.ToString();
   }
 }
