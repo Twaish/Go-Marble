@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
-        if (!scoreText){
+        if (scoreText != null){
             UpdateScoreText();
         }
     }
