@@ -1,41 +1,76 @@
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-  public GameObject player;
-  // public float rotationSpeed = 5f;
-  // public float distanceFromPlayer = 10f;
-  // public float height = 5f;
 
-  // private Rigidbody playerRb;
+  [Header("Player")]
+  [SerializeField, Tooltip("Player game object")]
+  private GameObject player;
+  [SerializeField, Tooltip("Player game object")]
+  private float followPlayerSpeed = 5f;
+  [SerializeField, Tooltip("Player game object")]
+  private Vector3 playerOffset = new(1f, 3.5f, -15f);
 
-  private Vector3 offset;
+  [Header("Camera Tilt")]
+  [SerializeField, Tooltip("Maximum tilt angle (degrees)")] 
+  private float maxTiltAngle = 5f;
+  [SerializeField, Tooltip("How quickly camera tilts")] 
+  private float tiltSpeed = 3f;
+  [SerializeField, Tooltip("How much velocity affects tilt")] 
+  private float velocityTiltFactor = 0.1f;
+  
+  private Rigidbody playerRigidbody;
+  private CameraShaker cameraShaker;
   
   void Start() {
-    // playerRb = player.GetComponent<Rigidbody>();
-    offset = transform.position - player.transform.position;
+    cameraShaker = GetComponent<CameraShaker>();
+    playerRigidbody = player.GetComponent<Rigidbody>();
   }
 
   void LateUpdate() {
-    transform.position = player.transform.position + offset;
-    // Vector3 playerVelocity = new Vector3(
-    //   playerRb.linearVelocity.x,
-    //   0f,
-    //   playerRb.linearVelocity.z
-    // );
+    Quaternion cameraYRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+    Vector3 rotatedOffset = cameraYRotation * playerOffset;
+    Vector3 targetPosition = player.transform.position + rotatedOffset;
+    Vector3 followPosition = Vector3.Lerp(transform.position, targetPosition, followPlayerSpeed * Time.deltaTime);
 
-    // if (playerVelocity.magnitude > .1f) {
-    //   Quaternion targetRotation = Quaternion.LookRotation(playerVelocity);
+    ApplyCameraTilt();
 
-    //   transform.rotation = Quaternion.Slerp(
-    //     transform.rotation,
-    //     targetRotation,
-    //     rotationSpeed * Time.deltaTime
-    //   );
-    // }
-
-    // Vector3 targetPosition = player.transform.position - transform.forward * distanceFromPlayer + Vector3.up * height;
-
-    // transform.position = targetPosition;
+    if (cameraShaker == null) {
+      transform.position = followPosition;
+    } else {
+      transform.position = followPosition + cameraShaker.GetShakeOffset();
+    }
   }
 
+  void ApplyCameraTilt() {
+    if (playerRigidbody == null) return;
+
+    // Get player's velocity (ignoring vertical movement)
+    Vector3 playerVelocity = new Vector3(playerRigidbody.linearVelocity.x, 0, playerRigidbody.linearVelocity.z);
+    float speed = playerVelocity.magnitude;
+
+    // Calculate target rotation
+    Quaternion targetRotation;
+
+    if (speed > 1f)
+    { // Only tilt if moving faster than a minimum speed
+      // Calculate side tilt (roll) based on lateral movement
+      float rightDot = Vector3.Dot(playerVelocity.normalized, transform.right);
+      float rollAngle = -rightDot * maxTiltAngle * Mathf.Min(1.0f, speed * velocityTiltFactor);
+
+      // Calculate forward tilt (pitch) based on forward velocity
+      float forwardDot = Vector3.Dot(playerVelocity.normalized, transform.forward);
+      float pitchAngle = forwardDot * maxTiltAngle * 0.5f * Mathf.Min(1.0f, speed * velocityTiltFactor);
+
+      // Create rotation with calculated angles
+      targetRotation = Quaternion.Euler(pitchAngle, transform.eulerAngles.y, rollAngle);
+    }
+    else
+    {
+      // Return to neutral position when not moving
+      targetRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+    }
+
+    // Smoothly interpolate to target rotation
+    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, tiltSpeed * Time.deltaTime);
+  }
 }
