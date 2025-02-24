@@ -8,6 +8,13 @@ public class PlayerController : MonoBehaviour {
   private float movementY;
 
   public Camera mainCamera;
+  public Transform cameraTransform;
+
+  [Header("View")]
+  [Tooltip("")]
+  public float baseFOV = 60f;
+  [Tooltip("")]
+  public float maxFOV = 80f;
 
   [Header("Movement")]
   [Tooltip("The speed at which the player moves")]
@@ -33,8 +40,13 @@ public class PlayerController : MonoBehaviour {
   [Tooltip("How quickly the player can rotate while in midair")]
   public float airRotationSpeed = 5f; 
 
+  [SerializeField]
+  private float groundDetectionRange = .6f;
+
   [Header("UI")]
   public TextMeshProUGUI scoreText;
+
+  public LayerMask groundMask;
 
   private int score = 0;
   private bool isGrounded;
@@ -49,7 +61,7 @@ public class PlayerController : MonoBehaviour {
     rb.angularDamping = 0;
   }
 
-  void FixedUpdate() {
+  void Update() {
     // Vector3 cameraForward = mainCamera.transform.forward;
     // Vector3 cameraRight = mainCamera.transform.right;
 
@@ -58,8 +70,14 @@ public class PlayerController : MonoBehaviour {
     // cameraForward.Normalize();
     // cameraRight.Normalize();
 
+    Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.green);
+    isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDetectionRange, groundMask);
+
     // Vector3 movement = (cameraForward * movementY + cameraRight * movementX).normalized;
-    Vector3 movement = new Vector3(movementX, 0.0f, movementY).normalized;
+    Vector3 movement = new Vector3(movementX, 0f, movementY).normalized;
+
+    float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
+    mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFOV, Time.deltaTime);
 
     if (isGrounded) {
       // Lerp velocity 
@@ -93,9 +111,20 @@ public class PlayerController : MonoBehaviour {
       }
     }
 
-    // Apply gravity
-    Vector3 gravityForce = Physics.gravity * rb.mass * gravityScale * Time.fixedDeltaTime;
-    rb.linearVelocity += gravityForce;
+    float shakeIntensity = .1f;
+    float speedShakeThreshold = 15f;
+    if (movement.magnitude > speedShakeThreshold) {
+      float shakeAmount = (speed - speedShakeThreshold) * shakeIntensity;
+      Vector3 shakeOffset = new Vector3(
+        Mathf.PerlinNoise(Time.time * 10f, 0) - 0.5f,
+        Mathf.PerlinNoise(0, Time.time * 10f) - 0.5f,
+        0
+      ) * shakeAmount;
+
+      cameraTransform.localPosition += shakeOffset;
+    }
+
+    UpdateGravity();
 
     // Speed limit
     float currentSpeed = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z).magnitude;
@@ -109,35 +138,46 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Jump when space pressed
-    if (isGrounded && Keyboard.current.spaceKey.isPressed && Time.time - lastJumpTime > jumpCooldown) {
+    if (
+      isGrounded 
+      && Keyboard.current.spaceKey.isPressed 
+      && Time.time - lastJumpTime > jumpCooldown
+    ) {
       Jump();
       lastJumpTime = Time.time;
       isGrounded = false;
     }
   }
 
-  void OnCollisionEnter(Collision collision) {
-    Vector3 normal = collision.contacts[0].normal;
-    Vector3 currentVelocity = rb.linearVelocity;
-
-    Vector3 reflectedVelocity = Vector3.Reflect(currentVelocity, normal);
-
-    rb.linearVelocity = reflectedVelocity * bounciness;
-
-    if (normal.y > .5f) {
-      isGrounded = true;
-    }
+  private void UpdateGravity() {
+    Vector3 gravityForce = Physics.gravity * rb.mass * gravityScale * Time.fixedDeltaTime;
+    rb.linearVelocity += gravityForce;
   }
 
-  void OnCollisionStay(Collision collision) {
-    isGrounded = true;
-  }
+  // void OnCollisionEnter(Collision collision) {
+  //   Vector3 normal = collision.contacts[0].normal;
+  //   Vector3 currentVelocity = rb.linearVelocity;
 
-  void OnCollisionExit(){
-    isGrounded = false;
-  }
+  //   Vector3 reflectedVelocity = Vector3.Reflect(currentVelocity, normal);
+
+  //   rb.linearVelocity = reflectedVelocity * bounciness;
+
+  //   if (normal.y > .5f) {
+  //     isGrounded = true;
+  //   }
+  // }
+
+  // void OnCollisionStay(Collision collision) {
+  //   isGrounded = true;
+  // }
+
+  // void OnCollisionExit(){
+  //   isGrounded = false;
+  // }
 
   void Jump() {
+    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+    
     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
   }
 
