@@ -21,12 +21,35 @@ public class CameraController : MonoBehaviour {
   private Rigidbody playerRigidbody;
   private CameraShaker cameraShaker;
   
+  private float targetYRotation;
+  [SerializeField]
+  private float rotationLerpSpeed = 10f;
   void Start() {
     cameraShaker = GetComponent<CameraShaker>();
     playerRigidbody = player.GetComponent<Rigidbody>();
+
+    targetYRotation = transform.eulerAngles.y;
   }
 
   void LateUpdate() {
+    float rotationSpeed = 200f;
+
+    if (Input.GetKey(KeyCode.K)) {
+      targetYRotation -= rotationSpeed * Time.deltaTime; // Rotate Left
+    }
+    else if (Input.GetKey(KeyCode.L)) {
+      targetYRotation += rotationSpeed * Time.deltaTime; // Rotate Right
+    }
+    
+    float currentYRotation = Mathf.LerpAngle(transform.eulerAngles.y, targetYRotation, rotationLerpSpeed * Time.deltaTime);
+    
+    Quaternion smoothedRotation = Quaternion.Euler(
+      transform.eulerAngles.x,
+      currentYRotation,
+      transform.eulerAngles.z
+    );
+    transform.rotation = smoothedRotation;
+
     Quaternion cameraYRotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
     Vector3 rotatedOffset = cameraYRotation * playerOffset;
     Vector3 targetPosition = player.transform.position + rotatedOffset;
