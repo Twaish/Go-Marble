@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour {
   [SerializeField, Tooltip("The scale of gravity applied to the player")]
   private float gravityScale = 1f;
   [SerializeField, Tooltip("The force applied to the player's movement while in midair")]
-  private float airControlForce = 5f;
+  private float airControlForce = 15f;
   [SerializeField, Tooltip("How quickly the player can rotate while in midair")]
-  private float airRotationSpeed = 5f; 
+  private float airRotationSpeed = 15f; 
   [SerializeField] 
   private float groundDetectionRange = .6f;
   [SerializeField] 
@@ -25,17 +25,17 @@ public class PlayerController : MonoBehaviour {
 
   [Header("Movement")]
   [SerializeField, Tooltip("The speed at which the player moves")]
-  private float speed = 10f;
+  private float speed = 45f;
   [SerializeField, Tooltip("The force applied to the player to make them jump")]
   private float jumpForce = 15f;
   [SerializeField, Tooltip("Time between jumps")]
   private float jumpCooldown = 0.5f;
   [SerializeField, Tooltip("How fast a player can change their direction")]
-  private float turnSpeed = .5f;
+  private float turnSpeed = 5f;
   [SerializeField, Tooltip("Maximum speed the player can achieve")]
-  private float maxSpeed = 100f;
+  private float maxSpeed = 200f;
   [SerializeField, Tooltip("The rate at which the player slows down when no input is applied")]
-  private float decelerationRate = .1f;
+  private float decelerationRate = 1f;
 
   [SerializeField, Tooltip("How bouncy the player is when colliding with surfaces")]
   private float bounciness = .8f;
@@ -43,9 +43,9 @@ public class PlayerController : MonoBehaviour {
   [SerializeField]
   private float shakeIntensity = .3f;
   [SerializeField]
-  private float shakeDuration = .3f;
+  private float shakeDuration = 1f;
   [SerializeField, Tooltip("Minimum collision magnitude before shaking camera")]
-  private float shakeImpactThreshold = 35f;
+  private float shakeImpactThreshold = 20f;
   
   private Rigidbody rb;
   private float movementX;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour {
     rb.angularDamping = 0;
   }
 
-  void Update() {
+  void FixedUpdate() {
     Vector3 movement = GetCameraRelativeMovement();
     UpdateFOV(movement);
 
