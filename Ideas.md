@@ -23,3 +23,4 @@ Obstacle ideas
 - Pipe/Tube/Slide
 - Checkpoints
 - Collectibles
+- Timed Spikes - Spikes will periodically move up from the ground and retract
