@@ -186,23 +186,39 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   baseFOV: 60
   maxFOV: 80
-  gravityScale: 1
-  airControlForce: 5
-  airRotationSpeed: 5
+  gravityScale: 3
+  airControlForce: 15
+  airRotationSpeed: 15
   groundDetectionRange: 0.6
   groundMask:
     serializedVersion: 2
     m_Bits: 4096
-  speed: 10
+  speed: 30
   jumpForce: 15
-  jumpCooldown: 0.5
-  turnSpeed: 0.2
+  jumpCooldown: 0
+  turnSpeed: 5
   maxSpeed: 100
-  decelerationRate: 0.1
+  decelerationRate: 1
   bounciness: 0.8
-  shakeIntensity: 0.1
-  shakeDuration: 0.3
-  shakeImpactThreshold: 20
+  shakeIntensity: 0.3
+  shakeDuration: 1
+  shakeImpactThreshold: 37.5
+  defaultSpeed: 30
+  defaultTurnSpeed: 30
+  defaultDecelerationRate: 0.5
+  defaultTorque: 3
+  defaultBounciness: 0.8
+  sandSpeed: 30
+  sandTurnSpeed: 3.5
+  sandDecelerationRate: 4
+  sandTorque: 1
+  sandBounciness: 0
+  iceSpeed: 15
+  iceTurnSpeed: 1
+  iceDecelerationRate: 0.2
+  iceTorque: 5
+  iceBounciness: 0.8
+  debugRays: 0
 --- !u!114 &1933150578146448470
 MonoBehaviour:
   m_ObjectHideFlags: 0
