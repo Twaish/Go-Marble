@@ -42,6 +42,7 @@ Gravity Shift Area<br>
 Medal System<br>
 Leaderboards<br>
 Skin unlocks<br>
+**\+ Update Jumping Mechanics**<br>
 **\+ Moving platforms**<br>
 **\+ Basic skins (2-7 skins)**<br>
 **\+ UI functionality**<br>
