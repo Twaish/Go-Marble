@@ -21,9 +21,9 @@ public class FollowMarblePreview : MonoBehaviour {
   }
 
   void LateUpdate() {
-    offset = Quaternion.Euler(0, rotationSpeed * Time.fixedDeltaTime, 0) * offset;
+    offset = Quaternion.Euler(0, rotationSpeed * Time.deltaTime, 0) * offset;
     Vector3 targetPosition = marble.position + offset;
-    transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.fixedDeltaTime);
+    transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
 
     Vector3 rightOffset = (screenRightPosition * 2 - 1) * 0.5f * distance * transform.right;
     transform.LookAt(marble.position + rightOffset);
