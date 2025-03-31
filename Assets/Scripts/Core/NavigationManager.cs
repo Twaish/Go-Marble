@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class NavigationManager : MonoBehaviour {
@@ -33,6 +34,10 @@ public class NavigationManager : MonoBehaviour {
     if (targetScene.isLoaded) return;
 
     SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+  }
+
+  public void Focus(GameObject gameObject) {
+    EventSystem.current.SetSelectedGameObject(gameObject);
   }
   
   public void GoBack() {
