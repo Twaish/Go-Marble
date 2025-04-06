@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +10,12 @@ public class NavigationManager : MonoBehaviour {
 
   private readonly Stack<string> menuStack = new();
   private string currentMenuName = "MainMenu";
+
+  [SerializeField]
+  private Animator mainMenuAnimator;
+  [SerializeField]
+  private Animator levelSelectAnimator;
+
 
   public void OpenMenu(string menuName) {
     OpenMenu(menuName, true);
@@ -24,9 +31,18 @@ public class NavigationManager : MonoBehaviour {
     if (addToStack)
       menuStack.Push(currentMenuName);
 
-    DisableAllMenus();
+    UpdateAnimator(mainMenuAnimator, "MainMenu", menuName);
+    UpdateAnimator(levelSelectAnimator, "LevelSelect", menuName);
+
+    // DisableAllMenus();
     targetMenu.gameObject.SetActive(true);
     currentMenuName = menuName;
+  }
+
+  private void UpdateAnimator(Animator animator, string menuName, string newMenuName) {
+    bool shouldOpen = newMenuName == menuName;
+    Debug.Log($"Menu: {menuName}, New: {newMenuName}");
+    animator.SetBool("active", shouldOpen);
   }
 
   public void OpenScene(string sceneName) {
