@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7735294020311837544}
   - component: {fileID: 5075526982698875426}
   - component: {fileID: 7066724622542832411}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 1_4 pipe (16x16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2288,7 +2288,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 371
+  m_VersionIndex: 374
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
