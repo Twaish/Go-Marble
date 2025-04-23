@@ -15,6 +15,8 @@ public class NavigationManager : MonoBehaviour {
   private Animator mainMenuAnimator;
   [SerializeField]
   private Animator levelSelectAnimator;
+  [SerializeField]
+  private Animator customizationMenuAnimator;
 
 
   public void OpenMenu(string menuName) {
@@ -33,6 +35,7 @@ public class NavigationManager : MonoBehaviour {
 
     UpdateAnimator(mainMenuAnimator, "MainMenu", menuName);
     UpdateAnimator(levelSelectAnimator, "LevelSelect", menuName);
+    UpdateAnimator(customizationMenuAnimator, "CustomizationMenu", menuName);
 
     // DisableAllMenus();
     targetMenu.gameObject.SetActive(true);
@@ -41,7 +44,6 @@ public class NavigationManager : MonoBehaviour {
 
   private void UpdateAnimator(Animator animator, string menuName, string newMenuName) {
     bool shouldOpen = newMenuName == menuName;
-    Debug.Log($"Menu: {menuName}, New: {newMenuName}");
     animator.SetBool("active", shouldOpen);
   }
 
@@ -59,12 +61,6 @@ public class NavigationManager : MonoBehaviour {
   public void GoBack() {
     if (menuStack.Count <= 0) return;
     OpenMenu(menuStack.Pop(), false);
-  }
-
-  private void DisableAllMenus() {
-    foreach (Transform child in menus.transform) {
-      child.gameObject.SetActive(false);
-    }
   }
 
   public void UnloadScene(string sceneName) {
