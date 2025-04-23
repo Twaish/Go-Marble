@@ -26,7 +26,7 @@ public class PanelManager : MonoBehaviour {
   }
 
   public void OpenMenu(string menuName) {
-    OpenMenu(menuName, true);
+    OpenMenu(menuName, useHistory: true);
   }
 
   private void OpenMenu(string menuName, bool useHistory = true) {
@@ -47,7 +47,7 @@ public class PanelManager : MonoBehaviour {
   public void GoBack() {
     if (navigationStack.Count <= 0) return;
     NavigationEntry entry = navigationStack.Pop();
-    OpenMenu(entry.MenuName, false);
+    OpenMenu(entry.MenuName, useHistory: false);
     EventSystem.current.SetSelectedGameObject(entry.FocusedObject);
   }
 
