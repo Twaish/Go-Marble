@@ -184,25 +184,35 @@ public class PlayerController : MonoBehaviour {
   void CheckGroundStatus() {
     isGrounded = false;
     lastGroundNormal = Vector3.zero;
-
     int hitCount = 0;
-    Vector3[] directions = {
-        transform.up,
-        -transform.up,
-        transform.right,
-        -transform.right,
-        transform.forward,
-        -transform.forward
+
+    Vector3[] sampleDirections = {
+        Vector3.up,
+        Vector3.down,
+        Vector3.left,
+        Vector3.right,
+        Vector3.forward,
+        Vector3.back,
+        (Vector3.up + Vector3.right).normalized,
+        (Vector3.up + Vector3.left).normalized,
+        (Vector3.down + Vector3.right).normalized,
+        (Vector3.down + Vector3.left).normalized,
+        (Vector3.forward + Vector3.up).normalized,
+        (Vector3.forward + Vector3.down).normalized,
+        (Vector3.back + Vector3.up).normalized,
+        (Vector3.back + Vector3.down).normalized
     };
 
-    foreach (Vector3 dir in directions) {
-        if (Physics.Raycast(transform.position, dir, out RaycastHit hit, groundDetectionRange, groundMask)) {
+    float sphereRadius = sphereCollider.radius * 0.9f; // a little smaller than marble size
+
+    foreach (Vector3 dir in sampleDirections) {
+        if (Physics.SphereCast(transform.position, sphereRadius * 0.5f, dir, out RaycastHit hit, groundDetectionRange, groundMask)) {
             isGrounded = true;
             lastGroundNormal += hit.normal;
             hitCount++;
 
             if (debugRays) {
-                Debug.DrawRay(transform.position, dir * groundDetectionRange, Color.cyan);
+                Debug.DrawRay(transform.position, dir * groundDetectionRange, Color.yellow);
                 Debug.DrawRay(hit.point, hit.normal, Color.green);
             }
         }
@@ -212,6 +222,7 @@ public class PlayerController : MonoBehaviour {
         lastGroundNormal.Normalize();
     }
 }
+
 
   void UpdateFOV(Vector3 movement) {
     float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
