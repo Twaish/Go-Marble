@@ -5,10 +5,14 @@ public class DeathPlane : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) // Ensure your player has the tag "Player"
+        if (other.CompareTag("Player"))
         {
-            // Reload the current scene or handle respawn
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            // Tell the player to die
+            PlayerDeath playerDeath = other.GetComponent<PlayerDeath>();
+            if (playerDeath != null)
+            {
+                playerDeath.Die();
+            }
         }
     }
 }
