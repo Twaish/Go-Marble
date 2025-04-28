@@ -7,8 +7,21 @@ public class DeathPlane : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Tell the player to die
+            // Trigger the player's death
             PlayerDeath playerDeath = other.GetComponent<PlayerDeath>();
+            if (playerDeath != null)
+            {
+                playerDeath.Die();
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Trigger the player's death
+            PlayerDeath playerDeath = collision.gameObject.GetComponent<PlayerDeath>();
             if (playerDeath != null)
             {
                 playerDeath.Die();
