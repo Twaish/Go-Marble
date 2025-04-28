@@ -1,45 +1,49 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
+[Serializable]
+public class MenuAnimatorPair {
+  public string menuName;
+  public Animator animator;
+}
+
+
 public class NavigationManager : MonoBehaviour {
   [SerializeField]
-  private GameObject menus;
+  private GameObject menusContainer;
 
   private readonly Stack<string> menuStack = new();
   private string currentMenuName = "MainMenu";
 
   [SerializeField]
-  private Animator mainMenuAnimator;
-  [SerializeField]
-  private Animator levelSelectAnimator;
-  [SerializeField]
-  private Animator customizationMenuAnimator;
-
+  private List<GameObject> menus = new();
 
   public void OpenMenu(string menuName) {
     OpenMenu(menuName, true);
   }
 
-  private void OpenMenu(string menuName, bool addToStack = true) {
-    Transform targetMenu = menus.transform.Find(menuName);
+  private void OpenMenu(string newMenuName, bool addToStack = true) {
+    Transform targetMenu = menusContainer.transform.Find(newMenuName);
     if (targetMenu == null) return;
 
-    if (menuName == "MainMenu") 
+    if (newMenuName == "MainMenu") 
       menuStack.Clear();
     
     if (addToStack)
       menuStack.Push(currentMenuName);
 
-    UpdateAnimator(mainMenuAnimator, "MainMenu", menuName);
-    UpdateAnimator(levelSelectAnimator, "LevelSelect", menuName);
-    UpdateAnimator(customizationMenuAnimator, "CustomizationMenu", menuName);
+    foreach (GameObject menu in menus) {
+      Animator menuAnimator = menu.GetComponent<Animator>();
+      if (!menuAnimator) continue;
+      UpdateAnimator(menuAnimator, menu.name, newMenuName);
+    }
 
     // DisableAllMenus();
     targetMenu.gameObject.SetActive(true);
-    currentMenuName = menuName;
+    currentMenuName = newMenuName;
   }
 
   private void UpdateAnimator(Animator animator, string menuName, string newMenuName) {
