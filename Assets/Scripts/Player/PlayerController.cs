@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour {
   private float movementY;
   private float lastJumpTime = -Mathf.Infinity;
   private bool isGrounded;
+  private Vector3 lastGroundNormal = Vector3.up;
 
   void Awake() {
     cameraComponent = mainCamera.GetComponent<Camera>();
@@ -181,11 +182,36 @@ public class PlayerController : MonoBehaviour {
   }
 
   void CheckGroundStatus() {
-    if (debugRays) {
-      Debug.DrawRay(transform.position, gravityDirection.normalized * groundDetectionRange, Color.blue);
+    isGrounded = false;
+    lastGroundNormal = Vector3.zero;
+
+    int hitCount = 0;
+    Vector3[] directions = {
+        transform.up,
+        -transform.up,
+        transform.right,
+        -transform.right,
+        transform.forward,
+        -transform.forward
+    };
+
+    foreach (Vector3 dir in directions) {
+        if (Physics.Raycast(transform.position, dir, out RaycastHit hit, groundDetectionRange, groundMask)) {
+            isGrounded = true;
+            lastGroundNormal += hit.normal;
+            hitCount++;
+
+            if (debugRays) {
+                Debug.DrawRay(transform.position, dir * groundDetectionRange, Color.cyan);
+                Debug.DrawRay(hit.point, hit.normal, Color.green);
+            }
+        }
     }
-    isGrounded = Physics.Raycast(transform.position, gravityDirection.normalized, groundDetectionRange, groundMask);
-  }
+
+    if (isGrounded && hitCount > 0) {
+        lastGroundNormal.Normalize();
+    }
+}
 
   void UpdateFOV(Vector3 movement) {
     float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
@@ -231,20 +257,21 @@ public class PlayerController : MonoBehaviour {
     return cameraRelativeMovement.normalized;
   }
 
-  void HandleJump() {
+ void HandleJump() {
     if (
-      isGrounded 
-      && Keyboard.current.spaceKey.isPressed 
-      && Time.time - lastJumpTime > jumpCooldown
+        isGrounded 
+        && Keyboard.current.spaceKey.isPressed 
+        && Time.time - lastJumpTime > jumpCooldown
     ) {
-      rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-      
-      rb.AddForce(-1 * jumpForce * gravityDirection.normalized, ForceMode.Impulse);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        
+        // Instead of jumping against gravity, jump along the surface normal!
+        rb.AddForce(lastGroundNormal * jumpForce, ForceMode.Impulse);
 
-      lastJumpTime = Time.time;
-      isGrounded = false;
+        lastJumpTime = Time.time;
+        isGrounded = false;
     }
-  }
+}
 
   void OnMove(InputValue movementValue) {
     Vector2 movementVector = movementValue.Get<Vector2>();
