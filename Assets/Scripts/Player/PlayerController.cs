@@ -257,21 +257,16 @@ public class PlayerController : MonoBehaviour {
     return cameraRelativeMovement.normalized;
   }
 
- void HandleJump() {
-    if (
-        isGrounded 
-        && Keyboard.current.spaceKey.isPressed 
-        && Time.time - lastJumpTime > jumpCooldown
-    ) {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        
-        // Instead of jumping against gravity, jump along the surface normal!
+void HandleJump() {
+    if (isGrounded && Keyboard.current.spaceKey.isPressed && Time.time - lastJumpTime > jumpCooldown) {
+        rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, lastGroundNormal); // remove velocity into surface
         rb.AddForce(lastGroundNormal * jumpForce, ForceMode.Impulse);
 
         lastJumpTime = Time.time;
         isGrounded = false;
     }
 }
+
 
   void OnMove(InputValue movementValue) {
     Vector2 movementVector = movementValue.Get<Vector2>();
