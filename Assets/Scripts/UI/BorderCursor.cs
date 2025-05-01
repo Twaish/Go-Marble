@@ -30,12 +30,6 @@ public class BorderCursor : MonoBehaviour {
   private void FixedUpdate() {
     GameObject focusedUI = EventSystem.current.currentSelectedGameObject;
     if (focusedUI == null) return;
-    if (focusedUI == currentFocusedUI) {
-      imageTransform.position = Vector3.Lerp(imageTransform.position, targetPosition, Time.fixedDeltaTime * positionLerpSpeed);
-      return;
-    }
-
-    currentFocusedUI = focusedUI;
     UpdateBorderPosition(focusedUI);
   }
 
@@ -43,7 +37,7 @@ public class BorderCursor : MonoBehaviour {
     if (!focusedUI.TryGetComponent<RectTransform>(out var focusedRect)) return;
     Vector2 centerPosition = focusedRect.TransformPoint(focusedRect.rect.center);
 
-    targetPosition = centerPosition;
+    imageTransform.position = Vector3.Lerp(imageTransform.position, centerPosition, Time.fixedDeltaTime * positionLerpSpeed);
     imageTransform.sizeDelta = focusedRect.sizeDelta + new Vector2(borderThickness, borderThickness);
   }
 
