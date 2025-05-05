@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Speed Boost
   Icon: {fileID: 21300000, guid: fa03b670ad5284f4699e5f500578e989, type: 3}
-  Description: Makes the player faster
+  Description: Gives an instand boost in the direction a player is moving
   Uses: 100
   Cooldown: 0
   BurstStrength: 100

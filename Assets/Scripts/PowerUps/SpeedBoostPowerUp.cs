@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SpeedBoost", menuName = "Powerups/SpeedBoost")]
-public class SpeedBoostPowerup : BasePowerUp {
+public class SpeedBoostPowerUp : BasePowerUp {
   public float BurstStrength = 20f;
 
   public override void Effect(PlayerController player) {
@@ -11,6 +11,8 @@ public class SpeedBoostPowerup : BasePowerUp {
 
   private IEnumerator SpeedBoost(PlayerController player) {
     Vector3 direction = player.GetComponent<Rigidbody>().linearVelocity.normalized; 
+
+    direction.y = 0;
 
     player.GetComponent<Rigidbody>().AddForce(direction * BurstStrength, ForceMode.VelocityChange);
 
