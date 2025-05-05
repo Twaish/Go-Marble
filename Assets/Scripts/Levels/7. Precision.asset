@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a019b7c93e958478b843605a502313, type: 3}
   m_Name: 7. Precision
   m_EditorClassIdentifier: 
-  levelName: 
-  sceneName: 
-  description: 
-  levelIndex: 0
+  levelName: Precision
+  sceneName: 7. Precision
+  description: Move precisely to reach your goal
+  levelIndex: 6
   previewImage: {fileID: 0}
   medalThresholds:
-    goldTime: 0
-    silverTime: 0
-    bronzeTime: 0
+    goldTime: 45
+    silverTime: 60
+    bronzeTime: 120

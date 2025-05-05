@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a019b7c93e958478b843605a502313, type: 3}
   m_Name: 1. Tutorial
   m_EditorClassIdentifier: 
-  levelName: 
-  sceneName: 
-  description: 
+  levelName: Tutorial
+  sceneName: 1. Tutorial
+  description: Tutorial
   levelIndex: 0
   previewImage: {fileID: 0}
   medalThresholds:
-    goldTime: 0
-    silverTime: 0
-    bronzeTime: 0
+    goldTime: 6
+    silverTime: 9
+    bronzeTime: 15

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a019b7c93e958478b843605a502313, type: 3}
   m_Name: 6. Gravity
   m_EditorClassIdentifier: 
-  levelName: 
-  sceneName: 
-  description: 
-  levelIndex: 0
+  levelName: Gravity
+  sceneName: 6. Gravity
+  description: Gravity
+  levelIndex: 5
   previewImage: {fileID: 0}
   medalThresholds:
     goldTime: 0
