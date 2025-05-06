@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Death Glow
+  m_Name: Moving platform Glow
   m_Shader: {fileID: -6465566751694194690, guid: 6a56c9cc6b47d444793798011568fa5c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -42,17 +42,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Ambient_Occlusion: 1
-    - _Glow_Intensity: 15
-    - _Metalic: 0
+    - _Ambient_Occlusion: 0.55
+    - _Glow_Intensity: 40
+    - _Metalic: 0.2
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0
     m_Colors:
-    - _Base_Color: {r: 1, g: 0, b: 0, a: 1}
-    - _Glow_Color: {r: 1, g: 0, b: 0, a: 1}
-    - _Scroll_Velocity: {r: 1, g: 0.5, b: 0, a: 0}
-    - _Texture_Size: {r: 0.4, g: 6, b: 0, a: 0}
+    - _Base_Color: {r: 0.09928854, g: 0.24392697, b: 5.992157, a: 1}
+    - _Glow_Color: {r: 0.014443844, g: 0.035601325, b: 0.913099, a: 1}
+    - _Scroll_Velocity: {r: 0, g: 0, b: 0, a: 0}
+    - _Texture_Size: {r: 0.15, g: 0.15, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6188190293460755035
