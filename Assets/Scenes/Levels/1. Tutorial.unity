@@ -1237,6 +1237,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player + Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 5493547233633980537, guid: 3d1c6bdbfc52f4c0481443d0c878b33f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -18.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5493547233633980537, guid: 3d1c6bdbfc52f4c0481443d0c878b33f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5493547233633980537, guid: 3d1c6bdbfc52f4c0481443d0c878b33f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -52.43
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1795,17 +1807,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018620496}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1176281020 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4423618317263069046, guid: 3371e3e52868b4c85b1c90fd758c809e, type: 3}
-  m_PrefabInstance: {fileID: 6930575763199691685}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab076bdb679c48bd8c46da30e7c6526, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1215235078
 GameObject:
   m_ObjectHideFlags: 0
@@ -3471,7 +3472,7 @@ PrefabInstance:
     - target: {fileID: 4404731500273231393, guid: 7f32e21f2184d48fdb284b9dfa5448ea, type: 3}
       propertyPath: timerManager
       value: 
-      objectReference: {fileID: 1176281020}
+      objectReference: {fileID: 0}
     - target: {fileID: 4813556837491237262, guid: 7f32e21f2184d48fdb284b9dfa5448ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
