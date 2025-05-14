@@ -1,15 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-
-[Serializable]
-public class MenuAnimatorPair {
-  public string menuName;
-  public Animator animator;
-}
-
 
 public class NavigationManager : MonoBehaviour {
   [SerializeField]
