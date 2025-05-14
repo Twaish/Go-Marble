@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,6 +37,23 @@ public class NavigationManager : MonoBehaviour {
     // DisableAllMenus();
     targetMenu.gameObject.SetActive(true);
     currentMenuName = newMenuName;
+    
+    BlockNavigation(0.5f);
+  }
+
+  public void BlockNavigation(float duration) {
+    StartCoroutine(TemporarilyDisableNavigation(duration));
+  }
+
+  private IEnumerator TemporarilyDisableNavigation(float duration) {
+    if (EventSystem.current == null || EventSystem.current.currentInputModule == null)
+      yield break;
+
+    EventSystem.current.sendNavigationEvents = false;
+
+    yield return new WaitForSeconds(duration);
+
+    EventSystem.current.sendNavigationEvents = true;
   }
 
   private void UpdateAnimator(Animator animator, string menuName, string newMenuName) {
