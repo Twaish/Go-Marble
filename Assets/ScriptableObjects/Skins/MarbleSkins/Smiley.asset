@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f86a694ab7ffe14c80592814738b648, type: 3}
+  m_Name: Smiley
+  m_EditorClassIdentifier: 
+  skinName: Smiley
+  description: Smilington
+  icon: {fileID: 0}
+  marblePrefab: {fileID: 1151316771039166309, guid: aadf80bf5f008b0468f8de3bc6f294fb, type: 3}
