@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SpeedBoost", menuName = "Powerups/SpeedBoost")]
+[CreateAssetMenu(menuName = "Powerups/SpeedBoost")]
 public class SpeedBoostPowerUp : BasePowerUp {
   public float BurstStrength = 20f;
 

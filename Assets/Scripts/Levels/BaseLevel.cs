@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BaseLevel", menuName = "Game/Level Data")]
+[CreateAssetMenu(menuName = "Levels/Level")]
 public class BaseLevel : ScriptableObject {
   public string levelName;
   public string sceneName;
