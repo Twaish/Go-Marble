@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a530c586c7f6246a03f957d43bbc2c, type: 3}
   m_Name: SickShades
   m_EditorClassIdentifier: 
-  skinName: 
-  description: 
+  skinName: Sick Shades
+  description: Hella sick
   icon: {fileID: 0}
-  accessoryPrefab: {fileID: 0}
+  accessoryPrefab: {fileID: 5726693469584841867, guid: 300d1743aa11c9b43a0c2c74b256af91, type: 3}

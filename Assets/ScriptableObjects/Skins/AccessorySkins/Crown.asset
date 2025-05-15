@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a530c586c7f6246a03f957d43bbc2c, type: 3}
   m_Name: Crown
   m_EditorClassIdentifier: 
-  skinName: 
-  description: 
+  skinName: Crown
+  description: Ruler
   icon: {fileID: 0}
-  accessoryPrefab: {fileID: 0}
+  accessoryPrefab: {fileID: 5041097282045331978, guid: e0ffbac8fd2364b419c083c467ce0cdb, type: 3}

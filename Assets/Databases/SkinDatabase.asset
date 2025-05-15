@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c11ee44a74f25840bdd1e463cabad16, type: 3}
   m_Name: SkinDatabase
   m_EditorClassIdentifier: 
-  marbles: []
+  marbles:
+  - {fileID: 11400000, guid: 7b94cd69bc32bc5488cb5abbe8f97288, type: 2}
+  - {fileID: 11400000, guid: cf950260099008f4d8e5669db4e150af, type: 2}
+  - {fileID: 11400000, guid: 8d2f9d290285ebe4ca79a4e89841163d, type: 2}
+  - {fileID: 11400000, guid: 0fba924b42d8d5042a9c1ff5080d12d7, type: 2}
+  - {fileID: 11400000, guid: b863ab24e78b623429d62db8c384d4e7, type: 2}
   trails: []
-  accessories: []
+  accessories:
+  - {fileID: 11400000, guid: ef0f1c31e2173eb4b91e71867b741321, type: 2}
+  - {fileID: 11400000, guid: 17347b69e9f8d594b8f5311cd70bd5a2, type: 2}
+  - {fileID: 11400000, guid: 98aa117dfabf6cc48a54b88439484931, type: 2}
+  - {fileID: 11400000, guid: 2533668f5559f7e43b7a611617b310cd, type: 2}
+  - {fileID: 11400000, guid: 367c99e45dc9b804daaa3a1557d34317, type: 2}
+  - {fileID: 11400000, guid: c9f99caf39fffba4b874060d699a0540, type: 2}
+  - {fileID: 11400000, guid: 1eccb40f13b94d4499362813d0280b77, type: 2}
+  - {fileID: 11400000, guid: 7e0c73f0abc93444ebb93f4f8ac82ddd, type: 2}

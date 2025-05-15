@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a530c586c7f6246a03f957d43bbc2c, type: 3}
   m_Name: CoolDuck
   m_EditorClassIdentifier: 
-  skinName: 
-  description: 
+  skinName: Cool Duck
+  description: It's cool
   icon: {fileID: 0}
-  accessoryPrefab: {fileID: 0}
+  accessoryPrefab: {fileID: 6601469597254781846, guid: 07524f589efa71a4d9428ea28a838350, type: 3}

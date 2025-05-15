@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a530c586c7f6246a03f957d43bbc2c, type: 3}
   m_Name: Spoiler
   m_EditorClassIdentifier: 
-  skinName: 
-  description: 
+  skinName: Spoiler
+  description: Better aerodynamics
   icon: {fileID: 0}
-  accessoryPrefab: {fileID: 0}
+  accessoryPrefab: {fileID: 575375842386180026, guid: b85cc2de1c0076c4db4409b61cb116a5, type: 3}
