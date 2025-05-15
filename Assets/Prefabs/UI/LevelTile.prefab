@@ -150,9 +150,9 @@ MonoBehaviour:
   background: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  levelNameText: {fileID: 7690416287130328541}
   previewImage: {fileID: 0}
   medalUI: {fileID: 7723025941466454608}
+  text: {fileID: 7690416287130328541}
 --- !u!1 &6805460718074625155
 GameObject:
   m_ObjectHideFlags: 0

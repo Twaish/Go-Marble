@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour {
     IReadOnlyList<BaseLevel> allLevels = levelDatabase.levels;
     selectedLevel = allLevels.FirstOrDefault();
     
-    levelSelectUI.PopulateLevelButtons(allLevels, OnLevelClicked, selectedLevel);
+    levelSelectUI.PopulateLevelButtons(allLevels, OnLevelClicked, levelInspectorUI.UpdateUI, selectedLevel);
     levelInspectorUI.UpdateUI(selectedLevel);
   }
 

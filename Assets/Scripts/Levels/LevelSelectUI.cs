@@ -13,7 +13,12 @@ public class LevelSelectUI : MonoBehaviour {
     levelMedalEvaluator = GetComponent<LevelMedalEvaluator>();
   }
 
-  public void PopulateLevelButtons(IEnumerable<BaseLevel> levels, Action<BaseLevel> onLevelClicked, BaseLevel selectedLevel) {
+  public void PopulateLevelButtons(
+    IEnumerable<BaseLevel> levels, 
+    Action<BaseLevel> onLevelClicked, 
+    Action<BaseLevel> onLevelFocused, 
+    BaseLevel selectedLevel
+  ) {
     buttonLookup.Clear();
     foreach (Transform child in levelGridParent) {
       Destroy(child.gameObject);
@@ -22,7 +27,7 @@ public class LevelSelectUI : MonoBehaviour {
     foreach (var level in levels) {
       GameObject go = Instantiate(levelButtonPrefab, levelGridParent);
       LevelTile button = go.GetComponent<LevelTile>();
-      button.Setup(level, onLevelClicked, levelMedalEvaluator);
+      button.Setup(level, onLevelClicked, onLevelFocused, levelMedalEvaluator);
       buttonLookup[level] = button;
     }
     HighlightSelected(selectedLevel);
