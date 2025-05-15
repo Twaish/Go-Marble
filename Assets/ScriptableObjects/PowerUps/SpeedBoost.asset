@@ -17,4 +17,5 @@ MonoBehaviour:
   Description: Gives an instand boost in the direction a player is moving
   Uses: 100
   Cooldown: 0
+  PowerUpColor: {r: 0.93333334, g: 0.4745098, b: 0.09411765, a: 1}
   BurstStrength: 100
