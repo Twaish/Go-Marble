@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Speed
   sceneName: 5. Speed
-  description: Speed
+  description: Blaze through the track
   levelIndex: 4
   previewImage: {fileID: 0}
   medalThresholds:

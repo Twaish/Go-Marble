@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Moving
   sceneName: 3. Moving
-  description: Moving
+  description: Adapt to shifting platforms
   levelIndex: 2
   previewImage: {fileID: 0}
   medalThresholds:

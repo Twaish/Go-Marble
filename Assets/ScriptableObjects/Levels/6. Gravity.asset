@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Gravity
   sceneName: 6. Gravity
-  description: Gravity
+  description: Defy gravity as the world twists
   levelIndex: 5
   previewImage: {fileID: 0}
   medalThresholds:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Turns
   sceneName: 2. Turns
-  description: Turns
+  description: Navigate sharp corners
   levelIndex: 1
   previewImage: {fileID: 0}
   medalThresholds:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Tutorial
   sceneName: 1. Tutorial
-  description: Tutorial
+  description: Learn the basics
   levelIndex: 0
   previewImage: {fileID: 0}
   medalThresholds:

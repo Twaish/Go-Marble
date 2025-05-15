@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: Pipe
   sceneName: 4. Pipe
-  description: Pipe
+  description: Watch out for the red walls
   levelIndex: 3
   previewImage: {fileID: 0}
   medalThresholds:
