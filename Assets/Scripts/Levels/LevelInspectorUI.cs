@@ -8,6 +8,7 @@ public class LevelInspectorUI : MonoBehaviour {
   [SerializeField] private TextMeshProUGUI levelDescriptionText;
   [SerializeField] private Image previewImage;
   [SerializeField] private MedalUI currentMedal;
+  [SerializeField] private TextMeshProUGUI bestTime;
 
   [Header("Medal Times")]
   [SerializeField] private TextMeshProUGUI goldTime;
@@ -15,9 +16,11 @@ public class LevelInspectorUI : MonoBehaviour {
   [SerializeField] private TextMeshProUGUI bronzeTime;
 
   private LevelMedalEvaluator levelMedalEvaluator;
+  private LevelResultsRepository levelResultsRepository;
 
   private void Awake() {
     levelMedalEvaluator = GetComponent<LevelMedalEvaluator>();
+    levelResultsRepository = GetComponent<LevelResultsRepository>();
   }
 
   public void UpdateUI(BaseLevel level) {
@@ -28,11 +31,14 @@ public class LevelInspectorUI : MonoBehaviour {
     bronzeTime.text = FormatTime(level.medalThresholds.bronzeTime);
 
     currentMedal.SetMedalTexture(levelMedalEvaluator.GetMedalTexture(level));
+    
+    float? bestTimeForLevel = levelResultsRepository.GetBestTimeForLevel(level.levelName);
+    bestTime.text = bestTimeForLevel.HasValue ? $"Best Time - {FormatTime(bestTimeForLevel.Value)}" : "";
     // previewImage.sprite = level.previewImage;
   }
 
   private string FormatTime(float timeInSeconds) {
     TimeSpan time = TimeSpan.FromSeconds(timeInSeconds);
-    return time.ToString(@"mm\:ss");
+    return time.ToString(@"mm\:ss\.ff");
   }
 }
