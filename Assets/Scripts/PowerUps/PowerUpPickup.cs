@@ -1,12 +1,19 @@
 using UnityEngine;
 
 public class PowerUpPickup : MonoBehaviour {
-  [SerializeField]
-  private BasePowerUp powerUpToGive;
-  [SerializeField]
-  private bool canOverwritePowerUp = true;
-  [SerializeField]
-  private ParticleSystem pickupEffect;
+  [SerializeField] private BasePowerUp powerUpToGive;
+  [SerializeField] private bool canOverwritePowerUp = true;
+  [SerializeField] private ParticleSystem pickupEffect;
+
+  private PowerUpAppearance powerUpAppearance;
+
+  private void Awake() {
+    powerUpAppearance = GetComponent<PowerUpAppearance>();
+  }
+
+  private void Start() {
+    powerUpAppearance.Setup(powerUpToGive);
+  }
 
   private void OnTriggerEnter(Collider other) {
     if (!other.CompareTag("Player")) return;
