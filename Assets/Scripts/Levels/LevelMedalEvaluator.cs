@@ -5,10 +5,10 @@ public class LevelMedalEvaluator : MonoBehaviour {
   [SerializeField] private Sprite silverMedalTexture;
   [SerializeField] private Sprite bronzeMedalTexture;
   
-  private LevelRepository levelRepo;
+  private LevelResultsRepository levelRepo;
 
   private void Awake() {
-    levelRepo = GetComponent<LevelRepository>();
+    levelRepo = GetComponent<LevelResultsRepository>();
   }
 
   public Texture GetMedalTexture(BaseLevel level) {

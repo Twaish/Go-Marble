@@ -7,11 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
   public static LevelManager instance;
+  
+  [SerializeField] private LevelDatabase levelDatabase;
 
   private LevelSelectUI levelSelectUI;
-  private LevelRepository levelRepository;
   private LevelSceneLoader levelSceneLoader;
   private LevelInspectorUI levelInspectorUI;
+  private LevelResultsRepository levelRepository;
   
   private string currentLevelScene;
   private BaseLevel selectedLevel;
@@ -19,7 +21,7 @@ public class LevelManager : MonoBehaviour {
   private void Awake() {
     levelInspectorUI = GetComponent<LevelInspectorUI>();
     levelSceneLoader = GetComponent<LevelSceneLoader>();
-    levelRepository = GetComponent<LevelRepository>();
+    levelRepository = GetComponent<LevelResultsRepository>();
     levelSelectUI  = GetComponent<LevelSelectUI>();
 
     if (instance == null) {
@@ -31,7 +33,7 @@ public class LevelManager : MonoBehaviour {
   }
 
   private void Start() {
-    IReadOnlyList<BaseLevel> allLevels = levelRepository.GetAllLevels();
+    IReadOnlyList<BaseLevel> allLevels = levelDatabase.levels;
     selectedLevel = allLevels.FirstOrDefault();
     
     levelSelectUI.PopulateLevelButtons(allLevels, OnLevelClicked, selectedLevel);

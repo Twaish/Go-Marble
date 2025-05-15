@@ -3,35 +3,31 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class LevelRepository : MonoBehaviour {
-  [SerializeField] private List<BaseLevel> levels;
-
-  public IReadOnlyList<BaseLevel> GetAllLevels() => levels;
-  
-  private Dictionary<string, float> levelTimes;
+public class LevelResultsRepository : MonoBehaviour {
+  private Dictionary<string, float> levelResults;
   private LevelResultPersistence persistence;
 
   private void Awake() {
     persistence = new LevelResultPersistence();
-    levelTimes = persistence.LoadProgress();
+    levelResults = persistence.LoadProgress();
   }
 
   public float? GetBestTimeForLevel(string levelName) {
-    return levelTimes.TryGetValue(levelName, out var time) ? time : null;
+    return levelResults.TryGetValue(levelName, out var time) ? time : null;
   }
 
   public void SubmitLevelResult(string levelName, float time) {
-    if (levelTimes.TryGetValue(levelName, out var existingTime)) {
+    if (levelResults.TryGetValue(levelName, out var existingTime)) {
       if (time >= existingTime) return;
     }
 
-    levelTimes[levelName] = time;
-    persistence.SaveProgress(levelTimes);
+    levelResults[levelName] = time;
+    persistence.SaveProgress(levelResults);
   }
 }
 
 public class LevelResultPersistence {
-  private string filePath => Path.Combine(Application.persistentDataPath, "level_times.json");
+  private string filePath => Path.Combine(Application.persistentDataPath, "level_results.json");
 
   public Dictionary<string, float> LoadProgress() {
     Debug.Log(filePath);
@@ -41,8 +37,8 @@ public class LevelResultPersistence {
     LevelResultData wrapper = JsonUtility.FromJson<LevelResultData>(json);
     Dictionary<string, float> result = new();
 
-    if (wrapper != null && wrapper.levelTimes != null) {
-      foreach (var entry in wrapper.levelTimes) {
+    if (wrapper != null && wrapper.levelResults != null) {
+      foreach (var entry in wrapper.levelResults) {
         result[entry.levelName] = entry.bestTime;
       }
     }
@@ -52,11 +48,11 @@ public class LevelResultPersistence {
 
   public void SaveProgress(Dictionary<string, float> data) {
     LevelResultData wrapper = new() { 
-      levelTimes = new List<LevelResultEntry>() 
+      levelResults = new List<LevelResultEntry>() 
     };
 
     foreach (var kvp in data) {
-      wrapper.levelTimes.Add(new LevelResultEntry {
+      wrapper.levelResults.Add(new LevelResultEntry {
         levelName = kvp.Key,
         bestTime = kvp.Value
       });
@@ -74,5 +70,5 @@ public class LevelResultEntry {
 }
 [Serializable]
 public class LevelResultData {
-  public List<LevelResultEntry> levelTimes = new();
+  public List<LevelResultEntry> levelResults = new();
 }
