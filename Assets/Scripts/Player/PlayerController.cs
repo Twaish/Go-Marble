@@ -181,37 +181,37 @@ public class PlayerController : MonoBehaviour {
     }
   }
 
- void CheckGroundStatus() {
+  void CheckGroundStatus() {
     isGrounded = false;
     lastGroundNormal = Vector3.zero;
 
     int hitCount = 0;
     Vector3[] directions = {
-        transform.up,
-        -transform.up,
-        transform.right,
-        -transform.right,
-        transform.forward,
-        -transform.forward
+      transform.up,
+      -transform.up,
+      transform.right,
+      -transform.right,
+      transform.forward,
+      -transform.forward
     };
 
     foreach (Vector3 dir in directions) {
-        if (Physics.Raycast(transform.position, dir, out RaycastHit hit, groundDetectionRange, groundMask)) {
-            isGrounded = true;
-            lastGroundNormal += hit.normal;
-            hitCount++;
+      if (Physics.Raycast(transform.position, dir, out RaycastHit hit, groundDetectionRange, groundMask)) {
+        isGrounded = true;
+        lastGroundNormal += hit.normal;
+        hitCount++;
 
-            if (debugRays) {
-                Debug.DrawRay(transform.position, dir * groundDetectionRange, Color.cyan);
-                Debug.DrawRay(hit.point, hit.normal, Color.green);
-            }
+        if (debugRays) {
+          Debug.DrawRay(transform.position, dir * groundDetectionRange, Color.cyan);
+          Debug.DrawRay(hit.point, hit.normal, Color.green);
         }
+      }
     }
 
     if (isGrounded && hitCount > 0) {
-        lastGroundNormal.Normalize();
+      lastGroundNormal.Normalize();
     }
-}
+  }
 
 
 
@@ -259,15 +259,15 @@ public class PlayerController : MonoBehaviour {
     return cameraRelativeMovement.normalized;
   }
 
-void HandleJump() {
+  void HandleJump() {
     if (isGrounded && Keyboard.current.spaceKey.isPressed && Time.time - lastJumpTime > jumpCooldown) {
-        rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, lastGroundNormal); // remove velocity into surface
-        rb.AddForce(lastGroundNormal * jumpForce, ForceMode.Impulse);
+      rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, lastGroundNormal); // remove velocity into surface
+      rb.AddForce(lastGroundNormal * jumpForce, ForceMode.Impulse);
 
-        lastJumpTime = Time.time;
-        isGrounded = false;
+      lastJumpTime = Time.time;
+      isGrounded = false;
     }
-}
+  }
 
 
   void OnMove(InputValue movementValue) {
