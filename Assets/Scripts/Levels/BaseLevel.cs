@@ -14,7 +14,7 @@ public class BaseLevel : ScriptableObject {
 
 [Serializable]
 public class MedalThresholds {
-  public int goldTime;
-  public int silverTime;
-  public int bronzeTime;
+  public float goldTime;
+  public float silverTime;
+  public float bronzeTime;
 }
