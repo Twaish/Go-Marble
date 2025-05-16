@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkinEquippedUI : MonoBehaviour {
-  [SerializeField] private SkinDetails marbleDetails;
-  [SerializeField] private SkinDetails trailDetails;
+public class SkinEquippedUIController : MonoBehaviour {
+  [SerializeField] private SkinDetailsUI marbleDetails;
+  [SerializeField] private SkinDetailsUI trailDetails;
   [SerializeField] private Transform accessoryDetailsParent;
   [SerializeField] private GameObject accessoryDetailPrefab;
   
-  private readonly List<SkinDetails> accessoryDetailInstances = new();
+  private readonly List<SkinDetailsUI> accessoryDetailInstances = new();
 
   public void UpdateMarbleDetails(BaseSkin marbleSkin) {
     marbleDetails.SetSkin(marbleSkin);
@@ -28,7 +28,7 @@ public class SkinEquippedUI : MonoBehaviour {
 
     foreach (var accessory in accessorySkins) {
       GameObject go = Instantiate(accessoryDetailPrefab, accessoryDetailsParent);
-      SkinDetails detail = go.GetComponent<SkinDetails>();
+      SkinDetailsUI detail = go.GetComponent<SkinDetailsUI>();
       detail.SetSkin(accessory);
       accessoryDetailInstances.Add(detail);
     }

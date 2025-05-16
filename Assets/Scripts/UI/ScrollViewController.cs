@@ -41,13 +41,13 @@ public class ScrollViewController : MonoBehaviour {
     }
   }
 
-  SkinTile CreateTile(string name) {
+  SkinTileUI CreateTile(string name) {
     GameObject skinTileGO = Instantiate(prefabListItem, Vector3.zero, Quaternion.identity);
     skinTileGO.transform.SetParent(content.transform);
     skinTileGO.transform.localScale = Vector3.one;
     skinTileGO.name = name;
 
-    SkinTile skinTile = skinTileGO.GetComponent<SkinTile>();
+    SkinTileUI skinTile = skinTileGO.GetComponent<SkinTileUI>();
     skinTile.Text = name;
 
     skinTile.OnSelectEvent.AddListener((tile) => HandleItemOnSelect(tile));
@@ -55,7 +55,7 @@ public class ScrollViewController : MonoBehaviour {
     return skinTile;
   }
 
-  void HandleItemOnSelect(SkinTile skinTile) {
+  void HandleItemOnSelect(SkinTileUI skinTile) {
     autoScroll.HandleOnSelectChange(skinTile.gameObject);
     eventItemOnSelect.Invoke(skinTile);
   }

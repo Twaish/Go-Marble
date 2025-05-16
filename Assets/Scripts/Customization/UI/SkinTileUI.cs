@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SkinTile : MonoBehaviour, ISelectHandler {
+public class SkinTileUI : MonoBehaviour, ISelectHandler {
   [SerializeField] private Image icon;
   [SerializeField] private TextMeshProUGUI title;
 
@@ -58,4 +58,4 @@ public class SkinTile : MonoBehaviour, ISelectHandler {
 }
 
 [System.Serializable]
-public class SkinTileEvent : UnityEvent<SkinTile>{}
+public class SkinTileEvent : UnityEvent<SkinTileUI>{}
