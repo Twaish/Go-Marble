@@ -9,6 +9,8 @@ public class CustomizationManager : MonoBehaviour {
   private SkinSelectionUI skinSelectionUI;
   private SkinEquippedUI skinEquippedUI;
 
+  public SkinDatabase GetSkinDatabase() => skinDatabase;
+
   private void Awake() {
     customizationRepository = GetComponent<CustomizationRepository>();
     skinSelectionUI = GetComponent<SkinSelectionUI>();
@@ -37,13 +39,15 @@ public class CustomizationManager : MonoBehaviour {
     skinEquippedUI.UpdateAccessoryDetails(accessories);
   }
 
-  private void onSkinSelected(BaseSkin selectedSkin) {
-    switch (selectedSkin) {
+  private void onSkinSelected(BaseSkin selectedSkin)
+  {
+    switch (selectedSkin)
+    {
       case MarbleSkin:
         customizationRepository.SetSelectedMarble(selectedSkin.skinName);
         string marbleName = customizationRepository.GetSelectedMarble();
         skinSelectionUI.HighlightMarble(marbleName);
-        
+
         var equippedMarble = skinDatabase.marbles.FirstOrDefault(m => m.skinName == marbleName);
         skinEquippedUI.UpdateMarbleDetails(equippedMarble);
         break;
@@ -52,7 +56,7 @@ public class CustomizationManager : MonoBehaviour {
         customizationRepository.SetSelectedTrail(selectedSkin.skinName);
         string trailName = customizationRepository.GetSelectedTrail();
         skinSelectionUI.HighlightTrail(trailName);
-        
+
         var equippedTrail = skinDatabase.trails.FirstOrDefault(t => t.skinName == trailName);
         skinEquippedUI.UpdateTrailDetails(equippedTrail);
         break;

@@ -4,9 +4,10 @@ using System.IO;
 using UnityEngine;
 
 public class CustomizationRepository : MonoBehaviour {
+  public event Action<CustomizationData> OnCustomizationChanged;
+
   private CustomizationData customizationData;
   private CustomizationPersistence persistence;
-
   private readonly int maxAccessories = 3;
 
   private void Awake() {
@@ -18,14 +19,18 @@ public class CustomizationRepository : MonoBehaviour {
   public string GetSelectedTrail() => string.IsNullOrEmpty(customizationData.selectedTrail) ? null : customizationData.selectedTrail;
   public IReadOnlyList<string> GetSelectedAccessories() => customizationData.selectedAccessories;
 
+  public CustomizationData GetCustomizationData() => customizationData;
+
   public void SetSelectedMarble(string marbleName) {
     customizationData.selectedMarble = (customizationData.selectedMarble == marbleName) ? null : marbleName;
     Save();
+    OnCustomizationChanged?.Invoke(customizationData);
   }
 
   public void SetSelectedTrail(string trailName) {
     customizationData.selectedTrail = (customizationData.selectedTrail == trailName) ? null : trailName;
     Save();
+    OnCustomizationChanged?.Invoke(customizationData);
   }
 
   public void ToggleAccessory(string accessoryName) {
@@ -35,6 +40,7 @@ public class CustomizationRepository : MonoBehaviour {
       customizationData.selectedAccessories.Add(accessoryName);
     }
     Save();
+    OnCustomizationChanged?.Invoke(customizationData);
   }
 
   private void Save() => persistence.Save(customizationData);

@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class SkinApplier : MonoBehaviour {
+  private MarbleSkinHandler marbleHandler;
+  private TrailSkinHandler trailHandler;
+  private AccessorySkinHandler accessoryHandler;
+  
+  private CustomizationRepository repo;
+  private SkinDatabase skinDatabase;
+
+  private Action<CustomizationData> onCustomizationChanged;
+
+  private void Awake()
+  {
+    marbleHandler = new MarbleSkinHandler();
+    trailHandler = new TrailSkinHandler();
+    accessoryHandler = new AccessorySkinHandler();
+  }
+
+  private void Start()
+  {
+    var customizationManager = FindFirstObjectByType<CustomizationManager>();
+    if (customizationManager == null)
+    {
+      Debug.LogWarning("CustomizationManager not found");
+      return;
+    }
+
+    repo = customizationManager.GetComponent<CustomizationRepository>();
+    if (repo == null)
+    {
+      Debug.LogWarning("CustomizationRepository not found");
+      return;
+    }
+
+    skinDatabase = customizationManager.GetSkinDatabase();
+
+    repo.OnCustomizationChanged += ApplyCustomization;
+
+    ApplyCustomization(repo.GetCustomizationData());
+  }
+  
+  private void OnDestroy() {
+    if (repo != null && onCustomizationChanged != null) {
+      repo.OnCustomizationChanged -= ApplyCustomization;
+    }
+  }
+
+  public void ApplyCustomization(CustomizationData data)
+  {
+    var marble = skinDatabase.marbles.FirstOrDefault(m => m.skinName == data.selectedMarble);
+    var trail = skinDatabase.trails.FirstOrDefault(t => t.skinName == data.selectedTrail);
+    var accessories = data.selectedAccessories
+      .Select(name => skinDatabase.accessories.FirstOrDefault(a => a.skinName == name))
+      .Where(a => a != null)
+      .ToList();
+
+    marbleHandler.Apply(marble);
+    trailHandler.Apply(trail);
+    accessoryHandler.Apply(accessories);
+  }
+}
+
+public class MarbleSkinHandler {
+
+  public void Apply(MarbleSkin marble) {
+    Debug.Log("APPLYING MARBLE: " + marble?.skinName);
+  }
+}
+
+public class TrailSkinHandler {
+
+  public void Apply(TrailSkin trail) {
+    Debug.Log("APPLYING TRAIL: " + trail?.skinName);
+  }
+
+}
+
+public class AccessorySkinHandler {
+  
+  public void Apply(List<AccessorySkin> accessories) {
+    foreach (var accessory in accessories) {
+      Debug.Log("APPLYING ACCESSORY: " + accessory?.skinName);
+    }
+  }
+  
+}
