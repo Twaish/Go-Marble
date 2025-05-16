@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class SkinDetails : MonoBehaviour {
+public class SkinDetailsUI : MonoBehaviour {
   [SerializeField] private TextMeshProUGUI skinName;
   [SerializeField] private TextMeshProUGUI skinDescription;
 

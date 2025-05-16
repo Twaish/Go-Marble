@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkinSelectionUI : MonoBehaviour {
+public class SkinSelectionUIController : MonoBehaviour {
   [SerializeField] private GameObject skinTilePrefab;
   
   [SerializeField] private Transform marbleContainer;
   [SerializeField] private Transform trailContainer;
   [SerializeField] private Transform accessoryContainer;
 
-  private Dictionary<BaseSkin, SkinTile> marbleTiles = new();
-  private Dictionary<BaseSkin, SkinTile> trailTiles = new();
-  private Dictionary<BaseSkin, SkinTile> accessoryTiles = new();
+  private Dictionary<BaseSkin, SkinTileUI> marbleTiles = new();
+  private Dictionary<BaseSkin, SkinTileUI> trailTiles = new();
+  private Dictionary<BaseSkin, SkinTileUI> accessoryTiles = new();
 
   public void PopulateSkins(SkinDatabase database, Action<BaseSkin> onSelect) {
     marbleTiles = PopulateList(database.marbles, marbleContainer, onSelect);
@@ -19,12 +19,12 @@ public class SkinSelectionUI : MonoBehaviour {
     accessoryTiles = PopulateList(database.accessories, accessoryContainer, onSelect);
   }
 
-  private Dictionary<BaseSkin, SkinTile> PopulateList<T>(List<T> skins, Transform container, Action<BaseSkin> onSelect) where T : BaseSkin {
+  private Dictionary<BaseSkin, SkinTileUI> PopulateList<T>(List<T> skins, Transform container, Action<BaseSkin> onSelect) where T : BaseSkin {
     foreach (Transform child in container) Destroy(child.gameObject);
 
-    var dict = new Dictionary<BaseSkin, SkinTile>();
+    var dict = new Dictionary<BaseSkin, SkinTileUI>();
     foreach (var skin in skins) {
-      var tile = Instantiate(skinTilePrefab, container).GetComponent<SkinTile>();
+      var tile = Instantiate(skinTilePrefab, container).GetComponent<SkinTileUI>();
       tile.Setup(skin, () => onSelect(skin));
       dict[skin] = tile;
     }
