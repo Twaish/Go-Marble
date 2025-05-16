@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LevelTile : MonoBehaviour, IPointerEnterHandler, ISelectHandler {
+public class LevelTileUI : MonoBehaviour, IPointerEnterHandler, ISelectHandler {
   [SerializeField] private Image background;
   [SerializeField] private Color normalColor = Color.white;
   [SerializeField] private Color selectedColor = Color.yellow;

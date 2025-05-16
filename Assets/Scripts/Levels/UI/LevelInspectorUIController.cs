@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelInspectorUI : MonoBehaviour {
+public class LevelInspectorUIController : MonoBehaviour {
   [SerializeField] private TextMeshProUGUI levelNameText;
   [SerializeField] private TextMeshProUGUI levelDescriptionText;
   [SerializeField] private Image previewImage;

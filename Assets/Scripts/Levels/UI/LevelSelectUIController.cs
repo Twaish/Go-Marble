@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSelectUI : MonoBehaviour {
+public class LevelSelectUIController : MonoBehaviour {
   [SerializeField] private GameObject levelButtonPrefab;
   [SerializeField] private Transform levelGridParent;
 
-  private Dictionary<BaseLevel, LevelTile> buttonLookup = new();
+  private Dictionary<BaseLevel, LevelTileUI> buttonLookup = new();
   private LevelMedalEvaluator levelMedalEvaluator;
 
   private void Awake() {
@@ -26,7 +26,7 @@ public class LevelSelectUI : MonoBehaviour {
 
     foreach (var level in levels) {
       GameObject go = Instantiate(levelButtonPrefab, levelGridParent);
-      LevelTile button = go.GetComponent<LevelTile>();
+      LevelTileUI button = go.GetComponent<LevelTileUI>();
       button.Setup(level, onLevelClicked, onLevelFocused, levelMedalEvaluator);
       buttonLookup[level] = button;
     }
