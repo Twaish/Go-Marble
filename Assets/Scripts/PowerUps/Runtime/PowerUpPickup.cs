@@ -5,14 +5,14 @@ public class PowerUpPickup : MonoBehaviour {
   [SerializeField] private bool canOverwritePowerUp = true;
   [SerializeField] private ParticleSystem pickupEffect;
 
-  private PowerUpAppearance powerUpAppearance;
+  private PowerUpVisuals powerUpVisuals;
 
   private void Awake() {
-    powerUpAppearance = GetComponent<PowerUpAppearance>();
+    powerUpVisuals = GetComponent<PowerUpVisuals>();
   }
 
   private void Start() {
-    powerUpAppearance.Setup(powerUpToGive);
+    powerUpVisuals.Setup(powerUpToGive);
   }
 
   private void OnTriggerEnter(Collider other) {

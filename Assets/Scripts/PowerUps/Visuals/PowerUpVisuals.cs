@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PowerUpAppearance : MonoBehaviour {
+public class PowerUpVisuals : MonoBehaviour {
   [SerializeField] private Image icon;
   [SerializeField] private Light pointLight;
 
