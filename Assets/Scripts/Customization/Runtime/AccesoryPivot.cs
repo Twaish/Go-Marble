@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AccesoryPivot : MonoBehaviour
 {
-  [SerializeField] private GameObject target;
+  [SerializeField] private Transform target;
   [SerializeField] private Vector3 offset = new(0, 0.5f, 0);
   [SerializeField] private float rotationSmoothSpeed = 10f;
   [SerializeField] private float yawOffsetDegrees = -90f; // Y-axis rotation offset
@@ -17,12 +17,12 @@ public class AccesoryPivot : MonoBehaviour
       enabled = false;
       return;
     }
-    previousPosition = target.transform.position;
+    previousPosition = target.position;
   }
 
   private void Update()
   {
-    Vector3 currentPosition = target.transform.position;
+    Vector3 currentPosition = target.position;
     Vector3 velocity = (currentPosition - previousPosition) / Time.deltaTime;
 
     Vector3 desiredPosition = currentPosition + offset;

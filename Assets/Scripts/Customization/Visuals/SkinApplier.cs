@@ -25,14 +25,16 @@ public class SkinApplier : MonoBehaviour {
     var customizationManager = FindFirstObjectByType<CustomizationManager>();
     if (customizationManager == null)
     {
-      Debug.LogWarning("CustomizationManager not found");
+      Debug.LogError("SkinApplier: CustomizationManager not found in scene");
+      enabled = false;
       return;
     }
 
     repo = customizationManager.GetComponent<CustomizationRepository>();
     if (repo == null)
     {
-      Debug.LogWarning("CustomizationRepository not found");
+      Debug.LogError("SkinApplier: CustomizationRepository not found on CustomizationManager");
+      enabled = false;
       return;
     }
 
