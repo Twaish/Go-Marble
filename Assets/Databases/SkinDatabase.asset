@@ -18,7 +18,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8d2f9d290285ebe4ca79a4e89841163d, type: 2}
   - {fileID: 11400000, guid: 0fba924b42d8d5042a9c1ff5080d12d7, type: 2}
   - {fileID: 11400000, guid: b863ab24e78b623429d62db8c384d4e7, type: 2}
-  trails: []
+  - {fileID: 11400000, guid: 2b48d4a1bbb1a7e43be357b755a5a365, type: 2}
+  - {fileID: 11400000, guid: b99a8d719d7bf8f4fa0348887501bb48, type: 2}
+  trails:
+  - {fileID: 11400000, guid: e0d89eb631b6b8647bc02bf5e80ec629, type: 2}
+  - {fileID: 11400000, guid: 4dc86a45bf361384091768ff7a4d0613, type: 2}
+  - {fileID: 11400000, guid: 893c0ab2986bbcd4894cc183e4b7abbe, type: 2}
+  - {fileID: 11400000, guid: 4c74c53532dfff343a088d168825e225, type: 2}
+  - {fileID: 11400000, guid: bca542d2fc979ed478dd7c1d1c10ef36, type: 2}
   accessories:
   - {fileID: 11400000, guid: ef0f1c31e2173eb4b91e71867b741321, type: 2}
   - {fileID: 11400000, guid: 17347b69e9f8d594b8f5311cd70bd5a2, type: 2}
