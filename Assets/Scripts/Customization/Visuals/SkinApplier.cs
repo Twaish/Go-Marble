@@ -15,9 +15,9 @@ public class SkinApplier : MonoBehaviour {
 
   private void Awake()
   {
-    marbleHandler = new MarbleSkinHandler();
-    trailHandler = new TrailSkinHandler();
-    accessoryHandler = new AccessorySkinHandler();
+    marbleHandler = GetComponent<MarbleSkinHandler>();
+    trailHandler = GetComponent<TrailSkinHandler>();
+    accessoryHandler = GetComponent<AccessorySkinHandler>();
   }
 
   private void Start()
@@ -62,29 +62,4 @@ public class SkinApplier : MonoBehaviour {
     trailHandler.Apply(trail);
     accessoryHandler.Apply(accessories);
   }
-}
-
-public class MarbleSkinHandler {
-
-  public void Apply(MarbleSkin marble) {
-    Debug.Log("APPLYING MARBLE: " + marble?.skinName);
-  }
-}
-
-public class TrailSkinHandler {
-
-  public void Apply(TrailSkin trail) {
-    Debug.Log("APPLYING TRAIL: " + trail?.skinName);
-  }
-
-}
-
-public class AccessorySkinHandler {
-  
-  public void Apply(List<AccessorySkin> accessories) {
-    foreach (var accessory in accessories) {
-      Debug.Log("APPLYING ACCESSORY: " + accessory?.skinName);
-    }
-  }
-  
 }
