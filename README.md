@@ -12,3 +12,4 @@
 
 ## Shaders
 - [Refraction Shader by PabloMakes](https://www.youtube.com/watch?v=tIW2zM6ed8o)
+- [Electricity Shader by Gabriel Aguiar Prod.](https://www.youtube.com/watch?v=Afh5zY6zxLs&ab_channel=GabrielAguiarProd.)
