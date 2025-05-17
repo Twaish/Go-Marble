@@ -17,10 +17,14 @@ public class PowerUpPickup : MonoBehaviour {
 
   private void OnTriggerEnter(Collider other) {
     if (!other.CompareTag("Player")) return;
-    if (!other.TryGetComponent<PowerUpManager>(out var powerUpManager)) return;
-    if (!canOverwritePowerUp && powerUpManager.HasPowerUp()) return;
-    powerUpManager.AssignPowerUp(powerUpToGive);
-    
+
+    PlayerPowerUpUser powerUpUser = other.GetComponent<PlayerPowerUpUser>();
+    if (powerUpUser == null) return;
+
+    powerUpUser.GivePowerUp(powerUpToGive, canOverwritePowerUp);
+
+    if (pickupEffect == null) return;
+
     ParticleSystem effect = Instantiate(pickupEffect, transform.position, Quaternion.identity);
     effect.Play();
     Destroy(effect.gameObject, effect.main.duration);
