@@ -4,8 +4,10 @@ using System.IO;
 using UnityEngine;
 
 public class CustomizationRepository : MonoBehaviour {
-  public event Action<CustomizationData> OnCustomizationChanged;
-
+  public event Action<string> OnMarbleChanged;
+  public event Action<string> OnTrailChanged;
+  public event Action<List<string>> OnAccessoriesChanged;
+  
   private CustomizationData customizationData;
   private CustomizationPersistence persistence;
   private readonly int maxAccessories = 3;
@@ -24,13 +26,13 @@ public class CustomizationRepository : MonoBehaviour {
   public void SetSelectedMarble(string marbleName) {
     customizationData.selectedMarble = (customizationData.selectedMarble == marbleName) ? null : marbleName;
     Save();
-    OnCustomizationChanged?.Invoke(customizationData);
+    OnMarbleChanged?.Invoke(customizationData.selectedMarble);
   }
 
   public void SetSelectedTrail(string trailName) {
     customizationData.selectedTrail = (customizationData.selectedTrail == trailName) ? null : trailName;
     Save();
-    OnCustomizationChanged?.Invoke(customizationData);
+    OnTrailChanged?.Invoke(customizationData.selectedTrail);
   }
 
   public void ToggleAccessory(string accessoryName) {
@@ -40,7 +42,7 @@ public class CustomizationRepository : MonoBehaviour {
       customizationData.selectedAccessories.Add(accessoryName);
     }
     Save();
-    OnCustomizationChanged?.Invoke(customizationData);
+    OnAccessoriesChanged?.Invoke(customizationData.selectedAccessories);
   }
 
   private void Save() => persistence.Save(customizationData);

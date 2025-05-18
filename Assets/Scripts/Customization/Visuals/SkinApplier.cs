@@ -11,28 +11,22 @@ public class SkinApplier : MonoBehaviour {
   private CustomizationRepository repo;
   private SkinDatabase skinDatabase;
 
-  private Action<CustomizationData> onCustomizationChanged;
-
-  private void Awake()
-  {
+  private void Awake() {
     marbleHandler = GetComponent<MarbleSkinHandler>();
     trailHandler = GetComponent<TrailSkinHandler>();
     accessoryHandler = GetComponent<AccessorySkinHandler>();
   }
 
-  private void Start()
-  {
+  private void Start() {
     var customizationManager = FindFirstObjectByType<CustomizationManager>();
-    if (customizationManager == null)
-    {
+    if (customizationManager == null) {
       Debug.LogError("SkinApplier: CustomizationManager not found in scene");
       enabled = false;
       return;
     }
 
     repo = customizationManager.GetComponent<CustomizationRepository>();
-    if (repo == null)
-    {
+    if (repo == null) {
       Debug.LogError("SkinApplier: CustomizationRepository not found on CustomizationManager");
       enabled = false;
       return;
@@ -40,28 +34,42 @@ public class SkinApplier : MonoBehaviour {
 
     skinDatabase = customizationManager.GetSkinDatabase();
 
-    repo.OnCustomizationChanged += ApplyCustomization;
+    repo.OnMarbleChanged += ApplyMarble;
+    repo.OnTrailChanged += ApplyTrail;
+    repo.OnAccessoriesChanged += ApplyAccessories;
 
-    ApplyCustomization(repo.GetCustomizationData());
+    CustomizationData customizationData = repo.GetCustomizationData();
+    ApplyMarble(customizationData.selectedMarble);
+    ApplyTrail(customizationData.selectedTrail);
+    ApplyAccessories(customizationData.selectedAccessories);
   }
   
   private void OnDestroy() {
-    if (repo != null && onCustomizationChanged != null) {
-      repo.OnCustomizationChanged -= ApplyCustomization;
-    }
+    if (repo == null) return; 
+    repo.OnMarbleChanged -= ApplyMarble;
+    repo.OnTrailChanged -= ApplyTrail;
+    repo.OnAccessoriesChanged -= ApplyAccessories;
   }
 
-  public void ApplyCustomization(CustomizationData data)
+  private void ApplyMarble(string marbleName)
   {
-    var marble = skinDatabase.marbles.FirstOrDefault(m => m.skinName == data.selectedMarble);
-    var trail = skinDatabase.trails.FirstOrDefault(t => t.skinName == data.selectedTrail);
-    var accessories = data.selectedAccessories
+    MarbleSkin marble = skinDatabase.marbles.FirstOrDefault(m => m.skinName == marbleName);
+    marbleHandler.Apply(marble);
+  }
+
+  private void ApplyTrail(string trailName)
+  {
+    TrailSkin trail = skinDatabase.trails.FirstOrDefault(t => t.skinName == trailName);
+    trailHandler.Apply(trail);
+  }
+
+  private void ApplyAccessories(List<string> accessoryNames)
+  {
+    List<AccessorySkin> accessories = accessoryNames
       .Select(name => skinDatabase.accessories.FirstOrDefault(a => a.skinName == name))
       .Where(a => a != null)
       .ToList();
 
-    marbleHandler.Apply(marble);
-    trailHandler.Apply(trail);
     accessoryHandler.Apply(accessories);
   }
 }
