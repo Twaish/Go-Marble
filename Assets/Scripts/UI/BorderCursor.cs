@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-
 public class BorderCursor : MonoBehaviour {
   [SerializeField]
   private float pulseSpeed = 1f;
@@ -15,15 +14,12 @@ public class BorderCursor : MonoBehaviour {
   private float positionLerpSpeed = 10f;
 
   private RectTransform imageTransform;
-  private GameObject currentFocusedUI;
-  private Vector3 targetPosition;
   private float pulseTime;
   private Image image;
 
   private void Start() {
     image = GetComponent<Image>();
     imageTransform = image.GetComponent<RectTransform>();
-    targetPosition = imageTransform.position;
     StartCoroutine(PulsateBorder());
   }
 
