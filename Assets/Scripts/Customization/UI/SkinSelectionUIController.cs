@@ -37,7 +37,7 @@ public class SkinSelectionUIController : MonoBehaviour {
     foreach (var skin in skins) {
       var tile = Instantiate(skinTilePrefab, container).GetComponent<SkinTileUI>();
       tile.OnSelectEvent = new SkinTileEvent();
-      tile.OnSelectEvent.AddListener(scrollController.CenterOnItem);
+      tile.OnSelectEvent.AddListener((data) => scrollController.CenterOnItem(tile.gameObject));
       tile.Setup(skin, () => onSelect(skin));
       dict[skin] = tile;
     }

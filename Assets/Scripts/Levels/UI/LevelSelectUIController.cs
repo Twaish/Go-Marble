@@ -6,6 +6,8 @@ public class LevelSelectUIController : MonoBehaviour {
   [SerializeField] private GameObject levelButtonPrefab;
   [SerializeField] private Transform levelGridParent;
 
+  [SerializeField] private AutoScrollController levelScrollController;
+
   private Dictionary<BaseLevel, LevelTileUI> buttonLookup = new();
   private LevelMedalEvaluator levelMedalEvaluator;
 
@@ -27,7 +29,10 @@ public class LevelSelectUIController : MonoBehaviour {
     foreach (var level in levels) {
       GameObject go = Instantiate(levelButtonPrefab, levelGridParent);
       LevelTileUI button = go.GetComponent<LevelTileUI>();
-      button.Setup(level, onLevelClicked, onLevelFocused, levelMedalEvaluator);
+      button.Setup(level, onLevelClicked, data => {
+        onLevelFocused(data);
+        levelScrollController.CenterOnItem(go);
+      }, levelMedalEvaluator);
       buttonLookup[level] = button;
     }
     HighlightSelected(selectedLevel);

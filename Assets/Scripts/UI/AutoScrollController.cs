@@ -18,7 +18,7 @@ public class AutoScrollController : MonoBehaviour {
 
   private Coroutine scrollRoutine;
 
-  public void CenterOnItem(SkinTileUI tileUI) {
+  public void CenterOnItem(GameObject tileUI) {
     // RectTransform target = tileUI.GetComponent<RectTransform>();
     // Canvas.ForceUpdateCanvases();
 
