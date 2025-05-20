@@ -16,7 +16,7 @@ MonoBehaviour:
   sceneName: 4. Pipe
   description: Watch out for the red walls
   levelIndex: 3
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 21300000, guid: acef9cd3055cfbe469b3bbfba04b4bc2, type: 3}
   medalThresholds:
     goldTime: 17
     silverTime: 24

@@ -16,7 +16,7 @@ MonoBehaviour:
   sceneName: 2. Turns
   description: Navigate sharp corners
   levelIndex: 1
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 21300000, guid: 1fdaef820f3f55540802a4dfa8c19151, type: 3}
   medalThresholds:
     goldTime: 15
     silverTime: 20

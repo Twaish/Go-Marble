@@ -16,7 +16,7 @@ MonoBehaviour:
   sceneName: 5. Speed
   description: Blaze through the track
   levelIndex: 4
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 21300000, guid: 7e39d899cdb32834e8e2952e8e3a99bd, type: 3}
   medalThresholds:
     goldTime: 22
     silverTime: 30

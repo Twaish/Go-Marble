@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class AccesoryPivot : MonoBehaviour
-{
+public class AccesoryPivot : MonoBehaviour {
   [SerializeField] private Transform target;
   [SerializeField] private Vector3 offset = new(0, 0.5f, 0);
   [SerializeField] private float rotationSmoothSpeed = 10f;
@@ -9,10 +8,8 @@ public class AccesoryPivot : MonoBehaviour
 
   private Vector3 previousPosition;
 
-  private void Start()
-  {
-    if (target == null)
-    {
+  private void Start() {
+    if (target == null) {
       Debug.LogError("AccessoryPivot: Target is not assigned");
       enabled = false;
       return;
@@ -20,8 +17,7 @@ public class AccesoryPivot : MonoBehaviour
     previousPosition = target.position;
   }
 
-  private void Update()
-  {
+  private void Update() {
     Vector3 currentPosition = target.position;
     Vector3 velocity = (currentPosition - previousPosition) / Time.deltaTime;
 
@@ -31,11 +27,15 @@ public class AccesoryPivot : MonoBehaviour
 
     if (velocity.sqrMagnitude > 0.001f) {
       velocity.y = 0;
+      Vector3 lookDirection = velocity.normalized;
 
-      Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized);
-      targetRotation *= Quaternion.Euler(0, yawOffsetDegrees, 0);
+      // Silence "Look rotation viewing vector is zero" precision issues when normalizing velocity
+      if (lookDirection != Vector3.zero) {
+        Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+        targetRotation *= Quaternion.Euler(0, yawOffsetDegrees, 0);
 
-      transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothSpeed * Time.deltaTime);
+      }
     }
 
     previousPosition = currentPosition;
