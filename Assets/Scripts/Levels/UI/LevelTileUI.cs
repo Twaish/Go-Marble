@@ -5,10 +5,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class LevelTileUI : MonoBehaviour, IPointerEnterHandler, ISelectHandler {
-  [SerializeField] private Image background;
-  [SerializeField] private Color normalColor = Color.white;
-  [SerializeField] private Color selectedColor = Color.yellow;
-
   [SerializeField] private Image previewImage;
   [SerializeField] private MedalUI medalUI;
   [SerializeField] private TextMeshProUGUI text;
@@ -53,7 +49,6 @@ public class LevelTileUI : MonoBehaviour, IPointerEnterHandler, ISelectHandler {
     }
     text.text = isSelected ? "X" : "";
     outline.useGraphicAlpha = !isSelected;
-    // background.color = isSelected ? selectedColor : normalColor;
   }
 
   public void RefreshMedal() {
