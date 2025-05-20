@@ -29,33 +29,19 @@ public class SkinTileUI : MonoBehaviour, ISelectHandler {
       Debug.Log(skin?.skinName);
     }
     title.text = isSelected ? "X" : "";
-    // background.color = isSelected ? selectedColor : normalColor;
   }
 
-  [SerializeField]
-  private SkinTileEvent onSelectEvent;
-  [SerializeField]
-  private TMP_Text text;
+  [SerializeField] private SkinTileEvent onSelectEvent;
 
   public SkinTileEvent OnSelectEvent {
     get => onSelectEvent;
     set => onSelectEvent = value;
   }
 
-  public string Text {
-    get => text.text;
-    set => text.text = value;
-  }
-
   public void OnSelect(BaseEventData eventData) {
-    onSelectEvent.Invoke(this);
-  }
-
-  public void ObtainSelectionFocus() {
-    EventSystem.current.SetSelectedGameObject(gameObject);
     onSelectEvent.Invoke(this);
   }
 }
 
-[System.Serializable]
+[Serializable]
 public class SkinTileEvent : UnityEvent<SkinTileUI>{}

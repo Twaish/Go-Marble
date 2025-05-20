@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 5350773815340311805}
   - component: {fileID: 6167313892224318577}
   - component: {fileID: 6988010098264523527}
+  - component: {fileID: 76414247484737746}
   m_Layer: 5
   m_Name: SkinSection
   m_TagString: Untagged
@@ -153,6 +154,25 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &76414247484737746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164103372518604450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66875e9bbc088644cb00da4e84bf5d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 450539844579742508}
+  contentRect: {fileID: 1261653745648408767}
+  scrollSpeed: 3
+  verticalOffsetFactor: 0.5
+  horizontalOffsetFactor: 0
+  enableVerticalScroll: 0
+  enableHorizontalScroll: 1
 --- !u!1 &2271429712584360709
 GameObject:
   m_ObjectHideFlags: 0
