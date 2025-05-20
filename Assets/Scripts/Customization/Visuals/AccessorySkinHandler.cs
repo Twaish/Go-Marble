@@ -5,6 +5,10 @@ public class AccessorySkinHandler : MonoBehaviour {
   [SerializeField] private GameObject accessoryPivot;
   
   public void Apply(List<AccessorySkin> accessories) {
+    if (accessoryPivot == null) {
+      Debug.LogWarning("AccessorySkinHandler: No accessoryPivot defined");
+      return;
+    }
     foreach (Transform child in accessoryPivot.transform) {
       Destroy(child.gameObject);
     }
