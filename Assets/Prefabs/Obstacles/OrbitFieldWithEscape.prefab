@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3798824260362712673}
   - component: {fileID: 4202276059532679624}
   - component: {fileID: 3876199849698034399}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: TransferGravityField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 3832872863953309482}
   - component: {fileID: 7648923219962082369}
   - component: {fileID: 3266018671736844978}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: GravityField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
