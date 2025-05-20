@@ -16,7 +16,7 @@ MonoBehaviour:
   sceneName: 6. Gravity
   description: Defy gravity as the world twists
   levelIndex: 5
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 21300000, guid: a4486eacf52b18844a72c73cf200e10c, type: 3}
   medalThresholds:
     goldTime: 0
     silverTime: 0
