@@ -1,24 +1,17 @@
 using UnityEngine;
 
-public class TrailSkinHandler : MonoBehaviour
-{
-  
+public class TrailSkinHandler : MonoBehaviour {
   private GameObject currentTrail;
     
-  public void Apply(TrailSkin trail)
-  {
-    if (trail == null)
-    {
-      return;
-    }
-
-    if (currentTrail != null)
-    {
+  public void Apply(TrailSkin trail) {
+    if (currentTrail != null) {
       Destroy(currentTrail);
+      currentTrail = null;
     }
 
-    currentTrail = Instantiate(trail.trailPrefab, transform);
-
-    Debug.Log("APPLYING TRAIL: " + trail.skinName);
+    if (trail != null) {
+      currentTrail = Instantiate(trail.trailPrefab, transform);
+      Debug.Log("APPLYING TRAIL: " + trail.skinName);
+    }
   }
 }
