@@ -34,7 +34,9 @@ public class LevelInspectorUIController : MonoBehaviour {
     
     float? bestTimeForLevel = levelResultsRepository.GetBestTimeForLevel(level.levelName);
     bestTime.text = bestTimeForLevel.HasValue ? $"Best Time - {FormatTime(bestTimeForLevel.Value)}" : "";
-    // previewImage.sprite = level.previewImage;
+    if (level.previewImage != null) {
+      previewImage.sprite = level.previewImage;
+    } 
   }
 
   private string FormatTime(float timeInSeconds) {
