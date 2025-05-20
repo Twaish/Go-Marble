@@ -16,7 +16,7 @@ MonoBehaviour:
   sceneName: 3. Moving
   description: Adapt to shifting platforms
   levelIndex: 2
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 21300000, guid: 9a3903b685258844886fdd91d8f3aac4, type: 3}
   medalThresholds:
     goldTime: 13
     silverTime: 18

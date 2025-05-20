@@ -16,7 +16,7 @@ MonoBehaviour:
   sceneName: 7. Precision
   description: Move precisely to reach your goal
   levelIndex: 6
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 21300000, guid: 6e8b041cde0eba44d84d0fbf0d3c02e3, type: 3}
   medalThresholds:
     goldTime: 45
     silverTime: 60

@@ -16,7 +16,7 @@ MonoBehaviour:
   sceneName: 1. Tutorial
   description: Learn the basics
   levelIndex: 0
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 21300000, guid: 1b620ccbf57e0b749aba5ea632c2d8ce, type: 3}
   medalThresholds:
     goldTime: 6
     silverTime: 9
