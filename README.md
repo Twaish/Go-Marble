@@ -16,4 +16,9 @@ A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. T
 - [Refraction Shader by PabloMakes](https://www.youtube.com/watch?v=tIW2zM6ed8o)
 - [Electricity Shader by Gabriel Aguiar Prod.](https://www.youtube.com/watch?v=Afh5zY6zxLs)
 - [Hologram Shader by Gabriel Aguiar Prod.](https://www.youtube.com/watch?v=gByLTLf0snY)
+- [Galaxy Shader by Gabriel Aguiar Prod.](https://www.youtube.com/watch?v=jLUGRGdji2o)
 - [Dissolve Shader by Brackeys](https://www.youtube.com/watch?v=taMp1g1pBeE)
+
+### 🖼️ Textures
+- [Nebula by fastfoxblox](https://www.reddit.com/r/wallpaper/comments/bwdps5/nebula_2_2560x1440/)
+- [Stars by WallpapersCraft](https://wallpaperscraft.com/download/stars_universe_space_118205/2560x1440)
