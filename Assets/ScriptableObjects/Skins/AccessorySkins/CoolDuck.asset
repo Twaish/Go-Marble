@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Cool Duck
   description: It's cool
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e795df6a7b0b9eb4392b83c5acd12aa9, type: 3}
   accessoryPrefab: {fileID: 6601469597254781846, guid: 07524f589efa71a4d9428ea28a838350, type: 3}

@@ -15,7 +15,9 @@ public class SkinTileUI : MonoBehaviour, ISelectHandler {
   public BaseSkin Skin => skin;
 
   public void Setup(BaseSkin skin, Action onClick) {
-    // icon.sprite = skin.icon;
+    if (skin.icon != null) {
+      icon.sprite = skin.icon;
+    }
     this.onClick = onClick;
     this.skin = skin;
   }

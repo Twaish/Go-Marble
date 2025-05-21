@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Spoiler
   description: Better aerodynamics
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 8ee4cf0f9f3792b46bf04ae0f87907c2, type: 3}
   accessoryPrefab: {fileID: 575375842386180026, guid: b85cc2de1c0076c4db4409b61cb116a5, type: 3}

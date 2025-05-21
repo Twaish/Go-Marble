@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Crown
   description: Ruler
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 268d3ef3dbd9d0f429b641c1b01a188b, type: 3}
   accessoryPrefab: {fileID: 5041097282045331978, guid: e0ffbac8fd2364b419c083c467ce0cdb, type: 3}
