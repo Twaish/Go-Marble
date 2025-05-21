@@ -2,22 +2,27 @@ using UnityEngine;
 
 public class MarbleSkinHandler : MonoBehaviour {
   [SerializeField] private GameObject defaultMarble;
+  private GameObject currentSkin;
 
   private void AddMarbleSkin(GameObject marbleModel) {
-    foreach (Transform child in transform) {
-      Destroy(child.gameObject);
+    if (currentSkin != null) {
+      Destroy(currentSkin);
     }
-    Instantiate(marbleModel, transform);
+    currentSkin = Instantiate(marbleModel, transform);
   }
   
-  public void Apply(MarbleSkin marble)
-  {
-    if (marble == null)
-    {
-      AddMarbleSkin(defaultMarble);
+  public void Apply(MarbleSkin marble) {
+    if (marble == null) {
+      if (currentSkin != null) {
+        Destroy(currentSkin);
+        currentSkin = null;
+      }
+
+      defaultMarble.SetActive(true);
       return;
     }
 
+    defaultMarble.SetActive(false);
     AddMarbleSkin(marble.marblePrefab);
 
     Debug.Log("APPLYING MARBLE: " + marble.skinName);

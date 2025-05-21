@@ -149,9 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb504d69e6e41042a25563baf43cc79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 0}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   previewImage: {fileID: 4632566804425636008}
   medalUI: {fileID: 7723025941466454608}
   text: {fileID: 7690416287130328541}
@@ -277,7 +274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2720854420011268638
 RectTransform:
   m_ObjectHideFlags: 0
