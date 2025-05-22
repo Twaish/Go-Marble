@@ -252,10 +252,7 @@ PrefabInstance:
     - {fileID: 1933150578146448470, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 63096172186534680, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5517863236935449180}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
 --- !u!4 &4960068418734435083 stripped
 Transform:
@@ -267,17 +264,3 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 63096172186534680, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
   m_PrefabInstance: {fileID: 6230331149045028742}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5517863236935449180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6239381634563232926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38c25e4d3744649a6a47f09daeb705ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelRestartDelay: 2
-  deathEffectPrefab: {fileID: 3394651973444875706, guid: 300a3c1932c2f6e4e88f74b1af8560d8, type: 3}

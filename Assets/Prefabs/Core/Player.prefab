@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3616374376946010704}
   - component: {fileID: 5799306414573411286}
   - component: {fileID: 9126696767178292332}
+  - component: {fileID: 1101533020244318909}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -229,6 +230,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb33a3fcb36de9468625b1b29b7915b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1101533020244318909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c25e4d3744649a6a47f09daeb705ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelRestartDelay: 2
+  deathEffectPrefab: {fileID: 2609577416008739803, guid: e2605c5d326d38a45a507c190e122088, type: 3}
 --- !u!1001 &2198509283429115072
 PrefabInstance:
   m_ObjectHideFlags: 0
