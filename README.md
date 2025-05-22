@@ -24,5 +24,12 @@ A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. T
 - [Nebula by fastfoxblox](https://www.reddit.com/r/wallpaper/comments/bwdps5/nebula_2_2560x1440/)
 - [Stars by WallpapersCraft](https://wallpaperscraft.com/download/stars_universe_space_118205/2560x1440)
 
-### Modeling
+### 🔊 Sounds
+- [Glitch SFX by Epic Stock Media](https://uppbeat.io/sfx/futuristic-tech-ui-glitch/6849/22214)
+- [Glitch2 SFX by THE FOUNDATION](https://uppbeat.io/sfx/sonic-brand-intro-flutter-glitch/11933/28620)
+- [Select by GFX Sounds](https://uppbeat.io/sfx/ui-digital-select/15487/37602)
+- [Click by betacut](https://uppbeat.io/sfx/sci-fi-application-send-message/7895/23731)
+- [Ding by Ni Sound](https://uppbeat.io/sfx/game-interface-menu-ding/10378/27210)
+
+### 🎨 Modeling
 - [ProBuilder Beginner's Tutorial by Cam Ayres](https://youtu.be/Bfl-V-39JlU)
