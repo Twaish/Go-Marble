@@ -71,5 +71,49 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3aab5f0520f1dc84ba13f6001cdfb6db, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3956101445238014138}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3aab5f0520f1dc84ba13f6001cdfb6db, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3886251392488938330}
   m_SourcePrefab: {fileID: 100100000, guid: 3aab5f0520f1dc84ba13f6001cdfb6db, type: 3}
+--- !u!1 &3687791326415231843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3aab5f0520f1dc84ba13f6001cdfb6db, type: 3}
+  m_PrefabInstance: {fileID: 4606271464099948082}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3956101445238014138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3687791326415231843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f25cf39a2647748b5b904a47a349bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: Coin
+  intervalSeconds: 15
+--- !u!114 &3886251392488938330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3687791326415231843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fc9d96d8da66b4baaabe231f19a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - name: Coin
+    clip: {fileID: 8300000, guid: 1cd1292fb5a819f44a24ee5da4301283, type: 3}
+    defaultVolume: 0.5
+    isSpatial: 1
+    delay: 0
+  initialPoolSize: 1

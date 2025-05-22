@@ -60,12 +60,80 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3965514501104072456, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3758512278430342081, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -516098083770646512, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
       propertyPath: m_Name
       value: CoolDuck
       objectReference: {fileID: 0}
+    - target: {fileID: 3456235153172904873, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6803893368542530139}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4326840379705122199}
   m_SourcePrefab: {fileID: 100100000, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+--- !u!1 &6601469597254781846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: aacb3dfa394ff0b4f91b7c7006df0d53, type: 3}
+  m_PrefabInstance: {fileID: 6294985881281672903}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6803893368542530139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601469597254781846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f25cf39a2647748b5b904a47a349bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: Quack
+  intervalSeconds: 10
+--- !u!114 &4326840379705122199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601469597254781846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fc9d96d8da66b4baaabe231f19a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - name: Quack
+    clip: {fileID: 8300000, guid: 41f5cc0ecb1c6a5428b79e3dc235aeba, type: 3}
+    defaultVolume: 0.7
+    isSpatial: 1
+    delay: 0
+  initialPoolSize: 1
