@@ -9,12 +9,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2848227749619344904, guid: 2be9d0510240e420a99f6fafbb085579, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2848227749619344904, guid: 2be9d0510240e420a99f6fafbb085579, type: 3}
       propertyPath: m_VersionIndex
-      value: 1991
+      value: 1994
       objectReference: {fileID: 0}
     - target: {fileID: 2848227749619344904, guid: 2be9d0510240e420a99f6fafbb085579, type: 3}
       propertyPath: m_Faces.Array.size
@@ -34028,10 +34024,6 @@ PrefabInstance:
       propertyPath: 'm_SharedVertices.Array.data[189].m_Vertices.Array.data[3]'
       value: 596
       objectReference: {fileID: 0}
-    - target: {fileID: 5075526982698875426, guid: 2be9d0510240e420a99f6fafbb085579, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5669686054845480008, guid: 2be9d0510240e420a99f6fafbb085579, type: 3}
       propertyPath: m_Name
       value: 1_4 pipe curve Variant
@@ -34079,10 +34071,6 @@ PrefabInstance:
     - target: {fileID: 6948419274771520299, guid: 2be9d0510240e420a99f6fafbb085579, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7066724622542832411, guid: 2be9d0510240e420a99f6fafbb085579, type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
