@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Blackhole
   description: Don't wear with hats or trails
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e27aa4b0f24836d469f69e965fa47af0, type: 3}
   marblePrefab: {fileID: 128810793891785129, guid: e903a4531f4678443a389d487c041bdf, type: 3}

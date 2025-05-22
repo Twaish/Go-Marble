@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Frost Fire
   description: Hello World
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c0622deeb1029054ab679aca34dc1e1d, type: 3}
   trailPrefab: {fileID: 8740961635872411569, guid: 8e1e5cd2990174f438f3e26dc292aaba, type: 3}

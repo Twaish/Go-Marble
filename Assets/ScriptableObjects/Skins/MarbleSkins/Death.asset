@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Death
   description: Does not make you immune to death
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c67a02fbe1610bd4d85c2748300e4aec, type: 3}
   marblePrefab: {fileID: 1924216951532625625, guid: e7e31bd4ed5b58148bc05c2b59cfdcce, type: 3}

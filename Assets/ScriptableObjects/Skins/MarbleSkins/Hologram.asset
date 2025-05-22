@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Hologram
   description: Bzz.
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 5585e77792db5774aa0dba1fede2ae45, type: 3}
   marblePrefab: {fileID: 5452407382456021311, guid: a949e10f946e27f41a8f5490fd902997, type: 3}
