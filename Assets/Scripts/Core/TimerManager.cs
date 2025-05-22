@@ -3,12 +3,17 @@ using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
-    private TMP_Text timerText;
+    public TMP_Text timerText;
     private float timeElapsed;
     private bool isTiming = true;
 
     void Start()
     {
+        if (timerText != null)
+        {
+            return;
+        }
+    
         timerText = GetComponentInChildren<TMP_Text>();
 
         if (timerText == null)
@@ -24,7 +29,7 @@ public class TimerManager : MonoBehaviour
         if (isTiming)
         {
             timeElapsed += Time.deltaTime;
-            timerText.text = "Time: " + timeElapsed.ToString("F2"); // Display with 2 decimals
+            timerText.text =  timeElapsed.ToString("F2"); // Display with 2 decimals
         }
     }
 
