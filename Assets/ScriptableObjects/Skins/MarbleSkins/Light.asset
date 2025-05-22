@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Light
   description: Can't see? Just use this.
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 5d25b933e56fcf345abb56be04eff1d2, type: 3}
   marblePrefab: {fileID: 3346091201022121663, guid: 3123bfe76b94c084cae9ea1d8eff9eac, type: 3}

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Goal
   description: It was behind you all along
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 42816d457d8d1a3498249f13bd048438, type: 3}
   trailPrefab: {fileID: 9070033132769177093, guid: 1dd98adeac2b1764597268db3bc29738, type: 3}

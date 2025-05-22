@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Signature
   description: Nice
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: f0b165aa05ac4374188dd176eb0f838e, type: 3}
   trailPrefab: {fileID: 9150177710703655276, guid: db1f19ba961b77f4fb9b302e9f397db5, type: 3}

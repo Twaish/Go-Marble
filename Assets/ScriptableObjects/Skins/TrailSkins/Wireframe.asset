@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Wireframe
   description: It's unstable
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 77d1fea5bc0e4f7449fd03c92c16f9c1, type: 3}
   trailPrefab: {fileID: 7093399250120405662, guid: 8bfc1a798ef08e548808de06ec58e3a0, type: 3}
