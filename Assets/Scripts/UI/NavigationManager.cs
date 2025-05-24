@@ -29,9 +29,12 @@ public class NavigationManager : MonoBehaviour {
       menuStack.Push(currentMenuName);
 
     foreach (GameObject menu in menus) {
-      Animator menuAnimator = menu.GetComponent<Animator>();
-      if (!menuAnimator) continue;
-      UpdateAnimator(menuAnimator, menu.name, newMenuName);
+      bool animatorFound = menu.TryGetComponent(out Animator menuAnimator);
+      if (animatorFound) {
+        UpdateAnimator(menuAnimator, menu.name, newMenuName);
+      } else {
+        menu.SetActive(false);
+      }
     }
 
     // DisableAllMenus();
