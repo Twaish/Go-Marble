@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour {
   public static LevelManager instance;
   
+  public event Action<BaseLevel> OnLevelStarted;
+  public event Action<BaseLevel> OnLevelEnded;
+  public event Action<BaseLevel> OnLevelPaused;
+  
   [SerializeField] private LevelDatabase levelDatabase;
 
   private LevelSceneLoader levelSceneLoader;
@@ -61,10 +65,40 @@ public class LevelManager : MonoBehaviour {
       levelSceneLoader.UnloadScene(currentLevelScene, () => {
         levelSceneLoader.LoadScene(levelData.sceneName);
         currentLevelScene = levelData.sceneName;
+        OnLevelStarted?.Invoke(levelData);
       });
     } else {
       levelSceneLoader.LoadScene(levelData.sceneName);
       currentLevelScene = levelData.sceneName;
+      OnLevelStarted?.Invoke(levelData);
+    }
+  }
+
+  public void UnloadCurrentLevel(Action onUnloaded = null) {
+    if (string.IsNullOrEmpty(currentLevelScene)) {
+      Debug.LogWarning("LevelManager: No level is currently loaded to unload");
+      onUnloaded?.Invoke();
+      return;
+    }
+
+    OnLevelEnded?.Invoke(selectedLevel);
+
+    levelSceneLoader.UnloadScene(currentLevelScene, () => {
+      Debug.Log($"LevelManager: Level '{currentLevelScene}' unloaded.");
+      onUnloaded?.Invoke();
+    });
+    currentLevelScene = null;
+  }
+
+  public void EndLevel() {
+    if (selectedLevel != null) {
+      OnLevelEnded?.Invoke(selectedLevel);
+    }
+  }
+
+  public void PuaseLevel() {
+    if (selectedLevel != null) {
+      OnLevelPaused?.Invoke(selectedLevel);
     }
   }
 
