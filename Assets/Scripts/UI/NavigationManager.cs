@@ -29,6 +29,7 @@ public class NavigationManager : MonoBehaviour {
       menuStack.Push(currentMenuName);
 
     foreach (GameObject menu in menus) {
+      if (!menu.activeSelf) continue;
       bool animatorFound = menu.TryGetComponent(out Animator menuAnimator);
       if (animatorFound) {
         UpdateAnimator(menuAnimator, menu.name, newMenuName);
