@@ -18,4 +18,4 @@ MonoBehaviour:
   Uses: 1
   Cooldown: 0
   PowerUpColor: {r: 0.13725491, g: 0.6627451, b: 0.9490196, a: 1}
-  BurstStrength: 50
+  BurstStrength: 23
