@@ -39,6 +39,7 @@ public class GameplayManager : MonoBehaviour {
     Debug.Log($"Completed level {level.levelName} in {timerManager.GetTime():F2} seconds");
     timerManager.StopTimer();
     LevelManager.instance.ResumeLevel();
+    LevelManager.instance.SubmitResult(level.levelName, timerManager.GetTime());
     // LevelManager.instance.PauseLevel();
     navigationManager.OpenMenu("System/LevelCompleteMenu");
     navigationManager.OpenMenu("Gameplay/None");

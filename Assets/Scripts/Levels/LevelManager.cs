@@ -83,11 +83,6 @@ public class LevelManager : MonoBehaviour {
   private void OnLevelClicked(BaseLevel clickedLevel) {
     if (clickedLevel == selectedLevel) {
       LoadLevel(clickedLevel);
-
-      // Test submit time and refresh medals
-      var time = 9.24f;
-      levelRepository.SubmitLevelResult(clickedLevel.levelName, time);
-      levelSelectUIController.RefreshMedals();
     }
     else {
       selectedLevel = clickedLevel;
@@ -125,6 +120,11 @@ public class LevelManager : MonoBehaviour {
       onUnloaded?.Invoke();
     });
     currentLevelScene = null;
+  }
+
+  public void SubmitResult(string levelName, float time) {
+    levelRepository.SubmitLevelResult(levelName, time);
+    levelSelectUIController.RefreshMedals();
   }
 
   public void EndLevel() {
