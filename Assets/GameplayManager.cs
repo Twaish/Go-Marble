@@ -10,16 +10,20 @@ public class GameplayManager : MonoBehaviour {
   private void Awake() {
     LevelManager.instance.OnLevelStarted += HandleLevelStarted;
     LevelManager.instance.OnLevelEnded += HandleLevelEnded;
+    LevelManager.instance.OnLevelStopped += HandleLevelStopped;
     LevelManager.instance.OnLevelPaused += HandleLevelPaused;
     LevelManager.instance.OnLevelResumed += HandleLevelResumed;
+    LevelManager.instance.OnLevelRestarted += HandleLevelRestarted;
   }
 
   private void OnDestroy() {
     if (LevelManager.instance != null) {
       LevelManager.instance.OnLevelStarted -= HandleLevelStarted;
       LevelManager.instance.OnLevelEnded -= HandleLevelEnded;
+      LevelManager.instance.OnLevelStopped -= HandleLevelStopped;
       LevelManager.instance.OnLevelPaused -= HandleLevelPaused;
       LevelManager.instance.OnLevelResumed -= HandleLevelResumed;
+      LevelManager.instance.OnLevelRestarted -= HandleLevelRestarted;
     }
   }
 
@@ -35,9 +39,22 @@ public class GameplayManager : MonoBehaviour {
     Debug.Log($"Completed level {level.levelName} in {timerManager.GetTime():F2} seconds");
     timerManager.StopTimer();
     LevelManager.instance.ResumeLevel();
+    // LevelManager.instance.PauseLevel();
     navigationManager.OpenMenu("System/LevelCompleteMenu");
     navigationManager.OpenMenu("Gameplay/None");
     navigationManager.Focus(completeLevelFocus);
+  }
+
+  private void HandleLevelStopped() {
+    timerManager.StopTimer();
+    LevelManager.instance.ResumeLevel();
+    navigationManager.OpenMenu("System/LevelSelect");
+  }
+
+  private void HandleLevelRestarted(BaseLevel level) {
+    timerManager.ResetTimer();
+    LevelManager.instance.ResumeLevel();
+    timerManager.StartTimer();
   }
 
   private void HandleLevelPaused(BaseLevel level) {
