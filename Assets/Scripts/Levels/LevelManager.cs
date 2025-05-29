@@ -10,8 +10,11 @@ public class LevelManager : MonoBehaviour {
   
   public event Action<BaseLevel> OnLevelStarted;
   public event Action<BaseLevel> OnLevelEnded;
+  public event Action OnLevelStopped;
   public event Action<BaseLevel> OnLevelPaused;
   public event Action<BaseLevel> OnLevelResumed;
+  public event Action<BaseLevel> OnLevelRestarted;
+  
   
   [SerializeField] private LevelDatabase levelDatabase;
 
@@ -69,7 +72,7 @@ public class LevelManager : MonoBehaviour {
     }
   }
 
-  private void PauseLevel() {
+  public void PauseLevel() {
     if (selectedLevel != null) {
       isPaused = true;
       OnLevelPaused?.Invoke(selectedLevel);
@@ -129,11 +132,28 @@ public class LevelManager : MonoBehaviour {
       OnLevelEnded?.Invoke(selectedLevel);
     }
   }
+  
+  public void StopLevel() {
+    if (string.IsNullOrEmpty(currentLevelScene)) {
+      Debug.LogWarning("LevelManager: No level is currently loaded to stop");
+      OnLevelStopped?.Invoke();
+      return;
+    }
+
+    Debug.Log($"LevelManager: Level '{currentLevelScene}' stopped by user.");
+
+    levelSceneLoader.UnloadScene(currentLevelScene, () => {
+      currentLevelScene = null;
+      OnLevelStopped?.Invoke();
+    });
+  }
 
   public void RestartLevel() {
     if (!string.IsNullOrEmpty(currentLevelScene)) {
       levelSceneLoader.UnloadScene(currentLevelScene, () => {
-        levelSceneLoader.LoadScene(currentLevelScene);
+        levelSceneLoader.LoadScene(currentLevelScene, () => {
+          OnLevelRestarted?.Invoke(selectedLevel);
+        });
       });
     }
   }
