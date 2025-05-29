@@ -33,5 +33,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/7. Precision.unity
     guid: 61ddb7f93dbf74649b69f3cbedbe5e24
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 1f64b406e8cc4e543b74741c2084d9f6, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

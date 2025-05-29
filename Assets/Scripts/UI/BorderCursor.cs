@@ -23,7 +23,7 @@ public class BorderCursor : MonoBehaviour {
     StartCoroutine(PulsateBorder());
   }
 
-  private void FixedUpdate() {
+  private void Update() {
     GameObject focusedUI = EventSystem.current.currentSelectedGameObject;
     if (focusedUI == null) return;
     UpdateBorderPosition(focusedUI);
@@ -33,7 +33,7 @@ public class BorderCursor : MonoBehaviour {
     if (!focusedUI.TryGetComponent<RectTransform>(out var focusedRect)) return;
     Vector2 centerPosition = focusedRect.TransformPoint(focusedRect.rect.center);
 
-    imageTransform.position = Vector3.Lerp(imageTransform.position, centerPosition, Time.fixedDeltaTime * positionLerpSpeed);
+    imageTransform.position = Vector3.Lerp(imageTransform.position, centerPosition, Time.unscaledDeltaTime * positionLerpSpeed);
     imageTransform.sizeDelta = focusedRect.sizeDelta + new Vector2(borderThickness, borderThickness);
   }
 
@@ -41,7 +41,7 @@ public class BorderCursor : MonoBehaviour {
     Vector3 initialScale = imageTransform.localScale;
 
     while (true) {
-      pulseTime += Time.deltaTime * pulseSpeed;
+      pulseTime += Time.unscaledDeltaTime * pulseSpeed;
       float smoothedPulse = Mathf.SmoothStep(1f, pulseSize, Mathf.PingPong(pulseTime, 1f));
       imageTransform.localScale = initialScale * smoothedPulse;
 

@@ -7,3 +7,4 @@ csharp_new_line_before_open_brace = none
 csharp_new_line_after_open_brace = none
 csharp_new_line_before_close_brace = none
 csharp_new_line_after_close_brace = none
+csharp_else_on_new_line = false

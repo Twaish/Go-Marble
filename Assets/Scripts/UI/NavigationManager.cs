@@ -1,46 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class MenuGroup {
+  public string groupName;
+  public Transform container;
+  public List<GameObject> menus;
+
+  [HideInInspector] public Stack<string> menuStack = new();
+  [HideInInspector] public string currentMenuName = string.Empty;
+}
+
 public class NavigationManager : MonoBehaviour {
-  [SerializeField]
-  private GameObject menusContainer;
+  [SerializeField] private List<MenuGroup> menuGroups = new();
 
-  private readonly Stack<string> menuStack = new();
-  private string currentMenuName = "MainMenu";
+  public void OpenMenu(string fullMenuPath) {
+    // GroupName/MenuName
+    var split = fullMenuPath.Split('/');
+    if (split.Length != 2) {
+      Debug.LogWarning($"NavigationManager: Invalid menu path '{fullMenuPath}'");
+      return;
+    }
 
-  [SerializeField]
-  private List<GameObject> menus = new();
+    string groupName = split[0];
+    string menuName = split[1];
 
-  public void OpenMenu(string menuName) {
-    OpenMenu(menuName, true);
+    MenuGroup group = menuGroups.FirstOrDefault(g => g.groupName == groupName);
+    if (group == null) {
+      Debug.LogWarning($"NavigationManager: Menu group '{groupName}' not found");
+      return;
+    }
+
+    OpenMenuInGroup(group, menuName);
   }
 
-  private void OpenMenu(string newMenuName, bool addToStack = true) {
-    Transform targetMenu = menusContainer.transform.Find(newMenuName);
-    if (targetMenu == null) return;
+  private void OpenMenuInGroup(MenuGroup group, string newMenuName, bool addToStack = true) {
+    Transform targetMenu = group.container.Find(newMenuName);
 
-    if (newMenuName == "MainMenu") 
-      menuStack.Clear();
-    
-    if (addToStack)
-      menuStack.Push(currentMenuName);
+    Debug.Log("OPENING " + group.groupName + "/" + newMenuName);
 
-    foreach (GameObject menu in menus) {
-      bool animatorFound = menu.TryGetComponent(out Animator menuAnimator);
-      if (animatorFound) {
-        UpdateAnimator(menuAnimator, menu.name, newMenuName);
-      } else {
-        menu.SetActive(false);
+    if (newMenuName == "MainMenu")
+      group.menuStack.Clear();
+
+    if (addToStack && !string.IsNullOrEmpty(group.currentMenuName))
+      group.menuStack.Push(group.currentMenuName);
+
+    foreach (GameObject menu in group.menus) {
+      if (!menu.activeSelf) continue;
+      if (menu.TryGetComponent(out Animator animator)) {
+        animator.SetBool("active", menu.name == newMenuName);
+      }
+      else {
+        menu.SetActive(menu.name == newMenuName);
       }
     }
 
-    // DisableAllMenus();
+    if (targetMenu == null) {
+      group.currentMenuName = string.Empty;
+      return;
+    }
+
+    group.currentMenuName = newMenuName;
     targetMenu.gameObject.SetActive(true);
-    currentMenuName = newMenuName;
-    
     BlockNavigation(0.5f);
   }
 
@@ -54,14 +79,21 @@ public class NavigationManager : MonoBehaviour {
 
     EventSystem.current.sendNavigationEvents = false;
 
-    yield return new WaitForSeconds(duration);
+    yield return new WaitForSecondsRealtime(duration);
 
     EventSystem.current.sendNavigationEvents = true;
   }
 
-  private void UpdateAnimator(Animator animator, string menuName, string newMenuName) {
-    bool shouldOpen = newMenuName == menuName;
-    animator.SetBool("active", shouldOpen);
+  public void Focus(GameObject gameObject) {
+    EventSystem.current.SetSelectedGameObject(gameObject);
+  }
+
+  public void GoBack(string groupName) {
+    MenuGroup group = menuGroups.FirstOrDefault(g => g.groupName == groupName);
+    if (group == null || group.menuStack.Count == 0) return;
+
+    string previousMenu = group.menuStack.Pop();
+    OpenMenuInGroup(group, previousMenu, false);
   }
 
   public void OpenScene(string sceneName) {
@@ -69,15 +101,6 @@ public class NavigationManager : MonoBehaviour {
     if (targetScene.isLoaded) return;
 
     SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
-  }
-
-  public void Focus(GameObject gameObject) {
-    EventSystem.current.SetSelectedGameObject(gameObject);
-  }
-  
-  public void GoBack() {
-    if (menuStack.Count <= 0) return;
-    OpenMenu(menuStack.Pop(), false);
   }
 
   public void UnloadScene(string sceneName) {
