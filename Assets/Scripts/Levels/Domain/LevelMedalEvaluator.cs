@@ -11,16 +11,20 @@ public class LevelMedalEvaluator : MonoBehaviour {
     levelRepo = GetComponent<LevelResultsRepository>();
   }
 
+  public Texture EvaluateMedalTexture(BaseLevel level, float time) {
+    var medalTimes = level.medalThresholds;
+    Sprite medalSprite = time < medalTimes.goldTime ? goldMedalTexture :
+      time < medalTimes.silverTime ? silverMedalTexture :
+      time < medalTimes.bronzeTime ? bronzeMedalTexture :
+      null;
+
+    return medalSprite != null ? medalSprite.texture : null;
+  }
+
   public Texture GetMedalTexture(BaseLevel level) {
     float? bestTime = levelRepo.GetBestTimeForLevel(level.levelName);
     if (bestTime == null) return null;
 
-    var medalTimes = level.medalThresholds;
-    Sprite medalSprite = bestTime < medalTimes.goldTime ? goldMedalTexture : 
-      bestTime < medalTimes.silverTime ? silverMedalTexture : 
-      bestTime < medalTimes.bronzeTime ? bronzeMedalTexture : 
-      null;
-    
-    return medalSprite != null ? medalSprite.texture : null;
+    return EvaluateMedalTexture(level, bestTime.Value);
   }
 }
