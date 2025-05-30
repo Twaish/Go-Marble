@@ -6585,6 +6585,7 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 559196785742370709, guid: c3fa0a16c823e5846812c68a933b6f24, type: 3}
   spawnEffect: {fileID: 1011623256302195830, guid: a76dfa4189ca103459f701bc411c6672, type: 3}
   respawnDelay: 1
+  spawnOnStart: 0
 --- !u!4 &446991640
 Transform:
   m_ObjectHideFlags: 0
@@ -7888,7 +7889,7 @@ GameObject:
   - component: {fileID: 1121108935}
   - component: {fileID: 1121108934}
   - component: {fileID: 1121108933}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Ice
   m_TagString: Ice
   m_Icon: {fileID: 0}
@@ -7978,7 +7979,7 @@ Transform:
   m_GameObject: {fileID: 1121108932}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: -0.49, z: -21}
+  m_LocalPosition: {x: 50, y: 0.5, z: -21}
   m_LocalScale: {x: 50, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8263,7 +8264,7 @@ GameObject:
   - component: {fileID: 1221748769}
   - component: {fileID: 1221748768}
   - component: {fileID: 1221748767}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sand
   m_TagString: Sand
   m_Icon: {fileID: 0}
@@ -8353,7 +8354,7 @@ Transform:
   m_GameObject: {fileID: 1221748766}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50, y: -0.49, z: 0}
+  m_LocalPosition: {x: 50, y: 0.5, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8362,6 +8363,22 @@ Transform:
 --- !u!1 &1249458895 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5015864966330238722, guid: 13a9a5a2c25b54d548bf07118c46f6da, type: 3}
+  m_PrefabInstance: {fileID: 1363532321}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1249458896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8467021422449133583, guid: 13a9a5a2c25b54d548bf07118c46f6da, type: 3}
+  m_PrefabInstance: {fileID: 1363532321}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249458895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6bc1550a77ec64a964648bd48bbcd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!20 &1249458900 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1805159020035881572, guid: 13a9a5a2c25b54d548bf07118c46f6da, type: 3}
   m_PrefabInstance: {fileID: 1363532321}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1251317262
@@ -8566,6 +8583,7 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 6619169532887862680, guid: 1905fd15c4a46d8488456048b06e205b, type: 3}
   spawnEffect: {fileID: 1011623256302195830, guid: a76dfa4189ca103459f701bc411c6672, type: 3}
   respawnDelay: 1
+  spawnOnStart: 0
 --- !u!4 &1304762084
 Transform:
   m_ObjectHideFlags: 0
@@ -14625,6 +14643,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3510830026903732188, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: cameraShaker
+      value: 
+      objectReference: {fileID: 1249458896}
+    - target: {fileID: 3510830026903732188, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: cameraComponent
+      value: 
+      objectReference: {fileID: 1249458900}
     - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
       propertyPath: turnSpeed
       value: 1000
@@ -14642,8 +14668,80 @@ PrefabInstance:
       value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: defaultCondition.speed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: defaultCondition.torque
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
       propertyPath: defaultDecelerationRate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: defaultCondition.turnSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: defaultCondition.bounciness
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: defaultCondition.surfaceTag
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: defaultCondition.decelerationRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[0].speed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[1].speed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[0].torque
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[1].torque
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[0].turnSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[1].turnSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[0].surfaceTag
+      value: Sand
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[1].bounciness
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[1].surfaceTag
+      value: Ice
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[0].decelerationRate
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277041477023905824, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
+      propertyPath: surfaceConditions.Array.data[1].decelerationRate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5799306414573411286, guid: 6aa94495ba56044a2a730acdac2a3ecb, type: 3}
       propertyPath: accessoryPivot
