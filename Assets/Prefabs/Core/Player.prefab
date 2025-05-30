@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 110671839961869574}
   - component: {fileID: 5272183962509332776}
   - component: {fileID: 4277041477023905824}
+  - component: {fileID: 3510830026903732188}
   - component: {fileID: 898480951652366529}
   - component: {fileID: 3187443094456376053}
   - component: {fileID: 5670807810537748570}
@@ -154,15 +155,26 @@ MonoBehaviour:
   shakeIntensity: 0.3
   shakeDuration: 1
   shakeImpactThreshold: 50
-  defaultCondition:
-    surfaceTag: 
-    speed: 0
-    turnSpeed: 0
-    decelerationRate: 0
-    torque: 0
-    bounciness: 0
-  surfaceConditions: []
   debugRays: 0
+--- !u!114 &3510830026903732188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cb2cb06498d2a4ab2ff825a190be24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraComponent: {fileID: 0}
+  cameraShaker: {fileID: 0}
+  baseFOV: 45
+  maxFOV: 55
+  shakeIntensity: 0.3
+  shakeDuration: 1
+  shakeImpactThreshold: 50
 --- !u!114 &898480951652366529
 MonoBehaviour:
   m_ObjectHideFlags: 0

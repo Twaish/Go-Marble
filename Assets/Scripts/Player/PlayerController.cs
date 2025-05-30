@@ -2,14 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-  [Header("View")]
-  [SerializeField, Tooltip("The main camera")]
-  private GameObject mainCamera;
-  [SerializeField, Tooltip("")]
-  private float baseFOV = 60f;
-  [SerializeField, Tooltip("")]
-  private float maxFOV = 80f;
-
   [Header("Environment Control")]
   [SerializeField, Tooltip("The scale of gravity applied to the player")]
   private float gravityScale = 2f;
@@ -39,21 +31,12 @@ public class PlayerController : MonoBehaviour {
   [SerializeField, Tooltip("How bouncy the player is when colliding with surfaces")]
   private float bounciness = .8f;
 
-  [SerializeField]
-  private float shakeIntensity = .3f;
-  [SerializeField]
-  private float shakeDuration = 1f;
-  [SerializeField, Tooltip("Minimum collision magnitude before shaking camera")]
-  private float shakeImpactThreshold = 35f;
-
   [Header("Development")]
   [SerializeField]
   private bool debugRays;
 
   private Rigidbody rb;
   private SphereCollider sphereCollider;
-  private CameraShaker cameraShaker;
-  private Camera cameraComponent;
   private Vector3 gravityDirection;
   private List<GravityDirection> gravityDirections;
   private float lastJumpTime = -Mathf.Infinity;
@@ -62,15 +45,15 @@ public class PlayerController : MonoBehaviour {
 
   private PlayerControls playerControls;
   private SurfaceConditionHandler surfaceConditionHandler;
+  private PlayerCameraController playerCameraController;
 
   void Awake() {
     playerControls = GetComponent<PlayerControls>();
     playerControls.OnJump += HandleJump;
 
     surfaceConditionHandler = GetComponent<SurfaceConditionHandler>();
+    playerCameraController = GetComponent<PlayerCameraController>();
 
-    cameraComponent = mainCamera.GetComponent<Camera>();
-    cameraShaker = mainCamera.GetComponent<CameraShaker>();
     sphereCollider = GetComponent<SphereCollider>();
     rb = GetComponent<Rigidbody>();
   }
@@ -84,7 +67,7 @@ public class PlayerController : MonoBehaviour {
 
   void FixedUpdate() {
     Vector3 movement = GetCameraRelativeMovement();
-    UpdateFOV(movement);
+    playerCameraController.HandleMovementFOV(movement);
 
     CheckGroundStatus();
 
@@ -180,13 +163,6 @@ public class PlayerController : MonoBehaviour {
     }
   }
 
-
-
-  void UpdateFOV(Vector3 movement) {
-    float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
-    cameraComponent.fieldOfView = Mathf.Lerp(cameraComponent.fieldOfView, targetFOV, Time.fixedDeltaTime);
-  }
-
   void UpdateGravityDirection() {
     gravityDirection = Physics.gravity;
 
@@ -218,7 +194,7 @@ public class PlayerController : MonoBehaviour {
       return Vector3.zero;
     }
 
-    float cameraYRotation = cameraComponent.transform.rotation.eulerAngles.y;
+    float cameraYRotation = playerCameraController.GetCameraRotation().eulerAngles.y;
     Quaternion cameraRotation = Quaternion.Euler(0f, cameraYRotation, 0f);
 
     Vector3 cameraRelativeMovement = cameraRotation * inputDirection;
@@ -239,17 +215,9 @@ public class PlayerController : MonoBehaviour {
     }
   }
 
-  void OnCollisionEnter(Collision collision) {
-    float impactForce = collision.relativeVelocity.magnitude;
-
+  private void OnCollisionEnter(Collision collision) {
     ApplyMaterialConditions(collision.gameObject);
-
-    if (impactForce > shakeImpactThreshold) {
-      float intensity = Mathf.Clamp(impactForce / 40f, 0.05f, 1f) * shakeIntensity;
-      float duration = Mathf.Clamp(impactForce / 50f, 0.1f, 0.5f) * shakeDuration;
-
-      StartCoroutine(cameraShaker.Shake(duration, intensity));
-    }
+    playerCameraController.HandleCollisionShake(collision);
   }
 
 
