@@ -5,11 +5,18 @@ public class Spawner : MonoBehaviour {
   [SerializeField] private GameObject prefabToSpawn;
   [SerializeField] private GameObject spawnEffect;
   [SerializeField] private float respawnDelay = 5f;
+  [SerializeField] private bool spawnOnStart;
 
   private GameObject currentInstance;
   private bool isSpawning = false;
 
-  void Update() {
+  private void Start() {
+    if (spawnOnStart) {
+      SpawnPrefab();
+    }
+  }
+
+  private void Update() {
     if (currentInstance == null && !isSpawning) {
       StartCoroutine(RespawnRoutine());
     }
