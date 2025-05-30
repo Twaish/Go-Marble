@@ -16,7 +16,7 @@ public class PlayerCameraController : MonoBehaviour {
 
   public void HandleMovementFOV(Vector3 movement) {
     float targetFOV = Mathf.Lerp(baseFOV, maxFOV, movement.magnitude);
-    cameraComponent.fieldOfView = Mathf.Lerp(cameraComponent.fieldOfView, targetFOV, Time.deltaTime);
+    cameraComponent.fieldOfView = Mathf.Lerp(cameraComponent.fieldOfView, targetFOV, Time.fixedDeltaTime);
   }
 
   public void HandleCollisionShake(Collision collision) {
