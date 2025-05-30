@@ -105,8 +105,6 @@ public class PlayerController : MonoBehaviour {
     Vector3 movement = GetCameraRelativeMovement();
     UpdateFOV(movement);
 
-    // HandleSurfaceAlignment();
-
     CheckGroundStatus();
 
     if (isGrounded) {
@@ -283,15 +281,6 @@ public class PlayerController : MonoBehaviour {
     decelerationRate = condition.decelerationRate;
     sphereCollider.sharedMaterial.bounciness = condition.bounciness;
   }
-
-  // void HandleSurfaceAlignment() {
-  //   if (Physics.Raycast(transform.position, gravityDirection, out RaycastHit hit, groundMask) && hit.collider.gameObject.layer == LayerMask.NameToLayer("AlignableSurface")) {
-  //     gravityDirection = -hit.normal * 9.82f;      
-
-  //     Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal) * transform.rotation;
-  //     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f * Time.fixedDeltaTime);
-  //   }
-  // }
 
   public void AddGravityDirection(GravityDirection gravityDirection) {
     gravityDirections.Add(gravityDirection);
