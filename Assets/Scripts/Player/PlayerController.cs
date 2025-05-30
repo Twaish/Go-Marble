@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [System.Serializable]
 public class SurfaceCondition {
@@ -79,13 +78,16 @@ public class PlayerController : MonoBehaviour {
   private Camera cameraComponent;
   private Vector3 gravityDirection;
   private List<GravityDirection> gravityDirections;
-  private float movementX;
-  private float movementY;
   private float lastJumpTime = -Mathf.Infinity;
   private bool isGrounded;
   private Vector3 lastGroundNormal = Vector3.up;
 
+  private PlayerControls playerControls;
+
   void Awake() {
+    playerControls = GetComponent<PlayerControls>();
+    playerControls.OnJump += HandleJump;
+
     cameraComponent = mainCamera.GetComponent<Camera>();
     cameraShaker = mainCamera.GetComponent<CameraShaker>();
     sphereCollider = GetComponent<SphereCollider>();
@@ -122,7 +124,6 @@ public class PlayerController : MonoBehaviour {
     UpdateGravityDirection();
     UpdateGravity();
     EnforceSpeedLimit();
-    HandleJump();
   }
 
   void HandleGroundMovement(Vector3 movement) {
@@ -232,7 +233,7 @@ public class PlayerController : MonoBehaviour {
 
   // Rotate movement vector inline with camera rotation
   Vector3 GetCameraRelativeMovement() {
-    Vector3 inputDirection = new Vector3(movementX, 0f, movementY).normalized;
+    Vector3 inputDirection = playerControls.GetMovementVector();
 
     if (inputDirection.magnitude <= 0) {
       return Vector3.zero;
@@ -247,21 +248,16 @@ public class PlayerController : MonoBehaviour {
   }
 
   void HandleJump() {
-    if (isGrounded && Keyboard.current.spaceKey.isPressed && Time.time - lastJumpTime > jumpCooldown) {
+    if (
+      isGrounded &&
+      Time.time - lastJumpTime > jumpCooldown
+    ) {
       rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, lastGroundNormal); // remove velocity into surface
       rb.AddForce(lastGroundNormal * jumpForce, ForceMode.Impulse);
 
       lastJumpTime = Time.time;
       isGrounded = false;
     }
-  }
-
-
-  void OnMove(InputValue movementValue) {
-    Vector2 movementVector = movementValue.Get<Vector2>();
-
-    movementX = movementVector.x;
-    movementY = movementVector.y;
   }
 
   void OnCollisionEnter(Collision collision) {
