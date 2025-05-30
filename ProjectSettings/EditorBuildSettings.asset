@@ -32,6 +32,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/7. Precision.unity
     guid: 61ddb7f93dbf74649b69f3cbedbe5e24
+  - enabled: 1
+    path: Assets/Scenes/Levels/8. Crushers.unity
+    guid: f855a7fd7cd7d314e806cb7009f3f1f8
+  - enabled: 1
+    path: Assets/Scenes/Levels/9. Jump.unity
+    guid: d3b8a83017d4344edbf988f6302ac03e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1f64b406e8cc4e543b74741c2084d9f6, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
