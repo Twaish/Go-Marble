@@ -9,10 +9,6 @@ public class PlayerController : MonoBehaviour {
   private float airControlForce = 15f;
   [SerializeField, Tooltip("How quickly the player can rotate while in midair")]
   private float airRotationSpeed = 15f;
-  [SerializeField]
-  private float groundDetectionRange = .6f;
-  [SerializeField]
-  private LayerMask groundMask;
 
   [Header("Movement")]
   [SerializeField, Tooltip("The speed at which the player moves")]
@@ -31,21 +27,16 @@ public class PlayerController : MonoBehaviour {
   [SerializeField, Tooltip("How bouncy the player is when colliding with surfaces")]
   private float bounciness = .8f;
 
-  [Header("Development")]
-  [SerializeField]
-  private bool debugRays;
-
   private Rigidbody rb;
   private SphereCollider sphereCollider;
   private Vector3 gravityDirection;
-  private List<GravityDirection> gravityDirections;
+  private List<GravityDirection> gravityDirections = new();
   private float lastJumpTime = -Mathf.Infinity;
-  private bool isGrounded;
-  private Vector3 lastGroundNormal = Vector3.up;
 
   private PlayerControls playerControls;
   private SurfaceConditionHandler surfaceConditionHandler;
   private PlayerCameraController playerCameraController;
+  private GroundChecker groundChecker;
 
   void Awake() {
     playerControls = GetComponent<PlayerControls>();
@@ -53,25 +44,19 @@ public class PlayerController : MonoBehaviour {
 
     surfaceConditionHandler = GetComponent<SurfaceConditionHandler>();
     playerCameraController = GetComponent<PlayerCameraController>();
+    groundChecker = GetComponent<GroundChecker>();
 
     sphereCollider = GetComponent<SphereCollider>();
     rb = GetComponent<Rigidbody>();
-  }
-
-  void Start() {
-    gravityDirections = new();
-    rb.angularDamping = 0;
-    rb.linearDamping = 0;
-    sphereCollider.sharedMaterial.bounciness = bounciness;
   }
 
   void FixedUpdate() {
     Vector3 movement = GetCameraRelativeMovement();
     playerCameraController.HandleMovementFOV(movement);
 
-    CheckGroundStatus();
+    groundChecker.CheckGroundStatus();
 
-    if (isGrounded) {
+    if (groundChecker.IsGrounded) {
       if (movement.magnitude > 0) {
         HandleGroundMovement(movement);
       }
@@ -131,38 +116,6 @@ public class PlayerController : MonoBehaviour {
     }
   }
 
-  void CheckGroundStatus() {
-    isGrounded = false;
-    lastGroundNormal = Vector3.zero;
-
-    int hitCount = 0;
-    Vector3[] directions = {
-      transform.up,
-      -transform.up,
-      transform.right,
-      -transform.right,
-      transform.forward,
-      -transform.forward
-    };
-
-    foreach (Vector3 dir in directions) {
-      if (Physics.Raycast(transform.position, dir, out RaycastHit hit, groundDetectionRange, groundMask)) {
-        isGrounded = true;
-        lastGroundNormal += hit.normal;
-        hitCount++;
-
-        if (debugRays) {
-          Debug.DrawRay(transform.position, dir * groundDetectionRange, Color.cyan);
-          Debug.DrawRay(hit.point, hit.normal, Color.green);
-        }
-      }
-    }
-
-    if (isGrounded && hitCount > 0) {
-      lastGroundNormal.Normalize();
-    }
-  }
-
   void UpdateGravityDirection() {
     gravityDirection = Physics.gravity;
 
@@ -204,14 +157,13 @@ public class PlayerController : MonoBehaviour {
 
   void HandleJump() {
     if (
-      isGrounded &&
+      groundChecker.IsGrounded &&
       Time.time - lastJumpTime > jumpCooldown
     ) {
-      rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, lastGroundNormal); // remove velocity into surface
-      rb.AddForce(lastGroundNormal * jumpForce, ForceMode.Impulse);
+      rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, groundChecker.GroundNormal); // remove velocity into surface
+      rb.AddForce(groundChecker.GroundNormal * jumpForce, ForceMode.Impulse);
 
       lastJumpTime = Time.time;
-      isGrounded = false;
     }
   }
 
