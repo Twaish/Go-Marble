@@ -23,7 +23,7 @@ public class ParallelGravity : MonoBehaviour {
   }
 
   private void OnTriggerStay(Collider other) {
-    if (other.gameObject.TryGetComponent<PlayerController>(out var gravityReceiver)) {
+    if (other.gameObject.TryGetComponent<GravityHandler>(out var gravityReceiver)) {
       Vector3 gravityDirection = GetSelectedDirection() * intensity;
       GravityDirection newGravityDirection = new(gravityDirection, priority);
       gravityReceiver.AddGravityDirection(newGravityDirection);

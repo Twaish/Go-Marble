@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 9126696767178292332}
   - component: {fileID: 1101533020244318909}
   - component: {fileID: 151956576197590400}
+  - component: {fileID: 2981446477650150248}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -139,10 +140,6 @@ MonoBehaviour:
   gravityScale: 3
   airControlForce: 15
   airRotationSpeed: 15
-  groundDetectionRange: 0.6
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4096
   speed: 25
   jumpForce: 13
   jumpCooldown: 0.03
@@ -307,6 +304,19 @@ MonoBehaviour:
     m_Bits: 4096
   IsGrounded: 0
   GroundNormal: {x: 0, y: 0, z: 0}
+--- !u!114 &2981446477650150248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0100a83bb1045f4e81065060bbb6fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityScale: 3
 --- !u!1001 &2198509283429115072
 PrefabInstance:
   m_ObjectHideFlags: 0

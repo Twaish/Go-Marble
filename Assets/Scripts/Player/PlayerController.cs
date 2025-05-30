@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
   [Header("Environment Control")]
-  [SerializeField, Tooltip("The scale of gravity applied to the player")]
-  private float gravityScale = 2f;
   [SerializeField, Tooltip("The force applied to the player's movement while in midair")]
   private float airControlForce = 15f;
   [SerializeField, Tooltip("How quickly the player can rotate while in midair")]
@@ -29,14 +26,13 @@ public class PlayerController : MonoBehaviour {
 
   private Rigidbody rb;
   private SphereCollider sphereCollider;
-  private Vector3 gravityDirection;
-  private List<GravityDirection> gravityDirections = new();
   private float lastJumpTime = -Mathf.Infinity;
 
   private PlayerControls playerControls;
   private SurfaceConditionHandler surfaceConditionHandler;
   private PlayerCameraController playerCameraController;
   private GroundChecker groundChecker;
+  private GravityHandler gravityHandler;
 
   void Awake() {
     playerControls = GetComponent<PlayerControls>();
@@ -45,6 +41,7 @@ public class PlayerController : MonoBehaviour {
     surfaceConditionHandler = GetComponent<SurfaceConditionHandler>();
     playerCameraController = GetComponent<PlayerCameraController>();
     groundChecker = GetComponent<GroundChecker>();
+    gravityHandler = GetComponent<GravityHandler>();
 
     sphereCollider = GetComponent<SphereCollider>();
     rb = GetComponent<Rigidbody>();
@@ -68,8 +65,7 @@ public class PlayerController : MonoBehaviour {
       HandleAirMovement(movement);
     }
 
-    UpdateGravityDirection();
-    UpdateGravity();
+    gravityHandler.UpdateGravity();
     EnforceSpeedLimit();
   }
 
@@ -116,29 +112,6 @@ public class PlayerController : MonoBehaviour {
     }
   }
 
-  void UpdateGravityDirection() {
-    gravityDirection = Physics.gravity;
-
-    // https://github.com/ThermiteFe8/Custom-Gravity-Physics-Unity/blob/main/Assets/Scripts/GravityUtils/CustomGravityAffected.cs
-    if (gravityDirections.Count > 0) {
-      int highestPriority = -100;
-      Vector3 gravity = Vector3.zero;
-      for (int i = 0; i < gravityDirections.Count; i++) {
-        GravityDirection fallingRequest = gravityDirections[i];
-        if (fallingRequest.priority > highestPriority) {
-          gravity = fallingRequest.gravity;
-          highestPriority = fallingRequest.priority;
-        }
-      }
-      gravityDirection = gravity;
-    }
-    gravityDirections.Clear();
-  }
-
-  void UpdateGravity() {
-    rb.linearVelocity += gravityScale * rb.mass * Time.fixedDeltaTime * gravityDirection;
-  }
-
   // Rotate movement vector inline with camera rotation
   Vector3 GetCameraRelativeMovement() {
     Vector3 inputDirection = playerControls.GetMovementVector();
@@ -180,9 +153,5 @@ public class PlayerController : MonoBehaviour {
     turnSpeed = condition.turnSpeed;
     decelerationRate = condition.decelerationRate;
     sphereCollider.sharedMaterial.bounciness = condition.bounciness;
-  }
-
-  public void AddGravityDirection(GravityDirection gravityDirection) {
-    gravityDirections.Add(gravityDirection);
   }
 }
