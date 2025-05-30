@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -31,15 +32,12 @@ public class TimerUIController : MonoBehaviour {
     timerManager.OnTimerReset -= ClearText;
   }
 
-  private void UpdateTimerText(float time) {
-    int minutes = Mathf.FloorToInt(time / 60f);
-    int seconds = Mathf.FloorToInt(time % 60f);
-    int hundredths = Mathf.FloorToInt(time * 100f % 100f);
-
-    timerText.text = $"{minutes:00}:{seconds:00}.{hundredths:00}s";
+  private void UpdateTimerText(float timeInSeconds) {
+    TimeSpan time = TimeSpan.FromSeconds(timeInSeconds);
+    timerText.text = $"{time:mm\\:ss\\.ff}s";
   }
 
   private void ClearText() {
-    timerText.text = "00:00.00s";
+    UpdateTimerText(0);
   }
 }
