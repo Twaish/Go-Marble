@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 1101533020244318909}
   - component: {fileID: 151956576197590400}
   - component: {fileID: 2981446477650150248}
+  - component: {fileID: 8317618730937269379}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -137,7 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6fd5797b8573d41ac8f55d43f7eebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityScale: 3
   airControlForce: 15
   airRotationSpeed: 15
   speed: 25
@@ -317,6 +317,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityScale: 3
+--- !u!114 &8317618730937269379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe37a7dd9f0fbf429264b9368542b34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 13
+  jumpCooldown: 0.03
 --- !u!1001 &2198509283429115072
 PrefabInstance:
   m_ObjectHideFlags: 0

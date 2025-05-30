@@ -10,10 +10,6 @@ public class PlayerController : MonoBehaviour {
   [Header("Movement")]
   [SerializeField, Tooltip("The speed at which the player moves")]
   private float speed = 45f;
-  [SerializeField, Tooltip("The force applied to the player to make them jump")]
-  private float jumpForce = 15f;
-  [SerializeField, Tooltip("Time between jumps")]
-  private float jumpCooldown = 0.5f;
   [SerializeField, Tooltip("How fast a player can change their direction")]
   private float turnSpeed = 5f;
   [SerializeField, Tooltip("Maximum speed the player can achieve")]
@@ -26,7 +22,6 @@ public class PlayerController : MonoBehaviour {
 
   private Rigidbody rb;
   private SphereCollider sphereCollider;
-  private float lastJumpTime = -Mathf.Infinity;
 
   private PlayerControls playerControls;
   private SurfaceConditionHandler surfaceConditionHandler;
@@ -36,7 +31,6 @@ public class PlayerController : MonoBehaviour {
 
   void Awake() {
     playerControls = GetComponent<PlayerControls>();
-    playerControls.OnJump += HandleJump;
 
     surfaceConditionHandler = GetComponent<SurfaceConditionHandler>();
     playerCameraController = GetComponent<PlayerCameraController>();
@@ -126,18 +120,6 @@ public class PlayerController : MonoBehaviour {
     Vector3 cameraRelativeMovement = cameraRotation * inputDirection;
 
     return cameraRelativeMovement.normalized;
-  }
-
-  void HandleJump() {
-    if (
-      groundChecker.IsGrounded &&
-      Time.time - lastJumpTime > jumpCooldown
-    ) {
-      rb.linearVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, groundChecker.GroundNormal); // remove velocity into surface
-      rb.AddForce(groundChecker.GroundNormal * jumpForce, ForceMode.Impulse);
-
-      lastJumpTime = Time.time;
-    }
   }
 
   private void OnCollisionEnter(Collision collision) {
