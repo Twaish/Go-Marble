@@ -152,6 +152,26 @@ MonoBehaviour:
   shakeIntensity: 0.3
   shakeDuration: 1
   shakeImpactThreshold: 50
+  defaultCondition:
+    surfaceTag: Ground
+    speed: 25
+    turnSpeed: 100
+    decelerationRate: 0.5
+    torque: 100
+    bounciness: 0.1
+  surfaceConditions:
+  - surfaceTag: Sand
+    speed: 30
+    turnSpeed: 3.5
+    decelerationRate: 4
+    torque: 1
+    bounciness: 0
+  - surfaceTag: Ice
+    speed: 15
+    turnSpeed: 1
+    decelerationRate: 0
+    torque: 5
+    bounciness: 0.8
   defaultSpeed: 25
   defaultTurnSpeed: 100
   defaultDecelerationRate: 0.5

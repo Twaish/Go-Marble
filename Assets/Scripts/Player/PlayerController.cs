@@ -2,6 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[System.Serializable]
+public class SurfaceCondition {
+  public string surfaceTag;
+
+  [Header("Movement Modifiers")]
+  public float speed;
+  public float turnSpeed;
+  public float decelerationRate;
+
+  [Header("Physics Modifiers")]
+  public float torque;
+  public float bounciness;
+}
+
 public class PlayerController : MonoBehaviour {
 
   [Header("View")]
@@ -18,10 +32,10 @@ public class PlayerController : MonoBehaviour {
   [SerializeField, Tooltip("The force applied to the player's movement while in midair")]
   private float airControlForce = 15f;
   [SerializeField, Tooltip("How quickly the player can rotate while in midair")]
-  private float airRotationSpeed = 15f; 
-  [SerializeField] 
+  private float airRotationSpeed = 15f;
+  [SerializeField]
   private float groundDetectionRange = .6f;
-  [SerializeField] 
+  [SerializeField]
   private LayerMask groundMask;
 
   [Header("Movement")]
@@ -48,41 +62,12 @@ public class PlayerController : MonoBehaviour {
   [SerializeField, Tooltip("Minimum collision magnitude before shaking camera")]
   private float shakeImpactThreshold = 35f;
 
-  [Header("Default Conditions")]
+  [Header("Surface Conditions")]
   [SerializeField]
-  private float defaultSpeed = 45f;
-  [SerializeField]
-  private float defaultTurnSpeed = 5f;
-  [SerializeField]
-  private float defaultDecelerationRate = 1f;
-  [SerializeField]
-  private float defaultTorque = 1f;
-  [SerializeField, Tooltip("How bouncy the player is when colliding with surfaces")]
-  private float defaultBounciness = .8f;
+  private SurfaceCondition defaultCondition;
 
-  [Header("Sand Conditions")]
-  [SerializeField] 
-  private float sandSpeed = 30f;
-  [SerializeField] 
-  private float sandTurnSpeed = 3.5f;
-  [SerializeField] 
-  private float sandDecelerationRate = 4f;
-  [SerializeField] 
-  private float sandTorque = 1f;
   [SerializeField]
-  private float sandBounciness = 0f;
-
-  [Header("Ice Conditions")]
-  [SerializeField] 
-  private float iceSpeed = 15f;
-  [SerializeField] 
-  private float iceTurnSpeed = 1f;
-  [SerializeField] 
-  private float iceDecelerationRate = 0.2f;
-  [SerializeField] 
-  private float iceTorque = 5f;
-  [SerializeField]
-  private float iceBounciness = .8f;
+  private List<SurfaceCondition> surfaceConditions;
 
   [Header("Development")]
   [SerializeField]
@@ -125,10 +110,12 @@ public class PlayerController : MonoBehaviour {
     if (isGrounded) {
       if (movement.magnitude > 0) {
         HandleGroundMovement(movement);
-      } else {
+      }
+      else {
         HandleIdleMovement();
       }
-    } else if (movement.magnitude > 0) {
+    }
+    else if (movement.magnitude > 0) {
       HandleAirMovement(movement);
     }
 
@@ -150,13 +137,13 @@ public class PlayerController : MonoBehaviour {
     // Decrease velocity when no input is applied
     Vector3 horizontalVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
     horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, decelerationRate * Time.fixedDeltaTime);
-    
+
     rb.linearVelocity = new Vector3(
       horizontalVelocity.x,
       rb.linearVelocity.y,
       horizontalVelocity.z
     );
-    
+
     // Decrease angular velocity when not moving
     rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, decelerationRate * Time.fixedDeltaTime);
   }
@@ -168,7 +155,7 @@ public class PlayerController : MonoBehaviour {
     Vector3 rotationAxis = Vector3.Cross(Vector3.up, movement);
     rb.AddTorque(rotationAxis * airRotationSpeed, ForceMode.Force);
   }
-  
+
   void EnforceSpeedLimit() {
     Vector3 horizontalVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
     float currentSpeed = horizontalVelocity.magnitude;
@@ -176,7 +163,7 @@ public class PlayerController : MonoBehaviour {
     // Add excess force against player
     if (currentSpeed > maxSpeed) {
       Vector3 excessVelocity = horizontalVelocity.normalized * (currentSpeed - maxSpeed);
-      
+
       rb.AddForce(-excessVelocity * rb.mass, ForceMode.Force);
     }
   }
@@ -227,7 +214,7 @@ public class PlayerController : MonoBehaviour {
     if (gravityDirections.Count > 0) {
       int highestPriority = -100;
       Vector3 gravity = Vector3.zero;
-      for(int i = 0; i < gravityDirections.Count; i++) {
+      for (int i = 0; i < gravityDirections.Count; i++) {
         GravityDirection fallingRequest = gravityDirections[i];
         if (fallingRequest.priority > highestPriority) {
           gravity = fallingRequest.gravity;
@@ -242,20 +229,20 @@ public class PlayerController : MonoBehaviour {
   void UpdateGravity() {
     rb.linearVelocity += gravityScale * rb.mass * Time.fixedDeltaTime * gravityDirection;
   }
-  
+
   // Rotate movement vector inline with camera rotation
   Vector3 GetCameraRelativeMovement() {
     Vector3 inputDirection = new Vector3(movementX, 0f, movementY).normalized;
-    
+
     if (inputDirection.magnitude <= 0) {
       return Vector3.zero;
     }
-    
+
     float cameraYRotation = cameraComponent.transform.rotation.eulerAngles.y;
     Quaternion cameraRotation = Quaternion.Euler(0f, cameraYRotation, 0f);
-    
+
     Vector3 cameraRelativeMovement = cameraRotation * inputDirection;
-    
+
     return cameraRelativeMovement.normalized;
   }
 
@@ -285,39 +272,31 @@ public class PlayerController : MonoBehaviour {
     if (impactForce > shakeImpactThreshold) {
       float intensity = Mathf.Clamp(impactForce / 40f, 0.05f, 1f) * shakeIntensity;
       float duration = Mathf.Clamp(impactForce / 50f, 0.1f, 0.5f) * shakeDuration;
-      
+
       StartCoroutine(cameraShaker.Shake(duration, intensity));
     }
   }
 
   void ApplyMaterialConditions(GameObject gameObject) {
-    if (gameObject.CompareTag("Sand")) {
-      speed = sandSpeed;
-      turnSpeed = sandTurnSpeed;
-      decelerationRate = sandDecelerationRate;
-      sphereCollider.sharedMaterial.bounciness = sandBounciness;
-    } else if (gameObject.CompareTag("Ice")) {
-      speed = iceSpeed;
-      turnSpeed = iceTurnSpeed;
-      decelerationRate = iceDecelerationRate;
-      sphereCollider.sharedMaterial.bounciness = iceBounciness;
-    } else {
-      speed = defaultSpeed;
-      turnSpeed = defaultTurnSpeed;
-      decelerationRate = defaultDecelerationRate;
-      sphereCollider.sharedMaterial.bounciness = defaultBounciness;
-    }
+    SurfaceCondition match = surfaceConditions.Find(cond => gameObject.CompareTag(cond.surfaceTag));
+
+    SurfaceCondition condition = match ?? defaultCondition;
+
+    speed = condition.speed;
+    turnSpeed = condition.turnSpeed;
+    decelerationRate = condition.decelerationRate;
+    sphereCollider.sharedMaterial.bounciness = condition.bounciness;
   }
 
   // void HandleSurfaceAlignment() {
   //   if (Physics.Raycast(transform.position, gravityDirection, out RaycastHit hit, groundMask) && hit.collider.gameObject.layer == LayerMask.NameToLayer("AlignableSurface")) {
   //     gravityDirection = -hit.normal * 9.82f;      
-    
+
   //     Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal) * transform.rotation;
   //     transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f * Time.fixedDeltaTime);
   //   }
   // }
-  
+
   public void AddGravityDirection(GravityDirection gravityDirection) {
     gravityDirections.Add(gravityDirection);
   }
