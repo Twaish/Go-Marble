@@ -21,9 +21,10 @@ public class LevelManager : MonoBehaviour {
   private LevelSceneLoader levelSceneLoader;
   private LevelResultsRepository levelRepository;
   private LevelSelectUIController levelSelectUIController;
+  private LevelResultUIController levelResultUIController;
   private LevelInspectorUIController levelInspectorUIController;
   
-  private string currentLevelScene;
+  private BaseLevel currentLevelScene;
   private BaseLevel selectedLevel;
 
   private bool isPaused = false;
@@ -32,6 +33,7 @@ public class LevelManager : MonoBehaviour {
     levelRepository = GetComponent<LevelResultsRepository>();
     levelSceneLoader = GetComponent<LevelSceneLoader>();
     levelSelectUIController = GetComponent<LevelSelectUIController>();
+    levelResultUIController = GetComponent<LevelResultUIController>();
     levelInspectorUIController = GetComponent<LevelInspectorUIController>();
 
     if (instance == null) {
@@ -51,7 +53,7 @@ public class LevelManager : MonoBehaviour {
   }
   
   private void Update() {
-    if (!string.IsNullOrEmpty(currentLevelScene) && Input.GetKeyDown(KeyCode.Escape)) {
+    if (currentLevelScene != null && Input.GetKeyDown(KeyCode.Escape)) {
       TogglePause();
     }
   }
@@ -93,21 +95,21 @@ public class LevelManager : MonoBehaviour {
   }
 
   public void LoadLevel(BaseLevel levelData) {
-    if (!string.IsNullOrEmpty(currentLevelScene)) {
-      levelSceneLoader.UnloadScene(currentLevelScene, () => {
+    if (currentLevelScene != null) {
+      levelSceneLoader.UnloadScene(currentLevelScene.sceneName, () => {
         levelSceneLoader.LoadScene(levelData.sceneName);
-        currentLevelScene = levelData.sceneName;
+        currentLevelScene = levelData;
         OnLevelStarted?.Invoke(levelData);
       });
     } else {
       levelSceneLoader.LoadScene(levelData.sceneName);
-      currentLevelScene = levelData.sceneName;
+      currentLevelScene = levelData;
       OnLevelStarted?.Invoke(levelData);
     }
   }
 
   public void UnloadCurrentLevel(Action onUnloaded = null) {
-    if (string.IsNullOrEmpty(currentLevelScene)) {
+    if (currentLevelScene == null) {
       Debug.LogWarning("LevelManager: No level is currently loaded to unload");
       onUnloaded?.Invoke();
       return;
@@ -115,8 +117,8 @@ public class LevelManager : MonoBehaviour {
 
     OnLevelEnded?.Invoke(selectedLevel);
 
-    levelSceneLoader.UnloadScene(currentLevelScene, () => {
-      Debug.Log($"LevelManager: Level '{currentLevelScene}' unloaded.");
+    levelSceneLoader.UnloadScene(currentLevelScene.sceneName, () => {
+      Debug.Log($"LevelManager: Level '{currentLevelScene.levelName}' unloaded.");
       onUnloaded?.Invoke();
     });
     currentLevelScene = null;
@@ -128,34 +130,36 @@ public class LevelManager : MonoBehaviour {
   }
 
   public void EndLevel() {
-    if (selectedLevel != null) {
-      OnLevelEnded?.Invoke(selectedLevel);
-    }
+    if (currentLevelScene == null) return;
+    levelSceneLoader.UnloadScene(currentLevelScene.sceneName, () => {
+      OnLevelEnded?.Invoke(currentLevelScene);
+      levelResultUIController.UpdateUI(currentLevelScene);
+      currentLevelScene = null;
+    });
   }
   
   public void StopLevel() {
-    if (string.IsNullOrEmpty(currentLevelScene)) {
+    if (currentLevelScene == null) {
       Debug.LogWarning("LevelManager: No level is currently loaded to stop");
       OnLevelStopped?.Invoke();
       return;
     }
 
-    Debug.Log($"LevelManager: Level '{currentLevelScene}' stopped by user.");
+    Debug.Log($"LevelManager: Level '{currentLevelScene.levelName}' stopped by user.");
 
-    levelSceneLoader.UnloadScene(currentLevelScene, () => {
+    levelSceneLoader.UnloadScene(currentLevelScene.sceneName, () => {
       currentLevelScene = null;
       OnLevelStopped?.Invoke();
     });
   }
 
   public void RestartLevel() {
-    if (!string.IsNullOrEmpty(currentLevelScene)) {
-      levelSceneLoader.UnloadScene(currentLevelScene, () => {
-        levelSceneLoader.LoadScene(currentLevelScene, () => {
-          OnLevelRestarted?.Invoke(selectedLevel);
-        });
+    if (currentLevelScene == null) return;
+    levelSceneLoader.UnloadScene(currentLevelScene.sceneName, () => {
+      levelSceneLoader.LoadScene(currentLevelScene.sceneName, () => {
+        OnLevelRestarted?.Invoke(currentLevelScene);
       });
-    }
+    });
   }
 
   public void PlayerDeathRestartLevel(float delay) {
