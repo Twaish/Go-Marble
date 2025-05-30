@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 110671839961869574}
   - component: {fileID: 5272183962509332776}
   - component: {fileID: 4277041477023905824}
+  - component: {fileID: 898480951652366529}
+  - component: {fileID: 3187443094456376053}
   - component: {fileID: 5670807810537748570}
   - component: {fileID: 2449230670416753674}
   - component: {fileID: 3616374376946010704}
@@ -153,6 +155,27 @@ MonoBehaviour:
   shakeDuration: 1
   shakeImpactThreshold: 50
   defaultCondition:
+    surfaceTag: 
+    speed: 0
+    turnSpeed: 0
+    decelerationRate: 0
+    torque: 0
+    bounciness: 0
+  surfaceConditions: []
+  debugRays: 0
+--- !u!114 &898480951652366529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7a496b645d40d438bfdfc1744b5356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultCondition:
     surfaceTag: Ground
     speed: 25
     turnSpeed: 100
@@ -172,22 +195,18 @@ MonoBehaviour:
     decelerationRate: 0
     torque: 5
     bounciness: 0.8
-  defaultSpeed: 25
-  defaultTurnSpeed: 100
-  defaultDecelerationRate: 0.5
-  defaultTorque: 100
-  defaultBounciness: 0.1
-  sandSpeed: 30
-  sandTurnSpeed: 3.5
-  sandDecelerationRate: 4
-  sandTorque: 1
-  sandBounciness: 0
-  iceSpeed: 15
-  iceTurnSpeed: 1
-  iceDecelerationRate: 0
-  iceTorque: 5
-  iceBounciness: 0.8
-  debugRays: 0
+--- !u!114 &3187443094456376053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92998675e401241478ed77a0e066bdc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5670807810537748570
 MonoBehaviour:
   m_ObjectHideFlags: 0

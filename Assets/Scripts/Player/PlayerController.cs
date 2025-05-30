@@ -1,22 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class SurfaceCondition {
-  public string surfaceTag;
-
-  [Header("Movement Modifiers")]
-  public float speed;
-  public float turnSpeed;
-  public float decelerationRate;
-
-  [Header("Physics Modifiers")]
-  public float torque;
-  public float bounciness;
-}
-
 public class PlayerController : MonoBehaviour {
-
   [Header("View")]
   [SerializeField, Tooltip("The main camera")]
   private GameObject mainCamera;
@@ -61,13 +46,6 @@ public class PlayerController : MonoBehaviour {
   [SerializeField, Tooltip("Minimum collision magnitude before shaking camera")]
   private float shakeImpactThreshold = 35f;
 
-  [Header("Surface Conditions")]
-  [SerializeField]
-  private SurfaceCondition defaultCondition;
-
-  [SerializeField]
-  private List<SurfaceCondition> surfaceConditions;
-
   [Header("Development")]
   [SerializeField]
   private bool debugRays;
@@ -83,10 +61,13 @@ public class PlayerController : MonoBehaviour {
   private Vector3 lastGroundNormal = Vector3.up;
 
   private PlayerControls playerControls;
+  private SurfaceConditionHandler surfaceConditionHandler;
 
   void Awake() {
     playerControls = GetComponent<PlayerControls>();
     playerControls.OnJump += HandleJump;
+
+    surfaceConditionHandler = GetComponent<SurfaceConditionHandler>();
 
     cameraComponent = mainCamera.GetComponent<Camera>();
     cameraShaker = mainCamera.GetComponent<CameraShaker>();
@@ -271,11 +252,10 @@ public class PlayerController : MonoBehaviour {
     }
   }
 
+
   void ApplyMaterialConditions(GameObject gameObject) {
-    SurfaceCondition match = surfaceConditions.Find(cond => gameObject.CompareTag(cond.surfaceTag));
-
-    SurfaceCondition condition = match ?? defaultCondition;
-
+    SurfaceCondition condition = surfaceConditionHandler.GetCondition(gameObject);
+    
     speed = condition.speed;
     turnSpeed = condition.turnSpeed;
     decelerationRate = condition.decelerationRate;
