@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 151956576197590400}
   - component: {fileID: 2981446477650150248}
   - component: {fileID: 8317618730937269379}
+  - component: {fileID: 832823996729313629}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -141,8 +142,6 @@ MonoBehaviour:
   airControlForce: 15
   airRotationSpeed: 15
   speed: 25
-  jumpForce: 13
-  jumpCooldown: 0.03
   turnSpeed: 100
   maxSpeed: 100
   decelerationRate: 0.5
@@ -331,6 +330,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 13
   jumpCooldown: 0.03
+--- !u!114 &832823996729313629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e289075967e3b1f429c46570a4740a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  airControlForce: 15
+  airRotationSpeed: 15
+  speed: 25
+  turnSpeed: 100
+  maxSpeed: 100
+  decelerationRate: 0.5
 --- !u!1001 &2198509283429115072
 PrefabInstance:
   m_ObjectHideFlags: 0

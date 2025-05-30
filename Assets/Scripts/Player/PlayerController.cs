@@ -1,44 +1,22 @@
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-  [Header("Environment Control")]
-  [SerializeField, Tooltip("The force applied to the player's movement while in midair")]
-  private float airControlForce = 15f;
-  [SerializeField, Tooltip("How quickly the player can rotate while in midair")]
-  private float airRotationSpeed = 15f;
-
-  [Header("Movement")]
-  [SerializeField, Tooltip("The speed at which the player moves")]
-  private float speed = 45f;
-  [SerializeField, Tooltip("How fast a player can change their direction")]
-  private float turnSpeed = 5f;
-  [SerializeField, Tooltip("Maximum speed the player can achieve")]
-  private float maxSpeed = 200f;
-  [SerializeField, Tooltip("The rate at which the player slows down when no input is applied")]
-  private float decelerationRate = 1f;
-
-  [SerializeField, Tooltip("How bouncy the player is when colliding with surfaces")]
-  private float bounciness = .8f;
-
-  private Rigidbody rb;
-  private SphereCollider sphereCollider;
-
   private PlayerControls playerControls;
-  private SurfaceConditionHandler surfaceConditionHandler;
+  private PlayerMovement playerMovement;
   private PlayerCameraController playerCameraController;
+
+  private SurfaceConditionHandler surfaceConditionHandler;
   private GroundChecker groundChecker;
   private GravityHandler gravityHandler;
 
   void Awake() {
     playerControls = GetComponent<PlayerControls>();
+    playerMovement = GetComponent<PlayerMovement>();
+    playerCameraController = GetComponent<PlayerCameraController>();
 
     surfaceConditionHandler = GetComponent<SurfaceConditionHandler>();
-    playerCameraController = GetComponent<PlayerCameraController>();
     groundChecker = GetComponent<GroundChecker>();
     gravityHandler = GetComponent<GravityHandler>();
-
-    sphereCollider = GetComponent<SphereCollider>();
-    rb = GetComponent<Rigidbody>();
   }
 
   void FixedUpdate() {
@@ -49,61 +27,16 @@ public class PlayerController : MonoBehaviour {
 
     if (groundChecker.IsGrounded) {
       if (movement.magnitude > 0) {
-        HandleGroundMovement(movement);
+        playerMovement.HandleGroundMovement(movement);
+      } else {
+        playerMovement.HandleIdleMovement();
       }
-      else {
-        HandleIdleMovement();
-      }
-    }
-    else if (movement.magnitude > 0) {
-      HandleAirMovement(movement);
+    } else if (movement.magnitude > 0) {
+      playerMovement.HandleAirMovement(movement);
     }
 
     gravityHandler.UpdateGravity();
-    EnforceSpeedLimit();
-  }
-
-  void HandleGroundMovement(Vector3 movement) {
-    Vector3 movementForce = movement * speed;
-    rb.AddForce(movementForce, ForceMode.Force);
-
-    Quaternion targetRotation = Quaternion.LookRotation(movement);
-    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime);
-  }
-
-  void HandleIdleMovement() {
-    // Decrease velocity when no input is applied
-    Vector3 horizontalVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-    horizontalVelocity = Vector3.Lerp(horizontalVelocity, Vector3.zero, decelerationRate * Time.fixedDeltaTime);
-
-    rb.linearVelocity = new Vector3(
-      horizontalVelocity.x,
-      rb.linearVelocity.y,
-      horizontalVelocity.z
-    );
-
-    // Decrease angular velocity when not moving
-    rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, decelerationRate * Time.fixedDeltaTime);
-  }
-
-  void HandleAirMovement(Vector3 movement) {
-    // Add rotation and reduced velocity in midair
-    rb.AddForce(movement * airControlForce, ForceMode.Force);
-
-    Vector3 rotationAxis = Vector3.Cross(Vector3.up, movement);
-    rb.AddTorque(rotationAxis * airRotationSpeed, ForceMode.Force);
-  }
-
-  void EnforceSpeedLimit() {
-    Vector3 horizontalVelocity = new(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-    float currentSpeed = horizontalVelocity.magnitude;
-
-    // Add excess force against player
-    if (currentSpeed > maxSpeed) {
-      Vector3 excessVelocity = horizontalVelocity.normalized * (currentSpeed - maxSpeed);
-
-      rb.AddForce(-excessVelocity * rb.mass, ForceMode.Force);
-    }
+    playerMovement.EnforceSpeedLimit();
   }
 
   // Rotate movement vector inline with camera rotation
@@ -130,10 +63,6 @@ public class PlayerController : MonoBehaviour {
 
   void ApplyMaterialConditions(GameObject gameObject) {
     SurfaceCondition condition = surfaceConditionHandler.GetCondition(gameObject);
-    
-    speed = condition.speed;
-    turnSpeed = condition.turnSpeed;
-    decelerationRate = condition.decelerationRate;
-    sphereCollider.sharedMaterial.bounciness = condition.bounciness;
+    playerMovement.ApplySurfaceCondition(condition);
   }
 }
