@@ -7,19 +7,17 @@ public class PlayerController : MonoBehaviour {
 
   private SurfaceConditionHandler surfaceConditionHandler;
   private GroundChecker groundChecker;
-  private GravityHandler gravityHandler;
 
-  void Awake() {
+  private void Awake() {
     playerControls = GetComponent<PlayerControls>();
     playerMovement = GetComponent<PlayerMovement>();
     playerCameraController = GetComponent<PlayerCameraController>();
 
     surfaceConditionHandler = GetComponent<SurfaceConditionHandler>();
     groundChecker = GetComponent<GroundChecker>();
-    gravityHandler = GetComponent<GravityHandler>();
   }
 
-  void FixedUpdate() {
+  private void FixedUpdate() {
     Vector3 movement = GetCameraRelativeMovement();
     playerCameraController.HandleMovementFOV(movement);
 
@@ -35,12 +33,11 @@ public class PlayerController : MonoBehaviour {
       playerMovement.HandleAirMovement(movement);
     }
 
-    gravityHandler.UpdateGravity();
     playerMovement.EnforceSpeedLimit();
   }
 
   // Rotate movement vector inline with camera rotation
-  Vector3 GetCameraRelativeMovement() {
+  private Vector3 GetCameraRelativeMovement() {
     Vector3 inputDirection = playerControls.GetMovementVector();
 
     if (inputDirection.magnitude <= 0) {
@@ -61,7 +58,7 @@ public class PlayerController : MonoBehaviour {
   }
 
 
-  void ApplyMaterialConditions(GameObject gameObject) {
+  private void ApplyMaterialConditions(GameObject gameObject) {
     SurfaceCondition condition = surfaceConditionHandler.GetCondition(gameObject);
     playerMovement.ApplySurfaceCondition(condition);
   }

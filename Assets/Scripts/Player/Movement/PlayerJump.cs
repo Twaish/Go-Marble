@@ -11,7 +11,7 @@ public class PlayerJump : MonoBehaviour {
   private GroundChecker groundChecker;
   private PlayerControls playerControls;
 
-  void Awake() {
+  private void Awake() {
     rb = GetComponent<Rigidbody>();
     groundChecker = GetComponent<GroundChecker>();
     playerControls = GetComponent<PlayerControls>();

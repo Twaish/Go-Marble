@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour {
   private Transform playerTransform;
   private SphereCollider sphereCollider;
 
-  void Awake() {
+  private void Awake() {
     rb = GetComponent<Rigidbody>();
     sphereCollider = GetComponent<SphereCollider>();
     playerTransform = transform;

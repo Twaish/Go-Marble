@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravityHandler : MonoBehaviour {
-  [Tooltip("The scale of gravity applied to the player")]
+[RequireComponent(typeof(Rigidbody))]
+public class GravityApplier : MonoBehaviour {
+  [Tooltip("The scale of gravity applied")]
   [SerializeField] private float gravityScale = 2f;
 
   private Rigidbody rb;
   private Vector3 gravityDirection;
   private readonly List<GravityDirection> gravityRequests = new();
 
-  void Awake() {
+  private void Awake() {
     rb = GetComponent<Rigidbody>();
   }
 
-  public void UpdateGravity() {
+  private void FixedUpdate() {
     UpdateGravityDirection();
     ApplyGravity();
   }

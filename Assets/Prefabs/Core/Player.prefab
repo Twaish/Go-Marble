@@ -13,19 +13,19 @@ GameObject:
   - component: {fileID: 110671839961869574}
   - component: {fileID: 5272183962509332776}
   - component: {fileID: 4277041477023905824}
-  - component: {fileID: 3510830026903732188}
-  - component: {fileID: 898480951652366529}
   - component: {fileID: 3187443094456376053}
+  - component: {fileID: 832823996729313629}
+  - component: {fileID: 8317618730937269379}
+  - component: {fileID: 3510830026903732188}
+  - component: {fileID: 1101533020244318909}
+  - component: {fileID: 9126696767178292332}
+  - component: {fileID: 898480951652366529}
   - component: {fileID: 5670807810537748570}
   - component: {fileID: 2449230670416753674}
   - component: {fileID: 3616374376946010704}
   - component: {fileID: 5799306414573411286}
-  - component: {fileID: 9126696767178292332}
-  - component: {fileID: 1101533020244318909}
   - component: {fileID: 151956576197590400}
   - component: {fileID: 2981446477650150248}
-  - component: {fileID: 8317618730937269379}
-  - component: {fileID: 832823996729313629}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -139,13 +139,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6fd5797b8573d41ac8f55d43f7eebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3187443094456376053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92998675e401241478ed77a0e066bdc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &832823996729313629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e289075967e3b1f429c46570a4740a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   airControlForce: 15
   airRotationSpeed: 15
   speed: 25
   turnSpeed: 100
   maxSpeed: 100
   decelerationRate: 0.5
-  bounciness: 0.1
+--- !u!114 &8317618730937269379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe37a7dd9f0fbf429264b9368542b34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 13
+  jumpCooldown: 0.03
 --- !u!114 &3510830026903732188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +202,32 @@ MonoBehaviour:
   shakeIntensity: 0.3
   shakeDuration: 1
   shakeImpactThreshold: 50
+--- !u!114 &1101533020244318909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c25e4d3744649a6a47f09daeb705ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelRestartDelay: 2
+  deathEffectPrefab: {fileID: 2609577416008739803, guid: e2605c5d326d38a45a507c190e122088, type: 3}
+--- !u!114 &9126696767178292332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63096172186534680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb33a3fcb36de9468625b1b29b7915b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &898480951652366529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,18 +260,6 @@ MonoBehaviour:
     decelerationRate: 0
     torque: 5
     bounciness: 0.8
---- !u!114 &3187443094456376053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63096172186534680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92998675e401241478ed77a0e066bdc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5670807810537748570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,32 +310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accessoryPivot: {fileID: 0}
---- !u!114 &9126696767178292332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63096172186534680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cb33a3fcb36de9468625b1b29b7915b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1101533020244318909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63096172186534680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38c25e4d3744649a6a47f09daeb705ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelRestartDelay: 2
-  deathEffectPrefab: {fileID: 2609577416008739803, guid: e2605c5d326d38a45a507c190e122088, type: 3}
 --- !u!114 &151956576197590400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,38 +341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityScale: 3
---- !u!114 &8317618730937269379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63096172186534680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfe37a7dd9f0fbf429264b9368542b34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForce: 13
-  jumpCooldown: 0.03
---- !u!114 &832823996729313629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63096172186534680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e289075967e3b1f429c46570a4740a8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  airControlForce: 15
-  airRotationSpeed: 15
-  speed: 25
-  turnSpeed: 100
-  maxSpeed: 100
-  decelerationRate: 0.5
 --- !u!1001 &2198509283429115072
 PrefabInstance:
   m_ObjectHideFlags: 0

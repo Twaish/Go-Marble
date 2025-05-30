@@ -6,7 +6,7 @@ public class SphereGravity : MonoBehaviour {
   [SerializeField] float intensity = 30;
   [SerializeField] int priority = 0;
   private void OnTriggerStay(Collider other) {
-    if (other.gameObject.TryGetComponent<GravityHandler>(out var gravityReceiver)) {
+    if (other.gameObject.TryGetComponent<GravityApplier>(out var gravityReceiver)) {
       Vector3 pointAtCenter = -1 * intensity * (other.transform.position - (centerPosition + transform.position)).normalized;
 
       GravityDirection newGravityDirection = new(pointAtCenter, priority);
