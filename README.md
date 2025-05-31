@@ -30,6 +30,9 @@ A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. T
 - [Select by GFX Sounds](https://uppbeat.io/sfx/ui-digital-select/15487/37602)
 - [Click by betacut](https://uppbeat.io/sfx/sci-fi-application-send-message/7895/23731)
 - [Ding by Ni Sound](https://uppbeat.io/sfx/game-interface-menu-ding/10378/27210)
+- [Impact by SmartSoundFX](https://uppbeat.io/sfx/heavy-thud-impact/829/1450)
+- [Death by Epic Stock Media](https://uppbeat.io/sfx/gore-blood-spill-hit/8790/24891)
+- [Spawn by Valve](https://www.reddit.com/r/tf2/comments/u8n8xm/teleporter_sound_effect/)
 
 ### 🎨 Modeling
 - [ProBuilder Beginner's Tutorial by Cam Ayres](https://youtu.be/Bfl-V-39JlU)
