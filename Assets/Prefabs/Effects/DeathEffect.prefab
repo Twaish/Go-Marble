@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5944664998779231048}
   - component: {fileID: 1416797784281725656}
   m_Layer: 0
-  m_Name: PlayerDeathEffect
+  m_Name: DeathEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,8 +105,8 @@ MonoBehaviour:
   soundList:
   - name: Death
     clip: {fileID: 8300000, guid: 0f074b7dccd42c34c886a7befc6e549d, type: 3}
-    defaultVolume: 0.5
-    isSpatial: 0
+    defaultVolume: 1
+    isSpatial: 1
     delay: 0
   initialPoolSize: 1
 --- !u!114 &1416797784281725656
