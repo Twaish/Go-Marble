@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1056783705863497606}
   - component: {fileID: 3328658888916086027}
   - component: {fileID: 4729921655052388106}
+  - component: {fileID: -1058787955067821353}
+  - component: {fileID: 4155923158186325001}
   m_Layer: 0
   m_Name: SpawnEffect
   m_TagString: Untagged
@@ -88,6 +90,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 3
+--- !u!114 &-1058787955067821353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011623256302195830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fc9d96d8da66b4baaabe231f19a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - name: Spawn
+    clip: {fileID: 8300000, guid: c53c085eda01e984cb7502db8772bde4, type: 3}
+    defaultVolume: 1
+    isSpatial: 1
+    delay: 0
+  initialPoolSize: 1
+--- !u!114 &4155923158186325001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011623256302195830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83311bd915acc584cbac78161f981691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundNames:
+  - Spawn
 --- !u!1 &4539648549989448706
 GameObject:
   m_ObjectHideFlags: 0

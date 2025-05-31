@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6327357904480901029}
   - component: {fileID: 2005555557621596533}
+  - component: {fileID: 989736921916538760}
+  - component: {fileID: 5944664998779231048}
+  - component: {fileID: 1416797784281725656}
   m_Layer: 0
   m_Name: PlayerDeathEffect
   m_TagString: Untagged
@@ -74,6 +77,52 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxIntensity: 5
+--- !u!114 &989736921916538760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609577416008739803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9d3cf265ed23346ad1545a0b94aaa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 2
+--- !u!114 &5944664998779231048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609577416008739803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fc9d96d8da66b4baaabe231f19a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - name: Death
+    clip: {fileID: 8300000, guid: 0f074b7dccd42c34c886a7befc6e549d, type: 3}
+    defaultVolume: 0.5
+    isSpatial: 0
+    delay: 0
+  initialPoolSize: 1
+--- !u!114 &1416797784281725656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609577416008739803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83311bd915acc584cbac78161f981691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundNames:
+  - Death
 --- !u!1 &4407439258629936633
 GameObject:
   m_ObjectHideFlags: 0
