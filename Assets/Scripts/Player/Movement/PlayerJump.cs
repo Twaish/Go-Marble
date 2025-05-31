@@ -19,6 +19,12 @@ public class PlayerJump : MonoBehaviour {
     playerControls.OnJump += HandleJump;
   }
 
+  private void OnDestroy() {
+    if (playerControls != null) {
+      playerControls.OnJump -= HandleJump;
+    }
+  }
+
   private void HandleJump() {
     if (groundChecker.IsGrounded && Time.time - lastJumpTime > jumpCooldown) {
       // Jump upwards from the nearest ground normal
