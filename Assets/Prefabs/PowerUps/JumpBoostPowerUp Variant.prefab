@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: powerUpToGive
       value: 
       objectReference: {fileID: 11400000, guid: fe59a694db1ec704fb4cbb46d7be84b3, type: 2}
+    - target: {fileID: 2500949947881709871, guid: 78f4f997c2242664c9616fbebe3275ff, type: 3}
+      propertyPath: pickupEffectPrefab
+      value: 
+      objectReference: {fileID: 8838389325316830469, guid: c8073939c66c4d64ab723a9b25cc7034, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
