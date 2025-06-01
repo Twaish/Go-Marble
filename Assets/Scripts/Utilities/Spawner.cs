@@ -15,6 +15,11 @@ public class Spawner : MonoBehaviour {
       SpawnPrefab();
     }
   }
+  private void OnDestroy() {
+    if (currentInstance != null) {
+      Destroy(currentInstance);
+    }
+  }
 
   private void Update() {
     if (currentInstance == null && !isSpawning) {
@@ -36,5 +41,4 @@ public class Spawner : MonoBehaviour {
 
     currentInstance = Instantiate(prefabToSpawn, transform.position, transform.rotation);
   }
-
 }
