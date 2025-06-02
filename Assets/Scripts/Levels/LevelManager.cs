@@ -168,6 +168,6 @@ public class LevelManager : MonoBehaviour {
 
   private IEnumerator RestartCoroutine(float delay) {
     yield return new WaitForSeconds(delay);
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    RestartLevel();
   }
 }
