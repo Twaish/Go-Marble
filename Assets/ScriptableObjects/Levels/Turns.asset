@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a019b7c93e958478b843605a502313, type: 3}
+  m_Name: Turns
+  m_EditorClassIdentifier: 
+  levelName: Turns
+  sceneName: 2. Turns
+  description: Navigate sharp corners
+  levelIndex: 1
+  previewImage: {fileID: 21300000, guid: 1fdaef820f3f55540802a4dfa8c19151, type: 3}
+  medalThresholds:
+    goldTime: 15
+    silverTime: 20
+    bronzeTime: 30
