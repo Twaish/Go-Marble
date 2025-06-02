@@ -1626,27 +1626,27 @@ MonoBehaviour:
   soundList:
   - name: Track1
     clip: {fileID: 8300000, guid: 40d06c2482f094a4d9eade816ebb3c97, type: 3}
-    defaultVolume: 1
+    defaultVolume: 0.55
     isSpatial: 0
     delay: 0
   - name: Track2
     clip: {fileID: 8300000, guid: 8ecb4d13943748f448997a70e3d6238b, type: 3}
-    defaultVolume: 1
+    defaultVolume: 0.55
     isSpatial: 0
     delay: 0
   - name: Track3
     clip: {fileID: 8300000, guid: ca731549e4558384e8d2960225924d88, type: 3}
-    defaultVolume: 1
+    defaultVolume: 0.55
     isSpatial: 0
     delay: 0
   - name: Track4
     clip: {fileID: 8300000, guid: 21da807f4121d324d922acb0a97be2ae, type: 3}
-    defaultVolume: 1
+    defaultVolume: 0.55
     isSpatial: 0
     delay: 0
   - name: Track5
     clip: {fileID: 8300000, guid: a474ac7220bd1554c8540ecc06134165, type: 3}
-    defaultVolume: 1
+    defaultVolume: 0.55
     isSpatial: 0
     delay: 0
   initialPoolSize: 5
