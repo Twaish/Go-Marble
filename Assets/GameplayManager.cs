@@ -2,11 +2,18 @@ using System.Collections;
 using UnityEngine;
 
 public class GameplayManager : MonoBehaviour {
+  [SerializeField] private GameObject mainCamera;
+
+  [Header("Managers")]
   [SerializeField] private TimerManager timerManager;
-  [SerializeField] private NavigationManager navigationManager;
-  [SerializeField] private GameObject completeLevelFocus;
-  [SerializeField] private GameObject pausedLevelFocus;
   [SerializeField] private PowerUpManager powerUpManager;
+  [SerializeField] private NavigationManager navigationManager;
+
+  [Header("GUI")]
+  [Tooltip("What to focus on when completing a level")]
+  [SerializeField] private GameObject completeLevelFocus;
+  [Tooltip("What to focus on when pausing a level")]
+  [SerializeField] private GameObject pausedLevelFocus;
 
   private void Awake() {
     LevelManager.instance.OnLevelStarted += HandleLevelStarted;
@@ -35,6 +42,7 @@ public class GameplayManager : MonoBehaviour {
     navigationManager.OpenMenu("System/None");
     navigationManager.OpenMenu("Gameplay/Gameplay");
     powerUpManager.ClearPowerUp();
+    mainCamera.SetActive(false);
   }
 
   private void HandleLevelEnded(BaseLevel level) {
@@ -42,11 +50,11 @@ public class GameplayManager : MonoBehaviour {
     timerManager.StopTimer();
     LevelManager.instance.ResumeLevel();
     LevelManager.instance.SubmitResult(level.levelName, timerManager.GetTime());
-    // LevelManager.instance.PauseLevel();
     navigationManager.OpenMenu("System/LevelCompleteMenu");
     navigationManager.OpenMenu("Gameplay/None");
     navigationManager.Focus(completeLevelFocus);
     powerUpManager.ClearPowerUp();
+    mainCamera.SetActive(true);
   }
 
   private void HandleLevelStopped() {
@@ -54,6 +62,7 @@ public class GameplayManager : MonoBehaviour {
     LevelManager.instance.ResumeLevel();
     navigationManager.OpenMenu("System/LevelSelect");
     powerUpManager.ClearPowerUp();
+    mainCamera.SetActive(true);
   }
 
   private void HandleLevelRestarted(BaseLevel level) {
