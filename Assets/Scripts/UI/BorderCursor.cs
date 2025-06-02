@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System;
 
 public class BorderCursor : MonoBehaviour {
   [SerializeField]
@@ -17,6 +18,10 @@ public class BorderCursor : MonoBehaviour {
   private float pulseTime;
   private Image image;
 
+  private GameObject previousSelected;
+
+  public event Action OnSelectionChanged;
+
   private void Start() {
     image = GetComponent<Image>();
     imageTransform = image.GetComponent<RectTransform>();
@@ -26,6 +31,12 @@ public class BorderCursor : MonoBehaviour {
   private void Update() {
     GameObject focusedUI = EventSystem.current.currentSelectedGameObject;
     if (focusedUI == null) return;
+
+    if (previousSelected != focusedUI) {
+      previousSelected = focusedUI;
+      OnSelectionChanged?.Invoke();
+    }
+
     UpdateBorderPosition(focusedUI);
   }
 
