@@ -1626,27 +1626,27 @@ MonoBehaviour:
   soundList:
   - name: Track1
     clip: {fileID: 8300000, guid: 40d06c2482f094a4d9eade816ebb3c97, type: 3}
-    defaultVolume: 0.55
+    defaultVolume: 0.3
     isSpatial: 0
     delay: 0
   - name: Track2
     clip: {fileID: 8300000, guid: 8ecb4d13943748f448997a70e3d6238b, type: 3}
-    defaultVolume: 0.55
+    defaultVolume: 0.3
     isSpatial: 0
     delay: 0
   - name: Track3
     clip: {fileID: 8300000, guid: ca731549e4558384e8d2960225924d88, type: 3}
-    defaultVolume: 0.55
+    defaultVolume: 0.3
     isSpatial: 0
     delay: 0
   - name: Track4
     clip: {fileID: 8300000, guid: 21da807f4121d324d922acb0a97be2ae, type: 3}
-    defaultVolume: 0.55
+    defaultVolume: 0.3
     isSpatial: 0
     delay: 0
   - name: Track5
     clip: {fileID: 8300000, guid: a474ac7220bd1554c8540ecc06134165, type: 3}
-    defaultVolume: 0.55
+    defaultVolume: 0.3
     isSpatial: 0
     delay: 0
   initialPoolSize: 5
@@ -17405,7 +17405,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1829734912
