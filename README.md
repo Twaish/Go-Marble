@@ -34,5 +34,12 @@ A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. T
 - [Death by Epic Stock Media](https://uppbeat.io/sfx/gore-blood-spill-hit/8790/24891)
 - [Spawn by Valve](https://www.reddit.com/r/tf2/comments/u8n8xm/teleporter_sound_effect/)
 
+### 🎵 Music
+- [Blue Sky - ParagonX9](https://www.youtube.com/watch?v=QdL18RWUS8E&ab_channel=ParagonX9official)
+- [Chaoz Airflow - ParagonX9](https://www.youtube.com/watch?v=KIqJo_Iqhxs&ab_channel=ParagonX9official)
+- [Chaoz Fantasy - ParagonX9](https://www.youtube.com/watch?v=pxIuZC26hXU&ab_channel=ParagonX9official)
+- [HyperioxX - ParagonX9](https://www.youtube.com/watch?v=3pO9ueOMHJI&ab_channel=ParagonX9official)
+- [Polar 240 - ParagonX9](https://www.youtube.com/watch?v=F2gYP9YmCh4&ab_channel=ParagonX9official)
+
 ### 🎨 Modeling
 - [ProBuilder Beginner's Tutorial by Cam Ayres](https://youtu.be/Bfl-V-39JlU)
