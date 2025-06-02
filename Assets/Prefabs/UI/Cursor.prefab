@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4777063376067747154}
   - component: {fileID: 3971223633067769044}
   - component: {fileID: 772581455055781877}
-  - component: {fileID: 2818925667923576990}
+  - component: {fileID: 5470070364539496679}
+  - component: {fileID: 3431818468703423671}
   m_Layer: 5
   m_Name: Cursor
   m_TagString: Untagged
@@ -93,25 +94,35 @@ MonoBehaviour:
   pulseSize: 1.1
   borderThickness: 10
   positionLerpSpeed: 20
---- !u!95 &2818925667923576990
-Animator:
-  serializedVersion: 7
+--- !u!114 &5470070364539496679
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6889127970017080881}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 12be04aade106dd42a870b63a93c2f02, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ec13b52ee9e5c4db727e46a9ef5373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: Select
+--- !u!114 &3431818468703423671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6889127970017080881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fc9d96d8da66b4baaabe231f19a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - name: Select
+    clip: {fileID: 8300000, guid: 83c42e64361c4f74c971bf52332c3128, type: 3}
+    defaultVolume: 0.25
+    isSpatial: 0
+    delay: 0
+  initialPoolSize: 1
