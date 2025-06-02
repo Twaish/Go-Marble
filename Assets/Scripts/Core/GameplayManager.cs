@@ -42,7 +42,7 @@ public class GameplayManager : MonoBehaviour {
     navigationManager.OpenMenu("System/None");
     navigationManager.OpenMenu("Gameplay/Gameplay");
     powerUpManager.ClearPowerUp();
-    mainCamera.SetActive(false);
+    StartCoroutine(WaitForLevelCameraAndDisableMain());
   }
 
   private void HandleLevelEnded(BaseLevel level) {
@@ -93,10 +93,38 @@ public class GameplayManager : MonoBehaviour {
   }
 
   public void QuitGame() {
-    #if UNITY_EDITOR
-      UnityEditor.EditorApplication.isPlaying = false;
-    #else
+#if UNITY_EDITOR
+    UnityEditor.EditorApplication.isPlaying = false;
+#else
       Application.Quit();
-    #endif
+#endif
+  }
+  
+  private IEnumerator WaitForLevelCameraAndDisableMain() {
+    Camera levelCamera = null;
+
+    float timeout = 5f;
+    float elapsed = 0f;
+
+    while (levelCamera == null && elapsed < timeout) {
+      var allCameras = Camera.allCameras;
+
+      foreach (var cam in allCameras) {
+        if (cam.gameObject != mainCamera && cam.enabled && cam.gameObject.activeInHierarchy) {
+          levelCamera = cam;
+          break;
+        }
+      }
+
+      elapsed += Time.unscaledDeltaTime;
+      yield return null;
+    }
+
+    if (levelCamera != null) {
+      mainCamera.SetActive(false);
+    }
+    else {
+      Debug.LogWarning("GameplayManager: Level camera not found. Main camera left active");
+    }
   }
 }
