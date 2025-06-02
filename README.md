@@ -1,7 +1,7 @@
 # Go Marble!
 A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. The project was developed as part of a school project.
 
-
+[Watch Gameplay (2 min)](https://youtu.be/yFYSiHwSq9Q)
 [Watch the trailer](https://youtu.be/Pjj_lUYv6Bw)
 
 ## Blog Posts
