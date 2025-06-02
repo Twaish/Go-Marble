@@ -13,7 +13,6 @@ public class LevelResultsRepository : MonoBehaviour {
   }
 
   public float? GetBestTimeForLevel(string levelName) {
-    Debug.LogError("ISSUE WHEN GETTING TIME NOT MATCHING JSON");
     return levelResults.TryGetValue(levelName, out var time) ? time : null;
   }
 

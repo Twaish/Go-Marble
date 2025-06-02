@@ -41,8 +41,6 @@ public class NavigationManager : MonoBehaviour {
   private void OpenMenuInGroup(MenuGroup group, string newMenuName, bool addToStack = true) {
     Transform targetMenu = group.container.Find(newMenuName);
 
-    Debug.Log("OPENING " + group.groupName + "/" + newMenuName);
-
     if (newMenuName == "MainMenu")
       group.menuStack.Clear();
 
