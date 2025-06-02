@@ -6,6 +6,7 @@ public class GameplayManager : MonoBehaviour {
   [SerializeField] private NavigationManager navigationManager;
   [SerializeField] private GameObject completeLevelFocus;
   [SerializeField] private GameObject pausedLevelFocus;
+  [SerializeField] private PowerUpManager powerUpManager;
 
   private void Awake() {
     LevelManager.instance.OnLevelStarted += HandleLevelStarted;
@@ -33,6 +34,7 @@ public class GameplayManager : MonoBehaviour {
     timerManager.StartTimer();
     navigationManager.OpenMenu("System/None");
     navigationManager.OpenMenu("Gameplay/Gameplay");
+    powerUpManager.ClearPowerUp();
   }
 
   private void HandleLevelEnded(BaseLevel level) {
@@ -44,12 +46,14 @@ public class GameplayManager : MonoBehaviour {
     navigationManager.OpenMenu("System/LevelCompleteMenu");
     navigationManager.OpenMenu("Gameplay/None");
     navigationManager.Focus(completeLevelFocus);
+    powerUpManager.ClearPowerUp();
   }
 
   private void HandleLevelStopped() {
     timerManager.StopTimer();
     LevelManager.instance.ResumeLevel();
     navigationManager.OpenMenu("System/LevelSelect");
+    powerUpManager.ClearPowerUp();
   }
 
   private void HandleLevelRestarted(BaseLevel level) {
@@ -78,5 +82,12 @@ public class GameplayManager : MonoBehaviour {
 
     Debug.Log("FOCUSING " + gameObject.name);
   }
-  
+
+  public void QuitGame() {
+    #if UNITY_EDITOR
+      UnityEditor.EditorApplication.isPlaying = false;
+    #else
+      Application.Quit();
+    #endif
+  }
 }

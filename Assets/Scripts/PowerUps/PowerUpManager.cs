@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class PowerUpManager : MonoBehaviour {
   private BasePowerUp currentPowerUp;
   private bool isCooldown;
@@ -41,6 +40,11 @@ public class PowerUpManager : MonoBehaviour {
       StartCoroutine(HandleCooldown());
     }
 
+    OnPowerUpChanged?.Invoke(currentPowerUp);
+  }
+  
+  public void ClearPowerUp() {
+    currentPowerUp = null;
     OnPowerUpChanged?.Invoke(currentPowerUp);
   }
 
