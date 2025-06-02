@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +40,39 @@ public class SoundPlayer : MonoBehaviour {
     src.playOnAwake = false;
     return src;
   }
+  
+  public void PlaySoundWithCallback(string soundName, Action onComplete, float? volume = null) {
+    foreach (var entry in soundList) {
+      if (entry.name != soundName || entry.clip == null)
+        continue;
+
+      var src = GetAvailableAudioSource();
+      src.clip = entry.clip;
+      src.volume = Mathf.Clamp01(volume ?? entry.defaultVolume);
+      src.spatialBlend = entry.isSpatial ? 1f : 0f;
+
+      if (entry.delay > 0f)
+        StartCoroutine(PlayWithDelay(src, entry.delay, onComplete));
+      else
+        StartCoroutine(PlayAndNotify(src, onComplete));
+
+      return;
+    }
+
+    Debug.LogWarning($"SoundPlayer: No clips found with name '{soundName}'");
+  }
+
+  private IEnumerator PlayWithDelay(AudioSource src, float delay, Action onComplete) {
+    yield return new WaitForSeconds(delay);
+    yield return PlayAndNotify(src, onComplete);
+  }
+
+  private IEnumerator PlayAndNotify(AudioSource src, Action onComplete) {
+    src.Play();
+    float timeout = src.clip.length + 0.5f;
+    yield return new WaitForSeconds(timeout);
+    onComplete?.Invoke();
+  }
 
   public void PlaySound(string soundName, float? volume = null) {
     bool found = false;
@@ -50,7 +85,7 @@ public class SoundPlayer : MonoBehaviour {
       src.clip = entry.clip;
       src.volume = Mathf.Clamp01(volume ?? entry.defaultVolume);
       src.spatialBlend = entry.isSpatial ? 1f : 0f;
-      
+
       if (entry.delay > 0f)
         src.PlayDelayed(entry.delay);
       else

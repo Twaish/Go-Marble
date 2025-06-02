@@ -1587,6 +1587,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 188500604}
+  - component: {fileID: 188500606}
+  - component: {fileID: 188500605}
   m_Layer: 0
   m_Name: Playlist
   m_TagString: Untagged
@@ -1609,6 +1611,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &188500605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188500603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fc9d96d8da66b4baaabe231f19a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - name: Track1
+    clip: {fileID: 8300000, guid: 40d06c2482f094a4d9eade816ebb3c97, type: 3}
+    defaultVolume: 1
+    isSpatial: 0
+    delay: 0
+  - name: Track2
+    clip: {fileID: 8300000, guid: 8ecb4d13943748f448997a70e3d6238b, type: 3}
+    defaultVolume: 1
+    isSpatial: 0
+    delay: 0
+  - name: Track3
+    clip: {fileID: 8300000, guid: ca731549e4558384e8d2960225924d88, type: 3}
+    defaultVolume: 1
+    isSpatial: 0
+    delay: 0
+  - name: Track4
+    clip: {fileID: 8300000, guid: 21da807f4121d324d922acb0a97be2ae, type: 3}
+    defaultVolume: 1
+    isSpatial: 0
+    delay: 0
+  - name: Track5
+    clip: {fileID: 8300000, guid: a474ac7220bd1554c8540ecc06134165, type: 3}
+    defaultVolume: 1
+    isSpatial: 0
+    delay: 0
+  initialPoolSize: 5
+--- !u!114 &188500606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188500603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6b13ffd66a38e469b3037c437699ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackNames:
+  - Track1
+  - Track2
+  - Track3
+  - Track4
+  - Track5
+  loop: 1
+  shuffle: 1
 --- !u!224 &193734684 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1261653745648408767, guid: 83dc780c170a57e478579f88cd6764fd, type: 3}
@@ -17118,7 +17179,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1819657413}
   - component: {fileID: 1819657412}
-  - component: {fileID: 1819657414}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: Untagged
@@ -17159,19 +17219,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1819657414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819657411}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 640587052b7ccfb4c8ee609e48612631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameplayHUDAnimator: {fileID: 1896449163}
 --- !u!1001 &1822817972
 PrefabInstance:
   m_ObjectHideFlags: 0
