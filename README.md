@@ -44,6 +44,7 @@ A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. T
 - [Impact by SmartSoundFX](https://uppbeat.io/sfx/heavy-thud-impact/829/1450)
 - [Death by Epic Stock Media](https://uppbeat.io/sfx/gore-blood-spill-hit/8790/24891)
 - [Spawn by Valve](https://www.reddit.com/r/tf2/comments/u8n8xm/teleporter_sound_effect/)
+- [Smash by betacut](https://uppbeat.io/sfx/mobile-game-smash/7145/23100)
 
 ### 🎵 Music
 - [Blue Sky - ParagonX9](https://www.youtube.com/watch?v=QdL18RWUS8E&ab_channel=ParagonX9official)
