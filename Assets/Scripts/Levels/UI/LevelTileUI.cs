@@ -44,9 +44,6 @@ public class LevelTileUI : MonoBehaviour, IPointerEnterHandler, ISelectHandler {
   }
 
   public void SetSelected(bool isSelected) {
-    if (isSelected) {
-      Debug.Log(levelData.levelName);
-    }
     text.text = isSelected ? "X" : "";
     outline.useGraphicAlpha = !isSelected;
   }

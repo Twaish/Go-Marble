@@ -22,10 +22,8 @@ public class SpeedBoostPowerUp : BasePowerUp {
   }
 
   public override void OnActivate(PlayerController player) {
-    Debug.Log($"{Name} Activated!");
   }
 
   public override void OnExpire(PlayerController player) {
-    Debug.Log($"{Name} Expired!");
   }
 }

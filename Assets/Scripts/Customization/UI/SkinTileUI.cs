@@ -27,9 +27,6 @@ public class SkinTileUI : MonoBehaviour, ISelectHandler {
   }
   
   public void SetSelected(bool isSelected) {
-    if (isSelected) {
-      Debug.Log(skin?.skinName);
-    }
     title.text = isSelected ? "X" : "";
   }
 
