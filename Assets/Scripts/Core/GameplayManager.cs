@@ -36,7 +36,7 @@ public class GameplayManager : MonoBehaviour {
   }
 
   private void HandleLevelStarted(BaseLevel level) {
-    Debug.Log("STARTED LEVEL");
+    Debug.Log($"[GameplayManager] Started level {level.levelName}");
     timerManager.ResetTimer();
     timerManager.StartTimer();
     navigationManager.OpenMenu("System/None");
@@ -46,7 +46,7 @@ public class GameplayManager : MonoBehaviour {
   }
 
   private void HandleLevelEnded(BaseLevel level) {
-    Debug.Log($"Completed level {level.levelName} in {timerManager.GetTime():F2} seconds");
+    Debug.Log($"[GameplayManager] Completed level {level.levelName} in {timerManager.GetTime():F2} seconds");
     timerManager.StopTimer();
     LevelManager.instance.ResumeLevel();
     LevelManager.instance.SubmitResult(level.levelName, timerManager.GetTime());
@@ -72,24 +72,22 @@ public class GameplayManager : MonoBehaviour {
   }
 
   private void HandleLevelPaused(BaseLevel level) {
-    Debug.Log("PAUSED LEVEL");
+    Debug.Log($"[GameplayManager] Paused level {level.levelName}");
     timerManager.PauseTimer();
     navigationManager.OpenMenu("System/PauseMenu");
     StartCoroutine(DelayFocus(pausedLevelFocus));
   }
 
   private void HandleLevelResumed(BaseLevel level) {
+    Debug.Log($"[GameplayManager] Resuming level {level.levelName}");
     timerManager.ResumeTimer();
     navigationManager.OpenMenu("System/None");
-    Debug.Log("RESUMED LEVEL");
   }
 
 
   private IEnumerator DelayFocus(GameObject gameObject) {
     yield return null;
     navigationManager.Focus(gameObject);
-
-    Debug.Log("FOCUSING " + gameObject.name);
   }
 
   public void QuitGame() {
