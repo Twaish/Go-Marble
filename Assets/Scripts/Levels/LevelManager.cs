@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
   public static LevelManager instance;
+  [SerializeField] private LevelDatabase levelDatabase;
   
   public event Action<BaseLevel> OnLevelStarted;
   public event Action<BaseLevel> OnLevelEnded;
@@ -14,9 +14,6 @@ public class LevelManager : MonoBehaviour {
   public event Action<BaseLevel> OnLevelPaused;
   public event Action<BaseLevel> OnLevelResumed;
   public event Action<BaseLevel> OnLevelRestarted;
-  
-  
-  [SerializeField] private LevelDatabase levelDatabase;
 
   private LevelSceneLoader levelSceneLoader;
   private LevelResultsRepository levelRepository;
@@ -46,9 +43,10 @@ public class LevelManager : MonoBehaviour {
 
   private void Start() {
     IReadOnlyList<BaseLevel> allLevels = levelDatabase.levels;
-    selectedLevel = allLevels.FirstOrDefault();
+    var sortedLevels = allLevels.OrderBy(level => level.levelIndex).ToList();
+    selectedLevel = sortedLevels.FirstOrDefault();
     
-    levelSelectUIController.PopulateLevelButtons(allLevels, OnLevelClicked, levelInspectorUIController.UpdateUI, selectedLevel);
+    levelSelectUIController.PopulateLevelButtons(sortedLevels, OnLevelClicked, levelInspectorUIController.UpdateUI, selectedLevel);
     levelInspectorUIController.UpdateUI(selectedLevel);
   }
 
