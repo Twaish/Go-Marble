@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3477253871873642762}
   - component: {fileID: 4817764759487460708}
   - component: {fileID: 5883514684659139409}
+  - component: {fileID: 5804938019700971327}
+  - component: {fileID: 33715824009446275}
   m_Layer: 0
   m_Name: PowerUpManager
   m_TagString: Untagged
@@ -60,3 +62,39 @@ MonoBehaviour:
   powerupIconImage: {fileID: 0}
   usesText: {fileID: 0}
   nameText: {fileID: 0}
+--- !u!114 &5804938019700971327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8575676092132381043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74532ba0d27169459356ce67ca05879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &33715824009446275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8575676092132381043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fc9d96d8da66b4baaabe231f19a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - name: Speed Boost
+    clip: {fileID: 8300000, guid: 90824b72f4116284daab3435191c5e7f, type: 3}
+    defaultVolume: 0.5
+    isSpatial: 0
+    delay: 0
+  - name: Jump Boost
+    clip: {fileID: 8300000, guid: 90824b72f4116284daab3435191c5e7f, type: 3}
+    defaultVolume: 0.5
+    isSpatial: 0
+    delay: 0
+  initialPoolSize: 5

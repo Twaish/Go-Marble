@@ -2,19 +2,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PowerUpUIController : MonoBehaviour
-{
+public class PowerUpUIController : MonoBehaviour {
   [SerializeField] private Image powerupIconImage;
   [SerializeField] private TextMeshProUGUI usesText;
   [SerializeField] private TextMeshProUGUI nameText;
 
   private PowerUpManager powerUpManager;
 
-  private void Awake()
-  {
+  private void Awake() {
     powerUpManager = GetComponent<PowerUpManager>();
-    if (powerUpManager == null)
-    {
+    if (powerUpManager == null) {
       Debug.LogError("PowerUpUIController: PowerUpManager not found");
       enabled = false;
       return;
@@ -22,9 +19,8 @@ public class PowerUpUIController : MonoBehaviour
     powerUpManager.OnPowerUpChanged += UpdateUI;
   }
 
-  private void Oestroy()
-  {
-    powerUpManager.OnPowerUpChanged -= UpdateUI;    
+  private void OnDestroy() {
+    powerUpManager.OnPowerUpChanged -= UpdateUI;
   }
 
   private void UpdateUI(BasePowerUp currentPowerUp) {
@@ -33,7 +29,8 @@ public class PowerUpUIController : MonoBehaviour
       powerupIconImage.enabled = true;
       nameText.text = currentPowerUp.Name;
       usesText.text = $"x{currentPowerUp.Uses}";
-    } else {
+    }
+    else {
       powerupIconImage.sprite = null;
       powerupIconImage.enabled = false;
       nameText.text = "";

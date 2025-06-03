@@ -1,30 +1,13 @@
 using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PowerUpManager : MonoBehaviour {
   private BasePowerUp currentPowerUp;
   private bool isCooldown;
 
   public event Action<BasePowerUp> OnPowerUpChanged;
-
-  private void Update()
-  {
-    if (Input.GetKeyDown(KeyCode.P))
-    {
-      TryUsePowerUp();
-    }
-  }
-
-  private void TryUsePowerUp() {
-    if (TryGetComponent<PlayerController>(out var playerController)) {
-      UsePowerUp(playerController);
-    } else {
-      Debug.LogWarning("No PlayerController found to apply PowerUp!");
-    }
-  }
+  public event Action<BasePowerUp> OnPowerUpUsed;
 
   public void UsePowerUp(PlayerController player) {
     if (currentPowerUp == null || isCooldown || currentPowerUp.Uses <= 0)
@@ -33,10 +16,12 @@ public class PowerUpManager : MonoBehaviour {
     currentPowerUp.OnActivate(player);
     currentPowerUp.Effect(player);
     currentPowerUp.Uses--;
+    OnPowerUpUsed?.Invoke(currentPowerUp);
 
     if (currentPowerUp.Uses <= 0) {
       currentPowerUp = null;
-    } else {
+    }
+    else {
       StartCoroutine(HandleCooldown());
     }
 
