@@ -12,18 +12,18 @@ public class LevelSceneLoader : MonoBehaviour {
       AsyncOperation op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
       yield return new WaitUntil(() => op.isDone);
 
-      var playerInput = FindFirstObjectByType<PlayerInput>();
-      if (playerInput != null) {
-        var gamepads = InputSystem.devices.Where(d => d is Gamepad).ToList();
-        if (gamepads.Count > 0) {
-          Debug.Log("Gamepad found");
-          playerInput.SwitchCurrentControlScheme("Gamepad", gamepads.FirstOrDefault());
+      try {
+        var playerInput = FindFirstObjectByType<PlayerInput>();
+        if (playerInput != null) {
+          var gamepads = InputSystem.devices.Where(d => d is Gamepad).ToList();
+          if (gamepads.Count > 0) {
+            Debug.Log("Gamepad found");
+            playerInput.SwitchCurrentControlScheme("Gamepad", gamepads.FirstOrDefault());
+            playerInput.actions.Enable();
+          }
         }
-        else {
-          Debug.LogWarning("No gamepads found, falling back to keyboard");
-          playerInput.SwitchCurrentControlScheme("Keyboard&Mouse", Keyboard.current);
-        }
-        playerInput.actions.Enable();
+      } catch (Exception error) {
+        Debug.LogError(error);
       }
 
       onLoaded?.Invoke();
