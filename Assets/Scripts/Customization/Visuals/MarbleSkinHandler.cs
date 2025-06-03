@@ -25,6 +25,6 @@ public class MarbleSkinHandler : MonoBehaviour {
     defaultMarble.SetActive(false);
     AddMarbleSkin(marble.marblePrefab);
 
-    Debug.Log("APPLYING MARBLE: " + marble.skinName);
+    Debug.Log("[Marble] " + marble.skinName);
   }
 }

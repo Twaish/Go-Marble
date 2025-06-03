@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AccessorySkinHandler : MonoBehaviour {
   [SerializeField] private GameObject accessoryPivot;
-  
+
   public void Apply(List<AccessorySkin> accessories) {
     if (accessoryPivot == null) {
       Debug.LogWarning("AccessorySkinHandler: No accessoryPivot defined");
@@ -13,11 +13,15 @@ public class AccessorySkinHandler : MonoBehaviour {
       Destroy(child.gameObject);
     }
 
-    foreach (var accessory in accessories)
-    {
+    var appliedNames = new List<string>();
+    foreach (var accessory in accessories) {
       if (accessory == null) continue;
       Instantiate(accessory.accessoryPrefab, accessoryPivot.transform);
-      Debug.Log("APPLYING ACCESSORY: " + accessory.skinName);
+      appliedNames.Add(accessory.skinName);
+    }
+    
+    if (appliedNames.Count > 0) {
+      Debug.Log("[Accessories] " + string.Join(", ", appliedNames));
     }
   }
 }

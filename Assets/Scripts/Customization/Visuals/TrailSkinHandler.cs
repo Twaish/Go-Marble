@@ -11,7 +11,7 @@ public class TrailSkinHandler : MonoBehaviour {
 
     if (trail != null) {
       currentTrail = Instantiate(trail.trailPrefab, transform);
-      Debug.Log("APPLYING TRAIL: " + trail.skinName);
+      Debug.Log("[Trail] " + trail.skinName);
     }
   }
 }
