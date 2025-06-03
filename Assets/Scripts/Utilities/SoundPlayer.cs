@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class NamedAudioClip {
   public string name;
   public AudioClip clip;
@@ -74,7 +74,7 @@ public class SoundPlayer : MonoBehaviour {
     onComplete?.Invoke();
   }
 
-  public void PlaySound(string soundName, float? volume = null) {
+  private void PlaySoundInternal(string soundName, float? volume = null) {
     bool found = false;
 
     foreach (var entry in soundList) {
@@ -97,5 +97,13 @@ public class SoundPlayer : MonoBehaviour {
     if (!found) {
       Debug.LogWarning($"SoundPlayer: No clips found with name '{soundName}'");
     }
+  }
+
+  public void PlaySound(string soundName) {
+    PlaySoundInternal(soundName);
+  }
+
+  public void PlaySound(string soundName, float? volume = null) {
+    PlaySoundInternal(soundName, volume);
   }
 }
