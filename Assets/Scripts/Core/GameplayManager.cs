@@ -67,6 +67,7 @@ public class GameplayManager : MonoBehaviour {
 
   private void HandleLevelRestarted(BaseLevel level) {
     timerManager.ResetTimer();
+    powerUpManager.ClearPowerUp();
     LevelManager.instance.ResumeLevel();
     timerManager.StartTimer();
   }
