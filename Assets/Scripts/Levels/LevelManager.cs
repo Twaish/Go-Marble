@@ -51,9 +51,9 @@ public class LevelManager : MonoBehaviour {
     levelSelectUIController.PopulateLevelButtons(allLevels, OnLevelClicked, levelInspectorUIController.UpdateUI, selectedLevel);
     levelInspectorUIController.UpdateUI(selectedLevel);
   }
-  
-  private void Update() {
-    if (currentLevelScene != null && Input.GetKeyDown(KeyCode.Escape)) {
+
+  private void OnPause() {
+    if (currentLevelScene != null) {
       TogglePause();
     }
   }
