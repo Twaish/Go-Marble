@@ -19,40 +19,48 @@ public class CameraController : MonoBehaviour {
   private float velocityTiltFactor = 0.1f;
   [SerializeField]
   private float rotationLerpSpeed = 10f;
+
+  private float rotateCoefficient = 0f;
   
   private Rigidbody playerRigidbody;
   private CameraShaker cameraShaker;
   private float targetYRotation;
+  private PlayerControls playerControls;
 
   void Awake() {
     cameraShaker = GetComponent<CameraShaker>();
     playerRigidbody = player.GetComponent<Rigidbody>();
+    playerControls = player.GetComponent<PlayerControls>();
+    playerControls.OnLook += UpdateRotateCoefficient;
   }
 
-  void Start() {
+  private void OnDestroy() {
+    playerControls.OnLook -= UpdateRotateCoefficient;
+  }
+
+  private void Start() {
     targetYRotation = transform.eulerAngles.y;
   }
 
-  void LateUpdate() {
+  private void UpdateRotateCoefficient(float value) {
+    rotateCoefficient = value;
+  }
+
+  private void LateUpdate() {
     HandleCameraRotationInput();
     ApplyCameraTilt();
     UpdateCameraPosition();
   }
 
-  void HandleCameraRotationInput() {
+  private void HandleCameraRotationInput() {
     float rotationSpeed = 200f;
-
-    if (Input.GetKey(KeyCode.K)) {
-      targetYRotation -= rotationSpeed * Time.deltaTime; // Rotate Left
-    } else if (Input.GetKey(KeyCode.L)) {
-      targetYRotation += rotationSpeed * Time.deltaTime; // Rotate Right
-    }
+    targetYRotation += rotateCoefficient * rotationSpeed * Time.deltaTime;
 
     float currentYRotation = Mathf.LerpAngle(transform.eulerAngles.y, targetYRotation, rotationLerpSpeed * Time.deltaTime);
     transform.rotation = Quaternion.Euler(transform.eulerAngles.x, currentYRotation, transform.eulerAngles.z);
   }
 
-  void UpdateCameraPosition() {
+  private void UpdateCameraPosition() {
     Vector3 rotatedOffset = transform.rotation * playerOffset;
     Vector3 targetPosition = player.transform.position + rotatedOffset;
 
@@ -63,7 +71,7 @@ public class CameraController : MonoBehaviour {
     ) + cameraShaker.GetShakeOffset();
   }
 
-  void ApplyCameraTilt() {
+  private void ApplyCameraTilt() {
     Vector3 playerVelocity = new(playerRigidbody.linearVelocity.x, 0, playerRigidbody.linearVelocity.z);
     float speed = playerVelocity.magnitude;
 
