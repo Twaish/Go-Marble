@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 272414497755453070}
   - component: {fileID: 976885524156086828}
   - component: {fileID: 1205746884569959600}
+  - component: {fileID: 2034245389322812373}
   m_Layer: 5
   m_Name: MenuButton
   m_TagString: Untagged
@@ -252,6 +253,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2034245389322812373}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Click
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &1205746884569959600
 Animator:
   serializedVersion: 7
@@ -274,6 +287,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2034245389322812373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143296913397200538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fc9d96d8da66b4baaabe231f19a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList:
+  - name: Click
+    clip: {fileID: 8300000, guid: 32aaaab8f2cd3574285f8c242632a620, type: 3}
+    defaultVolume: 1
+    isSpatial: 0
+    delay: 0
+  initialPoolSize: 5
 --- !u!1 &8763198677403109579
 GameObject:
   m_ObjectHideFlags: 0

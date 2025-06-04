@@ -39,12 +39,13 @@ A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. T
 - [Glitch SFX by Epic Stock Media](https://uppbeat.io/sfx/futuristic-tech-ui-glitch/6849/22214)
 - [Glitch2 SFX by THE FOUNDATION](https://uppbeat.io/sfx/sonic-brand-intro-flutter-glitch/11933/28620)
 - [Select by GFX Sounds](https://uppbeat.io/sfx/ui-digital-select/15487/37602)
-- [Click by betacut](https://uppbeat.io/sfx/sci-fi-application-send-message/7895/23731)
+- [Click by GFX Sounds](https://uppbeat.io/sfx/ui-digital-button-click/13596/34342)
 - [Ding by Ni Sound](https://uppbeat.io/sfx/game-interface-menu-ding/10378/27210)
 - [Impact by SmartSoundFX](https://uppbeat.io/sfx/heavy-thud-impact/829/1450)
 - [Death by Epic Stock Media](https://uppbeat.io/sfx/gore-blood-spill-hit/8790/24891)
 - [Spawn by Valve](https://www.reddit.com/r/tf2/comments/u8n8xm/teleporter_sound_effect/)
 - [Smash by betacut](https://uppbeat.io/sfx/mobile-game-smash/7145/23100)
+- [Bling by Epic Stock Media](https://uppbeat.io/sfx/arcade-game-bling/7983/23825)
 
 ### 🎵 Music
 - [Blue Sky - ParagonX9](https://www.youtube.com/watch?v=QdL18RWUS8E&ab_channel=ParagonX9official)
