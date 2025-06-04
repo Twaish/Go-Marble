@@ -10,6 +10,8 @@ A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. T
 - [#2 Game Design Document & Milestones](./Blogs/#2%20Game%20Design%20Document%20&%20Milestones.md)
 - [#3 First Milestone](./Blogs/#3%20First%20Milestone.md)
 - [#4 Second Milestone](./Blogs/#4%20Second%20Milestone.md)
+- [#5 Third Milestone](./Blogs/#5%20Third%20Milestone.md)
+- [#6 Final Game](./Blogs/#6%20Final%20Game.md)
 
 
 ## Credits
