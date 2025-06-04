@@ -302,7 +302,7 @@ MonoBehaviour:
   soundList:
   - name: Click
     clip: {fileID: 8300000, guid: 32aaaab8f2cd3574285f8c242632a620, type: 3}
-    defaultVolume: 1
+    defaultVolume: 0.25
     isSpatial: 0
     delay: 0
   initialPoolSize: 5

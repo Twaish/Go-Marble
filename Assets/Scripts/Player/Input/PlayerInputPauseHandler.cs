@@ -16,6 +16,10 @@ public class PlayerInputPauseHandler : MonoBehaviour {
     LevelManager.instance.OnLevelResumed += EnableInput;
   }
 
+  private void OnPause(InputValue _) {
+    LevelManager.instance.TogglePause();
+  }
+
   private void OnDestroy() {
     LevelManager.instance.OnLevelPaused -= DisableInput;
     LevelManager.instance.OnLevelResumed -= EnableInput;

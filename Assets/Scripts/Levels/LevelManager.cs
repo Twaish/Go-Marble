@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LevelManager : MonoBehaviour {
   public static LevelManager instance;
@@ -50,16 +51,11 @@ public class LevelManager : MonoBehaviour {
     levelInspectorUIController.UpdateUI(selectedLevel);
   }
 
-  private void OnPause() {
-    if (currentLevelScene != null) {
-      TogglePause();
-    }
-  }
-
-  private void TogglePause() {
+  public void TogglePause() {
     if (isPaused) {
       ResumeLevel();
-    } else {
+    }
+    else {
       PauseLevel();
     }
   }
