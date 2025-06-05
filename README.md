@@ -6,12 +6,12 @@ A fast-paced, physics-driven marble rolling game made with Unity v6000.0.37f1. T
 [Watch the trailer](https://youtu.be/Pjj_lUYv6Bw)
 
 ## Blog Posts
-- [#1 Roll-a-ball](./Blogs/#1%20Roll-a-ball.md)
-- [#2 Game Design Document & Milestones](./Blogs/#2%20Game%20Design%20Document%20&%20Milestones.md)
-- [#3 First Milestone](./Blogs/#3%20First%20Milestone.md)
-- [#4 Second Milestone](./Blogs/#4%20Second%20Milestone.md)
-- [#5 Third Milestone](./Blogs/#5%20Third%20Milestone.md)
-- [#6 Final Game](./Blogs/#6%20Final%20Game.md)
+- [#1 Roll-a-ball](./Blogs/1%20Roll-a-Ball.md)
+- [#2 Game Design Document & Milestones](./Blogs/2%20Game%20Design%20Document%20&%20Milestones.md)
+- [#3 First Milestone](./Blogs/3%20First%20Milestone.md)
+- [#4 Second Milestone](./Blogs/4%20Second%20Milestone.md)
+- [#5 Third Milestone](./Blogs/5%20Third%20Milestone.md)
+- [#6 Final Game](./Blogs/6%20Final%20Game.md)
 
 
 ## Credits

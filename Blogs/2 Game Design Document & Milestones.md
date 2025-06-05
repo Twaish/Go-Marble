@@ -1,3 +1,4 @@
+# Game Design Document & Milestones
 Our game will build upon the “roll a ball” game, and takes inspiration from the game [Marble It Up! Ultra](https://store.steampowered.com/app/864060/Marble_It_Up_Ultra/).
 
 ## Gameplay
@@ -56,8 +57,8 @@ If the player is using game altering cheats they cannot get leaderboard times.
 - Slow Time - Player and environment is slowed
 - Size Change - Player is now smaller/larger
 
-# Milestones
-## First Milestone
+## Milestones
+### First Milestone
 - Focus on creating menus, and general UI
 - Make a couple of levels (4-6)
 - Basic skins (5-10 skins)
@@ -65,7 +66,7 @@ If the player is using game altering cheats they cannot get leaderboard times.
 - Timer + goal
 - Sand + Ice
 
-## Second Milestone
+### Second Milestone
 - Make some more levels (4-6)
 - Some power ups (3-4)
 - Spike/Deathblocks
@@ -74,7 +75,7 @@ If the player is using game altering cheats they cannot get leaderboard times.
 - Leaderboards
 - Skin unlocks
 
-## Third Milestone
+### Third Milestone
 - Make even more levels (4-6)
 - Enemy (navmesh)
 - More skins (5-10 skins)
